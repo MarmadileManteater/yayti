@@ -678,10 +678,26 @@ impl Video {
     let format_streams = match json_object["player"]["streamingData"]["formats"].as_array() {
       Some(format_streams) => {
         format_streams.iter().map(|format| {
-          let url = String::from(match format["url"].as_str() {
-            Some(url) => url,
-            None => ""
-          });
+          let url = match format["url"].as_str() {
+            Some(url) => String::from(url),
+            None => match format["signatureCipher"].as_str() {
+              Some(cipher) => {
+                match Regex::new(r"&url=(.*)").unwrap().captures(cipher) {
+                  Some(captures) => {
+                    if captures.len() > 1 {
+                      // TODO : actually decipher the decoded url
+                      let decoded_url = urldecode::decode(String::from(&captures[1]));
+                      decoded_url.to_string()
+                    } else {
+                      String::from("")
+                    }
+                  },
+                  None => String::from("")
+                }
+              },
+              None => String::from("")
+            }
+          };
           let itag = match format["itag"].as_i64() {
             Some(itag) => itag as i32,
             None => 0
