@@ -75,7 +75,7 @@ pub async fn fetch_video_metadata(id: &str, lang: Option<&str>, api_key: Option<
   fetch_video_endpoints(id, lang, api_key, cver, true, false).await
 }
 
-// 📡 Retrieve the video metadata from the innertube API
+// 📡 Retrieve the video streams from the innertube API
 pub async fn fetch_video_streams(id: &str, lang: Option<&str>, api_key: Option<&str>, cver: Option<&str>) -> Result<structs::Video, innertube::InnertubeVideoError> {
   // Fetch the player endpoint from the innertube API
   fetch_video_endpoints(id, lang, api_key, cver, false, true).await
