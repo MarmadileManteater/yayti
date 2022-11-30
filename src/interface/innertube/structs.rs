@@ -1,5 +1,5 @@
 
-use super::super::super::constants::{DEFAULT_WEB_API_KEY, DEFAULT_WEB_CVER};
+use super::super::super::constants::{DEFAULT_WEB_API_KEY, DEFAULT_WEB_CVER, DEFAULT_ANDROID_API_KEY, DEFAULT_ANDROID_CVER};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
@@ -17,6 +17,18 @@ pub struct ClientContext {
 }
 
 impl ClientContext {
+  pub fn default_android() -> ClientContext {
+    ClientContext {
+      api_key: String::from(DEFAULT_ANDROID_API_KEY),
+      api_version: String::from("v1"),
+      client_version: String::from(DEFAULT_ANDROID_CVER),
+      user_agent: String::from("com.google.android.youtube/17.33.42 (Linux; U; Android 12; US) gzip"),
+      client_name: String::from("ANDROID"),
+      os_name: String::from("Android"),
+      os_version: String::from("12"),
+      platform: String::from("MOBILE")
+    }
+  }
   pub fn default_web() -> ClientContext {
     ClientContext {
       api_key: String::from(DEFAULT_WEB_API_KEY),

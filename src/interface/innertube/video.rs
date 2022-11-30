@@ -1,6 +1,7 @@
 
 use super::structs::ClientContext;
 use super::super::super::constants::{WEBSITE_BASE_URL, INNERTUBE_API_URL};
+
 #[derive(Debug)]
 pub struct InnertubeVideoError {
   pub message: String,
@@ -25,7 +26,7 @@ async fn get_video_endpoint(endpoint: &str, context: &ClientContext, id : &str, 
         "deviceModel": "",
         "visitorData": "",
         "userAgent": "{}",
-        "clientName": "WEB",
+        "clientName": "{}",
         "clientVersion": "{}",
         "osName": "{}",
         "osVersion": "{}",
@@ -57,7 +58,7 @@ async fn get_video_endpoint(endpoint: &str, context: &ClientContext, id : &str, 
       "lactMilliseconds": "-1"
     }}
   }}
-  "#, lang, context.user_agent, context.client_version, context.os_name, context.os_version, context.platform, id);
+  "#, lang, context.user_agent, context.client_name, context.client_version, context.os_name, context.os_version, context.platform, id);
   let client = reqwest::Client::new();
   match client.post(format!("{}{}{}/{}?key={}", WEBSITE_BASE_URL, INNERTUBE_API_URL, context.api_version, endpoint, context.api_key)).body(String::from(meta_data_request_string)).send().await {
     Ok(next_response) => {
