@@ -1,11 +1,12 @@
 
 mod interface;
-
+mod constants;
 pub use interface::scrape_video_info;
 pub use interface::fetch_video_info;
 pub use interface::fetch_video_metadata;
 pub use interface::fetch_video_streams;
 pub use interface::Video as YTVideo;
+pub use interface::ClientContext;
 
 #[cfg(test)]
 mod tests {
@@ -25,7 +26,7 @@ mod tests {
         assert_eq!("", err.message);
       }
     };
-    match fetch_video_info(id, lang, None, None).await {
+    match fetch_video_info(id, lang, None).await {
       Ok(video) => {
         assert(video);
       },

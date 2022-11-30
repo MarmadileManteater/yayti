@@ -1,4 +1,6 @@
 
+use super::structs::ClientContext;
+use super::super::super::constants::{WEBSITE_BASE_URL, INNERTUBE_API_URL};
 #[derive(Debug)]
 pub struct InnertubeVideoError {
   pub message: String,
@@ -7,7 +9,7 @@ pub struct InnertubeVideoError {
 }
 
 // 📡Reaches out to a given video endpoint for the 📺innertube api
-async fn get_video_endpoint(endpoint: &str, client_version: &str, api_key: &str, id : &str, lang : Option<&str>) -> Result<String, InnertubeVideoError> {
+async fn get_video_endpoint(endpoint: &str, context: &ClientContext, id : &str, lang : Option<&str>) -> Result<String, InnertubeVideoError> {
   let lang = match lang {
     Some(lang) => lang,
     None => "en"
@@ -22,13 +24,13 @@ async fn get_video_endpoint(endpoint: &str, client_version: &str, api_key: &str,
         "deviceMake": "",
         "deviceModel": "",
         "visitorData": "",
-        "userAgent": "gzip(gfe)",
+        "userAgent": "{}",
         "clientName": "WEB",
         "clientVersion": "{}",
-        "osName": "",
-        "osVersion": "",
+        "osName": "{}",
+        "osVersion": "{}",
         "originalUrl": "",
-        "platform": "DESKTOP",
+        "platform": "{}",
         "clientFormFactor": "UNKNOWN_FORM_FACTOR",
         "configInfo": {{
           "appInstallData": ""
@@ -55,9 +57,9 @@ async fn get_video_endpoint(endpoint: &str, client_version: &str, api_key: &str,
       "lactMilliseconds": "-1"
     }}
   }}
-  "#, lang, client_version, id);
+  "#, lang, context.user_agent, context.client_version, context.os_name, context.os_version, context.platform, id);
   let client = reqwest::Client::new();
-  match client.post(format!("https://www.youtube.com/youtubei/v1/{}?key={}", endpoint, api_key)).body(String::from(meta_data_request_string)).send().await {
+  match client.post(format!("{}{}{}?key={}", WEBSITE_BASE_URL, INNERTUBE_API_URL, endpoint, context.api_key)).body(String::from(meta_data_request_string)).send().await {
     Ok(next_response) => {
       match next_response.text().await {
         Ok(next_response_text) => Ok(next_response_text),
@@ -73,11 +75,11 @@ async fn get_video_endpoint(endpoint: &str, client_version: &str, api_key: &str,
 }
 
 // 📡Retrieves the video metadata from 📺innertube api
-pub async fn get_video_metadata(client_version: &str, api_key: &str, id : &str, lang : Option<&str>) -> Result<String, InnertubeVideoError> {
-  get_video_endpoint("next", client_version, api_key, id, lang).await
+pub async fn get_video_metadata(client_context: &ClientContext, id : &str, lang : Option<&str>) -> Result<String, InnertubeVideoError> {
+  get_video_endpoint("next", client_context, id, lang).await
 }
 
 // 📡Retrieves the video streams from 📺innertube api
-pub async fn get_video_streams(client_version: &str, api_key: &str, id : &str, lang : Option<&str>) -> Result<String, InnertubeVideoError> {
-  get_video_endpoint("player", client_version, api_key, id, lang).await
+pub async fn get_video_streams(client_context: &ClientContext, id : &str, lang : Option<&str>) -> Result<String, InnertubeVideoError> {
+  get_video_endpoint("player", client_context, id, lang).await
 }

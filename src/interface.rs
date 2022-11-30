@@ -5,10 +5,8 @@ mod structs;
 mod innertube;
 use log::warn;
 
-const API_KEY : &str = "AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8";
-const CLIENT_VERSION : &str = "2.20221122.01.00";
-
 pub use structs::Video;
+pub use innertube::ClientContext;
 
 // ✂ Scrape the video data from YT
 pub async fn scrape_video_info(id: &str, lang: Option<&str>) -> Result<structs::Video, scrape::ScrapeVideoError> {
@@ -22,17 +20,13 @@ pub async fn scrape_video_info(id: &str, lang: Option<&str>) -> Result<structs::
 }
 
 // 📡 Retrieve the video data from each of the specified endpoints of the innertube API
-async fn fetch_video_endpoints(id: &str, lang: Option<&str>, api_key: Option<&str>, cver: Option<&str>, include_next : bool, include_player: bool) -> Result<structs::Video, innertube::InnertubeVideoError> {
-  let client_version = match cver {
-    Some(client_version) => client_version,
-    None => CLIENT_VERSION
-  };
-  let api_key = match api_key {
-    Some(api_key) => api_key,
-    None => API_KEY
+async fn fetch_video_endpoints(id: &str, lang: Option<&str>, client_context : Option<innertube::ClientContext>, include_next : bool, include_player: bool) -> Result<structs::Video, innertube::InnertubeVideoError> {
+  let client_context = match client_context {
+    Some(client_context) => client_context,
+    None => ClientContext::default_web()// default to the web context
   };
   let next_body = if include_next {
-    match innertube::get_video_metadata(&client_version, &api_key, id, lang).await {
+    match innertube::get_video_metadata(&client_context, id, lang).await {
       Ok(body) => body,
       Err(err) => {
         warn!("{}", err.message);
@@ -43,7 +37,7 @@ async fn fetch_video_endpoints(id: &str, lang: Option<&str>, api_key: Option<&st
     String::from("{}")
   };
   let player_body = if include_player {
-    match innertube::get_video_streams(&client_version, &api_key, id, lang).await {
+    match innertube::get_video_streams(&client_context, id, lang).await {
       Ok(body) => body,
       Err(err) => {
         warn!("{}", err.message);
@@ -64,19 +58,19 @@ async fn fetch_video_endpoints(id: &str, lang: Option<&str>, api_key: Option<&st
 }
 
 // 📡 Retrieve the video data from the innertube API
-pub async fn fetch_video_info(id: &str, lang: Option<&str>, api_key: Option<&str>, cver: Option<&str>) -> Result<structs::Video, innertube::InnertubeVideoError> {
+pub async fn fetch_video_info(id: &str, lang: Option<&str>, client_context: Option<innertube::ClientContext>) -> Result<structs::Video, innertube::InnertubeVideoError> {
   // Fetch all of the available endpoints from the innertube API
-  fetch_video_endpoints(id, lang, api_key, cver, true, true).await
+  fetch_video_endpoints(id, lang, client_context, true, true).await
 }
 
 // 📡 Retrieve the video metadata from the innertube API
-pub async fn fetch_video_metadata(id: &str, lang: Option<&str>, api_key: Option<&str>, cver: Option<&str>) -> Result<structs::Video, innertube::InnertubeVideoError> {
+pub async fn fetch_video_metadata(id: &str, lang: Option<&str>, client_context: Option<innertube::ClientContext>) -> Result<structs::Video, innertube::InnertubeVideoError> {
   // Fetch the next endpoint from the innertube API
-  fetch_video_endpoints(id, lang, api_key, cver, true, false).await
+  fetch_video_endpoints(id, lang, client_context, true, false).await
 }
 
 // 📡 Retrieve the video streams from the innertube API
-pub async fn fetch_video_streams(id: &str, lang: Option<&str>, api_key: Option<&str>, cver: Option<&str>) -> Result<structs::Video, innertube::InnertubeVideoError> {
+pub async fn fetch_video_streams(id: &str, lang: Option<&str>, client_context: Option<innertube::ClientContext>) -> Result<structs::Video, innertube::InnertubeVideoError> {
   // Fetch the player endpoint from the innertube API
-  fetch_video_endpoints(id, lang, api_key, cver, false, true).await
+  fetch_video_endpoints(id, lang, client_context, false, true).await
 }

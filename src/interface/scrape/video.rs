@@ -5,7 +5,7 @@ use reqwest::Client;
 use regex::Regex;
 use log::warn;
 
-const BASE_URL : &str = "https://www.youtube.com/watch?v=";
+use super::super::super::constants::{WEBSITE_BASE_URL, WEBSITE_VIDEO_PATH};
 
 #[derive(Debug)]
 pub struct ScrapeVideoError {
@@ -66,7 +66,7 @@ async fn get_page_body(base_url : & str, id : &str, lang : Option<&str>) -> Resu
 
 // 📡Retrieves the video info from YT by manually scraping the video page
 pub async fn get_info(id : &str, lang : Option<&str>) -> Result<Value, ScrapeVideoError> {
-  match get_page_body(BASE_URL, id, lang).await {
+  match get_page_body(&format!("{}{}", WEBSITE_BASE_URL, WEBSITE_VIDEO_PATH), id, lang).await {
     Ok(page_body) => {
       // Pull the initial player response from using the 1st group matched in this regular expression
       let initial_player_response = match find_json(&page_body, Regex::new(r"\bytInitialPlayerResponse\s*=\s*(\{.*?);</script").unwrap(), 1) {

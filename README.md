@@ -9,8 +9,8 @@ use yayti::{scrape_video_info, fetch_video_info};
 
 async fn some_function_name(id: &str) {
   // Uses the innertube API to retrieve the YT video data
-  // Optionally, the default API key and cver can be overridden
-  match fetch_video_info(id, Some("en"), None, None).await {
+  // Optionally, the default client context can be overriden (defaults to 🕸`WEB`)
+  match fetch_video_info(id, Some("en"), None).await {
     Ok(video) => {
       println!("Video Title: {}", video.title);
       println!("Author Name: {}", video.author);
