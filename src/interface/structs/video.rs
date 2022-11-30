@@ -1,4 +1,6 @@
 
+use super::super::innertube::ClientContext;
+
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use regex::Regex;
@@ -202,7 +204,8 @@ pub struct Video {
   pub adaptive_formats: Vec<AdaptiveFormat>,
   pub format_streams: Vec<FormatStream>,
   pub captions: Vec<Caption>,
-  pub recommended_videos: Vec<Value>
+  pub recommended_videos: Vec<Value>,
+  pub client_context: ClientContext
 }
 
 impl Video {
@@ -805,6 +808,7 @@ impl Video {
       },
       None => Vec::new()
     };
+    let client_context = ClientContext::from_json(&json_object["config"]);
     Video { 
       title: title,
       video_id: video_id,
@@ -841,7 +845,8 @@ impl Video {
       adaptive_formats: adaptive_formats,
       format_streams: format_streams,
       captions: captions,
-      recommended_videos: Vec::<Value>::new()
+      recommended_videos: Vec::<Value>::new(),
+      client_context: client_context
     }
   }
   // Formats the video object into the same format that the invidious API would return

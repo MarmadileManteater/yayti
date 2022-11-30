@@ -59,7 +59,7 @@ async fn get_video_endpoint(endpoint: &str, context: &ClientContext, id : &str, 
   }}
   "#, lang, context.user_agent, context.client_version, context.os_name, context.os_version, context.platform, id);
   let client = reqwest::Client::new();
-  match client.post(format!("{}{}{}?key={}", WEBSITE_BASE_URL, INNERTUBE_API_URL, endpoint, context.api_key)).body(String::from(meta_data_request_string)).send().await {
+  match client.post(format!("{}{}{}/{}?key={}", WEBSITE_BASE_URL, INNERTUBE_API_URL, context.api_version, endpoint, context.api_key)).body(String::from(meta_data_request_string)).send().await {
     Ok(next_response) => {
       match next_response.text().await {
         Ok(next_response_text) => Ok(next_response_text),

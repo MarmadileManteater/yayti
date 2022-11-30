@@ -17,18 +17,21 @@ mod tests {
   // Run an assert function on the data returned from 
   // both the innertube API and scraping YT manually
   // for a given video id and lang
-  async fn scrape_and_fetch_video(id: &str, lang: Option<&str>, assert : fn(interface::Video)) {
-    match scrape_video_info(id, lang).await {
+  async fn scrape_and_fetch_video(id: &str, lang: Option<&str>, assert : fn(&interface::Video)) {
+    let video = match scrape_video_info(id, lang).await {
       Ok(video) => {
-        assert(video);
+        assert(&video);
+        Some(video)
       },
       Err(err) => {
         assert_eq!("", err.message);
+        None
       }
     };
-    match fetch_video_info(id, lang, None).await {
+    // Fetch video info using client context returned from scraping
+    match fetch_video_info(id, lang, Some(&(video.unwrap().client_context))).await {
       Ok(video) => {
-        assert(video);
+        assert(&video);
       },
       Err(err) => {
         assert_eq!("", err.message);
@@ -38,7 +41,7 @@ mod tests {
 
   #[tokio::test]
   async fn video_info_livestream() {
-    fn assert(video: interface::Video) {
+    fn assert(video: &interface::Video) {
       assert_eq!("lofi hip hop radio - beats to relax/study to", video.title);
       assert_eq!("Lofi Girl", video.author);
       assert_eq!("UCSJ4gkVC6NrvII8umztf0Ow", video.author_id);
@@ -55,7 +58,7 @@ mod tests {
 
   #[tokio::test]
   async fn video_info_generic_video() {
-    fn assert(video: interface::Video) {
+    fn assert(video: &interface::Video) {
       assert_eq!("$1 vs $1,000,000 Hotel Room!", video.title);
       assert_eq!("MrBeast", video.author);
       assert_eq!("UCX6OQ3DkcsbYNE6H8uQQuVA", video.author_id);
@@ -73,7 +76,7 @@ mod tests {
 
   #[tokio::test]
   async fn video_info_short() {
-    fn assert(video: interface::Video) {
+    fn assert(video: &interface::Video) {
       assert_eq!("Click If You Like Toast", video.title);
       assert_eq!("MrBeast 2", video.author);
       assert_eq!("UC4-79UOlP48-QNGgCko5p2g", video.author_id);
@@ -91,7 +94,7 @@ mod tests {
 
   #[tokio::test]
   async fn video_info_past_livestream() {
-    fn assert(video: interface::Video) {
+    fn assert(video: &interface::Video) {
       assert_eq!("Where Will This End? - WAN Show November 25, 2022", video.title);
       assert_eq!("Linus Tech Tips", video.author);
       assert_eq!("UCXuqSBlHAE6Xw-yeJA0Tunw", video.author_id);
@@ -108,7 +111,7 @@ mod tests {
   }
   #[tokio::test]
   async fn video_info_music() {
-    fn assert(video: interface::Video) {
+    fn assert(video: &interface::Video) {
       assert_eq!("My Chemical Romance - Disenchanted", video.title);
       assert_eq!("My Chemical Romance", video.author);
       assert_eq!("UCCZGYab5SpD0I7Z5JqJZgww", video.author_id);
