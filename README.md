@@ -35,7 +35,7 @@ async fn some_function_name(id: &str) {
 ## 👩‍🏭 progress
 
  - [ ] 🎥 videos
-  - At this time, `yayti::{scrape_video_info, fetch_video_info}` exposes most of the video information except for the related videos and the storyboards. It isn't that the data isn't there, but I just haven't mapped the data to the output yet.
+  - At this time, `yayti::{scrape_video_info, fetch_video_info}` exposes most of the video information except for the storyboards. It isn't that the data isn't there, but I just haven't mapped the data to the output yet.
   
  - [ ] 🧑 channels
 

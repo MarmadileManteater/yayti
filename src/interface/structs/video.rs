@@ -868,9 +868,14 @@ impl Video {
     let client_context = ClientContext::from_json(&json_object["config"]);
     let recommended_videos = match json_object["next"]["contents"]["twoColumnWatchNextResults"]["secondaryResults"]["secondaryResults"]["results"].as_array() {
       Some(recommended_videos) => {
-        // cut out the last entry because it is not an actual video
-        recommended_videos[0..recommended_videos.len()-1].iter().map(|recommended_video| {
-          RecommendedVideo::from_compact_video_renderer(&recommended_video["compactVideoRenderer"])
+        recommended_videos.iter().filter_map(|recommended_video| {
+          // only show recommended videos with video ids
+          match recommended_video["compactVideoRenderer"]["videoId"].as_str() {
+            Some(_) => {
+              Some(RecommendedVideo::from_compact_video_renderer(&recommended_video["compactVideoRenderer"]))
+            },
+            None => None
+          }
         }).collect::<Vec<RecommendedVideo>>()
       },
       None => Vec::new()

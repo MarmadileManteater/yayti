@@ -51,6 +51,12 @@ mod tests {
       // assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
       assert_eq!(true, video.is_live);
+      for i in 0..video.recommended_videos.len() {
+        assert_ne!("", video.recommended_videos[i].author);
+        assert_ne!("", video.recommended_videos[i].author_id);
+        assert_ne!("", video.recommended_videos[i].video_id);
+        assert_ne!("", video.recommended_videos[i].title);
+      }
     }
     scrape_and_fetch_video("jfKfPfyJRdk", None, assert).await
   }
@@ -70,6 +76,12 @@ mod tests {
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
       assert_eq!(false, video.is_live);
+      for i in 0..video.recommended_videos.len() {
+        assert_ne!("", video.recommended_videos[i].author);
+        assert_ne!("", video.recommended_videos[i].author_id);
+        assert_ne!("", video.recommended_videos[i].video_id);
+        assert_ne!("", video.recommended_videos[i].title);
+      }
     }
     scrape_and_fetch_video("iogcY_4xGjo", None, assert).await
   }
@@ -89,6 +101,12 @@ mod tests {
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
       assert_eq!(false, video.is_live);
+      for i in 0..video.recommended_videos.len() {
+        assert_ne!("", video.recommended_videos[i].author);
+        assert_ne!("", video.recommended_videos[i].author_id);
+        assert_ne!("", video.recommended_videos[i].video_id);
+        assert_ne!("", video.recommended_videos[i].title);
+      }
     }
     scrape_and_fetch_video("PIIDWkxdcXY", None, assert).await
   }
@@ -108,6 +126,12 @@ mod tests {
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
       assert_eq!(false, video.is_live);
+      for i in 0..video.recommended_videos.len() {
+        assert_ne!("", video.recommended_videos[i].author);
+        assert_ne!("", video.recommended_videos[i].author_id);
+        assert_ne!("", video.recommended_videos[i].video_id);
+        assert_ne!("", video.recommended_videos[i].title);
+      }
     }
     scrape_and_fetch_video("zYpyS2HaZHM", None, assert).await
   }
@@ -126,6 +150,12 @@ mod tests {
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
       assert_eq!(false, video.is_live);
+      for i in 0..video.recommended_videos.len() {
+        assert_ne!("", video.recommended_videos[i].author);
+        assert_ne!("", video.recommended_videos[i].author_id);
+        assert_ne!("", video.recommended_videos[i].video_id);
+        assert_ne!("", video.recommended_videos[i].title);
+      }
     }
     scrape_and_fetch_video("j_MlBCb9-m8", None, assert).await
   }
