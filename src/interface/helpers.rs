@@ -2,9 +2,12 @@
 use super::structs::{Thumbnail, Size};
 use super::super::constants::YT_THUMBNAIL_HOST_URL;
 
+pub fn generate_yt_video_thumbnail_url(id: &str, thumbnail_path: &str) -> String {
+  return format!("{}/{}/{}.jpg", YT_THUMBNAIL_HOST_URL, id, thumbnail_path)
+}
+
 pub fn generate_yt_video_thumbnails(id: &str) -> Vec::<Thumbnail> {
   let known_thumbnail_sizes = [
-    
     Size { name: String::from("maxres"), label: String::from("maxres"), width: 1280, height: 720 },
     Size { name: String::from("sd"), label: String::from("sd"), width: 640, height: 480 },
     Size { name: String::from("hq"), label: String::from("high"), width: 480, height: 360 },

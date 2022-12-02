@@ -8,6 +8,7 @@ use log::warn;
 
 pub use structs::{AdaptiveFormat, AuthorThumbnail, Caption, FormatStream, Range, Size, Thumbnail, Video};
 pub use innertube::ClientContext;
+pub use helpers::{generate_yt_video_thumbnail_url, generate_yt_video_thumbnails};
 
 // ✂ Scrape the video data from YT
 pub async fn scrape_video_info(id: &str, lang: Option<&str>) -> Result<structs::Video, scrape::ScrapeVideoError> {

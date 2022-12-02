@@ -3,6 +3,7 @@ mod interface;
 mod constants;
 pub use interface::Video as YTVideo;
 pub use interface::{scrape_video_info, fetch_video_info, fetch_video_metadata, fetch_video_streams, AdaptiveFormat, AuthorThumbnail, ClientContext, Caption, FormatStream, Range, Size, Thumbnail };
+pub use interface::{generate_yt_video_thumbnail_url, generate_yt_video_thumbnails};
 
 #[cfg(test)]
 mod tests {
