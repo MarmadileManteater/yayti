@@ -1,6 +1,6 @@
 
 use super::super::innertube::ClientContext;
-
+use super::super::helpers::generate_yt_video_thumbnails;
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use regex::Regex;
@@ -43,7 +43,7 @@ pub struct AuthorThumbnail {
   pub height: i32
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Thumbnail {
   pub quality: String,
   pub url: String,
@@ -173,6 +173,115 @@ impl FormatStream {
   }
 }
 
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct RecommendedVideo {
+  pub title: String,
+  pub video_id: String,
+  pub video_thumbnails: Vec<Thumbnail>,
+  pub author: String,
+  pub author_id: String,
+  pub published_text: String,
+  pub view_count: i32,
+  pub view_count_text: String,
+  pub length_seconds: i32
+}
+
+impl RecommendedVideo {
+  // Parse a recommended video from a compact video renderer
+  pub fn from_compact_video_renderer(j_object: &Value) -> RecommendedVideo {
+    let title = String::from(match j_object["title"]["simpleText"].as_str() {
+      Some(title) => title,
+      None => ""
+    });
+    let video_id = String::from(match j_object["videoId"].as_str() {
+      Some(video_id) => video_id,
+      None => ""
+    });
+    let thumbnails = generate_yt_video_thumbnails(&video_id);
+    let author = String::from(match j_object["longBylineText"]["runs"][0]["text"].as_str() {
+      Some(author) => author,
+      None => ""
+    });
+    let author_id = String::from(match j_object["longBylineText"]["runs"][0]["navigationEndpoint"]["browseEndpoint"]["browseId"].as_str() {
+      Some(author_id) => author_id,
+      None => ""
+    });
+    let published_time_text = String::from(match j_object["publishedTimeText"]["simpleText"].as_str() {
+      Some(published_time_text) => published_time_text,
+      None => ""
+    });
+    let view_count_text = String::from(match j_object["viewCountText"]["simpleText"].as_str() {
+      Some(view_count_text) => view_count_text,
+      None => ""
+    });
+    let view_count = match view_count_text.replace(",", "").replace(" views", "").as_str().parse::<i32>() {
+      Ok(view_count) => view_count,
+      Err(_err) => 0
+    };
+    let length_text = String::from(match j_object["lengthText"]["simpleText"].as_str() {
+      Some(length_text) => length_text,
+      None => ""
+    });
+    // 🧮Calculate the length seconds from the length_text
+    let mut magnitude_multiplier;
+    let length_seconds = match Regex::new(r"([0-9]*):*([0-9]*):([0-9]*)").unwrap().captures(&length_text) {
+      Some(captures) => {
+        let mut total = 0;
+        let base: i32 = 60;
+        // If the length text has more than 5 characters in it, it must contain hours.
+        let pow = (if length_text.len() > 5 { 2 } else { 1 }) as u32;
+        // The magnitude multiplier contains the current multiplier relative to seconds (ex: 3600 = hours, 60 = minutes, 1 = seconds)
+        magnitude_multiplier = base.pow(pow);
+        for i in 1..captures.len() {
+          match captures[i].parse::<i32>() {
+            Ok(capture) => {
+              total += capture * magnitude_multiplier;
+              // Reduce the magnitude multiplier on each iteration
+              magnitude_multiplier = magnitude_multiplier / 60
+            },
+            Err(_err) => {}
+          }
+        }
+        total
+      },
+      None => 0
+    };
+    RecommendedVideo {
+      title: title,
+      video_id: video_id,
+      video_thumbnails: thumbnails,
+      author: author,
+      author_id: author_id,
+      published_text: published_time_text,
+      view_count: view_count,
+      view_count_text: view_count_text,
+      length_seconds: length_seconds as i32
+    }
+  }
+  fn fmt_inv(self) -> serde_json::Map::<String, Value> {
+    let mut j_object = serde_json::Map::new();
+    j_object.insert(String::from("videoId"), json!(self.video_id));
+    j_object.insert(String::from("title"), json!(self.title));
+    j_object.insert(String::from("videoThumbnails"), self.video_thumbnails.iter().map(|thumbnail| {
+      let thumbnail_string = match serde_json::to_string_pretty(thumbnail) {
+        Ok(thumbnail_string) => thumbnail_string,
+        Err(_error) => String::from("[]")
+      };
+      match serde_json::from_str(&thumbnail_string) {
+        Ok(thumbnail_value) => thumbnail_value,
+        Err(_err) => Value::default()
+      }
+    }).collect());
+    j_object.insert(String::from("author"), json!(self.author));
+    j_object.insert(String::from("authorUrl"), json!(format!("/channel/{}", self.author_id)));
+    j_object.insert(String::from("authorId"), json!(self.author_id));
+    j_object.insert(String::from("lengthSeconds"), json!(self.length_seconds));
+    j_object.insert(String::from("viewCountText"), json!(self.view_count_text));
+    j_object.insert(String::from("viewCount"), json!(self.view_count));
+    j_object
+  }
+}
+
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Video {
   pub title: String,
@@ -204,12 +313,12 @@ pub struct Video {
   pub adaptive_formats: Vec<AdaptiveFormat>,
   pub format_streams: Vec<FormatStream>,
   pub captions: Vec<Caption>,
-  pub recommended_videos: Vec<Value>,
+  pub recommended_videos: Vec<RecommendedVideo>,
   pub client_context: ClientContext
 }
 
 impl Video {
-  pub fn new(json_object : Value) -> Video {
+  pub fn from_json_responses(json_object : Value) -> Video {
     let title = match json_object["player"]["videoDetails"]["title"].as_str() {
       Some(title_string) => String::from(title_string),
       None => String::from("")
@@ -218,61 +327,9 @@ impl Video {
       Some(video_id_string) => String::from(video_id_string),
       None => String::from("")
     };
-    let known_thumbnail_sizes = [
-      Size { name: String::from("maxres"), label: String::from("maxres"), width: 1280, height: 720 },
-      Size { name: String::from("sd"), label: String::from("sd"), width: 640, height: 480 },
-      Size { name: String::from("hq"), label: String::from("high"), width: 480, height: 360 },
-      Size { name: String::from("mq"), label: String::from("medium"), width: 320, height: 180 },
-      Size { name: String::from(""), label: String::from(""), width: 120, height: 90 }
-    ];
     // The thumbnails that come from the player_response are a fraction of the publically available thumbnails,
     // so I just generate links to them by hand here:
-    let mut thumbnails = Vec::with_capacity(10);
-    thumbnails.push(Thumbnail {
-      quality: String::from("maxres"),
-      url: format!("https://i.ytimg.com/vi/{}/maxresdefault.jpg", video_id),
-      width: 1280,
-      height: 720
-    });
-    let known_thumbnail_types = ["default", "1", "2", "3"];
-    for size in known_thumbnail_sizes {
-      for thumbnail_type in known_thumbnail_types {
-        let format_name = match thumbnail_type {
-          "1" => {
-            format!("{}start", size.name)
-          },
-          "2" => {
-            format!("{}middle", size.name)
-          },
-          "3" => {
-            format!("{}end", size.name)
-          },
-          "default" => {
-            match &size.name as &str {
-              "hq" => {
-                String::from("high")
-              },
-              "mq" => {
-                String::from("medium")
-              },
-              &_ => {
-                format!("{}{}", size.name, thumbnail_type)
-              }
-            }
-          }
-          &_ => {
-            format!("{}{}", size.name, thumbnail_type)
-          }
-        };
-        let url = format!("https://i.ytimg.com/vi/{}/{}.jpg", video_id, format!("{}{}", size.name, thumbnail_type));
-        thumbnails.push(Thumbnail {
-          quality: format_name,
-          url: url,
-          width: size.width,
-          height: size.height
-        });
-      }
-    }
+    let thumbnails = generate_yt_video_thumbnails(&video_id);
     let description = String::from(match json_object["player"]["videoDetails"]["shortDescription"].as_str() {
       Some(description_string) => description_string,
       None => ""
@@ -809,6 +866,15 @@ impl Video {
       None => Vec::new()
     };
     let client_context = ClientContext::from_json(&json_object["config"]);
+    let recommended_videos = match json_object["next"]["contents"]["twoColumnWatchNextResults"]["secondaryResults"]["secondaryResults"]["results"].as_array() {
+      Some(recommended_videos) => {
+        // cut out the last entry because it is not an actual video
+        recommended_videos[0..recommended_videos.len()-1].iter().map(|recommended_video| {
+          RecommendedVideo::from_compact_video_renderer(&recommended_video["compactVideoRenderer"])
+        }).collect::<Vec<RecommendedVideo>>()
+      },
+      None => Vec::new()
+    };
     Video { 
       title: title,
       video_id: video_id,
@@ -845,7 +911,7 @@ impl Video {
       adaptive_formats: adaptive_formats,
       format_streams: format_streams,
       captions: captions,
-      recommended_videos: Vec::<Value>::new(),
+      recommended_videos: recommended_videos,
       client_context: client_context
     }
   }
@@ -917,18 +983,18 @@ impl Video {
     j_object.insert(String::from("dashUrl"), json!(self.dash_url));
     j_object.insert(String::from("adaptiveFormats"), json!(self.adaptive_formats.iter().map(|format| {
       // 😞I feel like I shouldn't need a clone here, but idk
-      let value = format.clone().fmt_inv();
-      serde_json::from_str::<Value>(&serde_json::to_string_pretty(&value).unwrap()).unwrap()
-    }).collect::<Vec<Value>>()));
+      format.clone().fmt_inv()
+    }).collect::<Vec<serde_json::Map<std::string::String, serde_json::Value>>>()));
     j_object.insert(String::from("formatStreams"), json!(self.format_streams.iter().map(|format| {
       // 😞I feel like I shouldn't need a clone here, but idk
-      let value = format.clone().fmt_inv();
-      serde_json::from_str::<Value>(&serde_json::to_string_pretty(&value).unwrap()).unwrap()
-    }).collect::<Vec<Value>>()));
+      format.clone().fmt_inv()
+    }).collect::<Vec<serde_json::Map<std::string::String, serde_json::Value>>>()));
     j_object.insert(String::from("captions"), json!(self.captions.iter().map(|caption| {
       serde_json::from_str::<Value>(&serde_json::to_string_pretty(&caption).unwrap()).unwrap()
     }).collect::<Vec<Value>>()));
-
+    j_object.insert(String::from("recommendedVideos"), json!(self.recommended_videos.iter().map(|recommended_video| {
+      recommended_video.clone().fmt_inv()
+    }).collect::<Vec<serde_json::Map<std::string::String, serde_json::Value>>>()));
     Ok(serde_json::to_string_pretty(&j_object).unwrap())
   }
 }

@@ -3,9 +3,10 @@
 mod scrape;
 mod structs;
 mod innertube;
+mod helpers;
 use log::warn;
 
-pub use structs::Video;
+pub use structs::{AdaptiveFormat, AuthorThumbnail, Caption, FormatStream, Range, Size, Thumbnail, Video};
 pub use innertube::ClientContext;
 
 // ✂ Scrape the video data from YT
@@ -13,7 +14,7 @@ pub async fn scrape_video_info(id: &str, lang: Option<&str>) -> Result<structs::
   match scrape::get_video_info(id, lang).await {
     Ok(video_info_json) => {
       // parse out the API context from this JSON
-      Ok(structs::Video::new(video_info_json))
+      Ok(structs::Video::from_json_responses(video_info_json))
     },
     Err(err) => Err(err)
   }
@@ -50,7 +51,7 @@ async fn fetch_video_endpoints(id: &str, lang: Option<&str>, client_context : Op
   };
   match serde_json::from_str::<serde_json::Value>(&format!("{{ \"next\": {}, \"player\": {} }}", next_body, player_body)) {
     Ok(json) => {
-      Ok(structs::Video::new(json))
+      Ok(structs::Video::from_json_responses(json))
     },
     Err(error) => {
       Err(innertube::InnertubeVideoError { message: String::from("Failed"), inner_reqwest_error: None, inner_serde_error: Some(error) })

@@ -1,12 +1,8 @@
 
 mod interface;
 mod constants;
-pub use interface::scrape_video_info;
-pub use interface::fetch_video_info;
-pub use interface::fetch_video_metadata;
-pub use interface::fetch_video_streams;
 pub use interface::Video as YTVideo;
-pub use interface::ClientContext;
+pub use interface::{scrape_video_info, fetch_video_info, fetch_video_metadata, fetch_video_streams, AdaptiveFormat, AuthorThumbnail, ClientContext, Caption, FormatStream, Range, Size, Thumbnail };
 
 #[cfg(test)]
 mod tests {
@@ -18,6 +14,7 @@ mod tests {
   // both the innertube API and scraping YT manually
   // for a given video id and lang
   async fn scrape_and_fetch_video(id: &str, lang: Option<&str>, assert : fn(&interface::Video)) {
+    
     let video = match scrape_video_info(id, lang).await {
       Ok(video) => {
         assert(&video);
@@ -28,6 +25,7 @@ mod tests {
         None
       }
     };
+    
     // Fetch video info using client context returned from scraping
     match fetch_video_info(id, lang, Some(&(video.unwrap().client_context))).await {
       Ok(video) => {
