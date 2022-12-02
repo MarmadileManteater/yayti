@@ -159,4 +159,30 @@ mod tests {
     }
     scrape_and_fetch_video("j_MlBCb9-m8", None, assert).await
   }
+  #[tokio::test]
+  async fn video_description_html_playlist_link() {
+    fn assert(video: &interface::Video) {
+      assert_eq!("japanese jazz when driving on a warm night", video.title);
+      assert_eq!("tardiobscurus", video.author);
+      assert_eq!("UCWlhyyYBiD67Aju1CXUgaug", video.author_id);
+      // dash manifests don't work for all cases rn 🤷‍♀️ i'm working on it
+      //assert_ne!("", video.dash_url);
+      assert_ne!(0, video.length_seconds);
+      // Likes aren't guaranteed to exist right now? idk, i'm working it out
+      //assert_ne!(0, video.like_count);
+      assert_ne!(0, video.view_count);
+      assert_ne!(0, video.format_streams.len());
+      assert_ne!(0, video.adaptive_formats.len());
+      assert_eq!(false, video.is_live);
+      for i in 0..video.recommended_videos.len() {
+        assert_ne!("", video.recommended_videos[i].author);
+        assert_ne!("", video.recommended_videos[i].author_id);
+        assert_ne!("", video.recommended_videos[i].video_id);
+        assert_ne!("", video.recommended_videos[i].title);
+      }
+      // Check for a playlist link in the description_html
+      assert_eq!(true, video.description_html.contains("PLLLeXI912_OboI5VDAykqFtYSdPg-CShA"));
+    }
+    scrape_and_fetch_video("G68Q4lCM5pQ", None, assert).await
+  }
 }

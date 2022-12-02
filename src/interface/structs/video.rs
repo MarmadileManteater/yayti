@@ -1,6 +1,7 @@
 
 use super::super::innertube::ClientContext;
 use super::super::helpers::generate_yt_video_thumbnails;
+use super::super::super::constants::WEBSITE_BASE_URL;
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use regex::Regex;
@@ -387,15 +388,24 @@ impl Video {
                       }
                     },
                     None => {
-                      // Handle cases where the link actually just contains a video id
-                      match description_object["runs"][i]["navigationEndpoint"]["watchEndpoint"]["videoId"].as_str() {
-                        Some(video_id) => {
-                          description_html = format!("{}<a href=\"{}\">{}</a>", description_html,format!("https://youtube.com/watch?v={}", video_id), text);
+                      // Handle cases where the link is relative to the website URL
+                      match description_object["runs"][i]["navigationEndpoint"]["commandMetadata"]["webCommandMetadata"]["url"].as_str() {
+                        Some(url) => {
+                          description_html = format!("{}<a href=\"{}{}\">{}</a>", description_html, WEBSITE_BASE_URL, urldecode::decode(String::from(url)), text);
                         },
                         None => {
-                          description_html = format!("{}{}", description_html, text);
+                          // Handle cases where the link actually just contains a video id
+                          match description_object["runs"][i]["navigationEndpoint"]["watchEndpoint"]["videoId"].as_str() {
+                            Some(video_id) => {
+                              description_html = format!("{}<a href=\"{}\">{}</a>", description_html,format!("https://youtube.com/watch?v={}", video_id), text);
+                            },
+                            None => {
+                              description_html = format!("{}{}", description_html, text);
+                            }
+                          }
                         }
                       }
+
                     }
                   }
                 },
