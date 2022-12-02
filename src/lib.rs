@@ -44,8 +44,7 @@ mod tests {
       assert_eq!("Lofi Girl", video.author);
       assert_eq!("UCSJ4gkVC6NrvII8umztf0Ow", video.author_id);
       assert_ne!("", video.dash_url);
-      // Likes aren't guaranteed to exist right now? idk, i'm working it out
-      //assert_ne!(0, video.like_count);
+      assert_ne!(0, video.like_count);
       assert_ne!(0, video.view_count);
       // Live streams pull back a dash url, but are missing format streams??? 🤷‍♀️
       // assert_ne!(0, video.format_streams.len());
@@ -61,7 +60,7 @@ mod tests {
     scrape_and_fetch_video("jfKfPfyJRdk", None, assert).await
   }
 
-  #[tokio::test]
+ #[tokio::test]
   async fn video_info_generic_video() {
     fn assert(video: &interface::Video) {
       assert_eq!("$1 vs $1,000,000 Hotel Room!", video.title);
@@ -70,8 +69,7 @@ mod tests {
       // dash manifests don't work for all cases rn 🤷‍♀️ i'm working on it
       //assert_ne!("", video.dash_url);
       assert_ne!(0, video.length_seconds);
-      // Likes aren't guaranteed to exist right now? idk, i'm working it out
-      //assert_ne!(0, video.like_count);
+      assert_ne!(0, video.like_count);
       assert_ne!(0, video.view_count);
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
@@ -95,8 +93,7 @@ mod tests {
       assert_ne!(0, video.length_seconds);
       // dash manifests don't work for all cases rn 🤷‍♀️ i'm working on it
       //assert_ne!("", video.dash_url);
-      // Likes aren't guaranteed to exist right now? idk, i'm working it out
-      //assert_ne!(0, video.like_count);
+      assert_ne!(0, video.like_count);
       assert_ne!(0, video.view_count);
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
@@ -120,8 +117,7 @@ mod tests {
       // dash manifests don't work for all cases rn 🤷‍♀️ i'm working on it
       //assert_ne!("", video.dash_url);
       //assert_ne!(0, video.length_seconds);
-      // Likes aren't guaranteed to exist right now? idk, i'm working it out
-      //assert_ne!(0, video.like_count);
+      assert_ne!(0, video.like_count);
       assert_ne!(0, video.view_count);
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
@@ -144,8 +140,7 @@ mod tests {
       // dash manifests don't work for all cases rn 🤷‍♀️ i'm working on it
       //assert_ne!("", video.dash_url);
       assert_ne!(0, video.length_seconds);
-      // Likes aren't guaranteed to exist right now? idk, i'm working it out
-      //assert_ne!(0, video.like_count);
+      assert_ne!(0, video.like_count);
       assert_ne!(0, video.view_count);
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
@@ -168,8 +163,7 @@ mod tests {
       // dash manifests don't work for all cases rn 🤷‍♀️ i'm working on it
       //assert_ne!("", video.dash_url);
       assert_ne!(0, video.length_seconds);
-      // Likes aren't guaranteed to exist right now? idk, i'm working it out
-      //assert_ne!(0, video.like_count);
+      assert_ne!(0, video.like_count);
       assert_ne!(0, video.view_count);
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());

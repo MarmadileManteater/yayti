@@ -335,7 +335,6 @@ impl Video {
       Some(description_string) => description_string,
       None => ""
     });
-    let mut description_html = String::from("");
     // I would be able to remove the need for mutables here if I knew who to do something like `.Where`
     let mut video_primary_renderer_index = 0;
     let mut video_secondary_renderer_index = 1;
@@ -357,7 +356,8 @@ impl Video {
         None => {}
       }
     }
-
+    // 📕 Parse out the description html from the next results 
+    let mut description_html = String::from("");
     match json_object["next"]["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][video_secondary_renderer_index]["videoSecondaryInfoRenderer"]["description"].as_object() {
       Some(_description_object) => {
         let description_object = &json_object["next"]["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][video_secondary_renderer_index]["videoSecondaryInfoRenderer"]["description"];
@@ -460,12 +460,12 @@ impl Video {
       },
       None => 0
     };
-    let like_count : i64 = match json_object["next"]["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][0]["videoPrimaryInfoRenderer"]["videoActions"]["menuRenderer"]["topLevelButtons"][0]["segmentedLikeDislikeButtonRenderer"]["likeButton"]["toggleButtonRenderer"]["toggledText"]["accessibility"]["accessibilityData"]["label"].as_str() {
+    let like_count = match json_object["next"]["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][0]["videoPrimaryInfoRenderer"]["videoActions"]["menuRenderer"]["topLevelButtons"][0]["segmentedLikeDislikeButtonRenderer"]["likeButton"]["toggleButtonRenderer"]["toggledText"]["accessibility"]["accessibilityData"]["label"].as_str() {
       Some(string_value) => {
         match Regex::new(r"([0-9]*?) likes").unwrap().captures(&string_value.replace(",", "")) {
           Some(groups) => {
-            if groups.len() > 0 {
-              match groups[1].parse::<i64>() {
+            if groups.len() > 1 {
+              match groups[1].parse::<i32>() {
                 Ok(i_value) => i_value,
                 Err(_err) => 0
               }
@@ -476,7 +476,24 @@ impl Video {
           None => 0
         }
       },
-      None => 0
+      None => {
+        match json_object["next"]["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][0]["videoPrimaryInfoRenderer"]["videoActions"]["menuRenderer"]["topLevelButtons"][0]["toggleButtonRenderer"]["defaultText"]["accessibility"]["accessibilityData"]["label"].as_str() {
+          Some(likes_label) => {
+            match Regex::new(r"([0-9,]*?) likes").unwrap().captures(&likes_label) {
+              Some(likes_captures) => {
+                match likes_captures[1].replace(",", "").parse::<i32>() {
+                  Ok(likes) => likes,
+                  Err(_) => 0
+                }
+              },
+              None => 0
+            }
+          },
+          None => {
+            0
+          }
+        }
+      }
     };
     let is_family_safe = match json_object["player"]["microformat"]["playerMicroformatRenderer"]["isFamilySafe"].as_bool() {
       Some(is_family_safe) => is_family_safe,
