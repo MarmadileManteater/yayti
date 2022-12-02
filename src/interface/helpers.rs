@@ -1,8 +1,10 @@
 
 use super::structs::{Thumbnail, Size};
+use super::super::constants::YT_THUMBNAIL_HOST_URL;
 
 pub fn generate_yt_video_thumbnails(id: &str) -> Vec::<Thumbnail> {
   let known_thumbnail_sizes = [
+    
     Size { name: String::from("maxres"), label: String::from("maxres"), width: 1280, height: 720 },
     Size { name: String::from("sd"), label: String::from("sd"), width: 640, height: 480 },
     Size { name: String::from("hq"), label: String::from("high"), width: 480, height: 360 },
@@ -10,12 +12,13 @@ pub fn generate_yt_video_thumbnails(id: &str) -> Vec::<Thumbnail> {
     Size { name: String::from(""), label: String::from(""), width: 120, height: 90 }
   ];
   let mut thumbnails = Vec::with_capacity(10);
-  thumbnails.push(Thumbnail {
+  // I need a way to determine if masres exists, but I don't want to make an additional request here
+  /*thumbnails.push(Thumbnail {
     quality: String::from("maxres"),
-    url: format!("https://i.ytimg.com/vi/{}/maxresdefault.jpg", id),
+    url: format!("{}/{}/maxresdefault.jpg", YT_THUMBNAIL_HOST_URL, id),
     width: 1280,
     height: 720
-  });
+  });*/
   let known_thumbnail_types = ["default", "1", "2", "3"];
   for size in known_thumbnail_sizes {
     for thumbnail_type in known_thumbnail_types {
@@ -46,7 +49,7 @@ pub fn generate_yt_video_thumbnails(id: &str) -> Vec::<Thumbnail> {
           format!("{}{}", size.name, thumbnail_type)
         }
       };
-      let url = format!("https://i.ytimg.com/vi/{}/{}.jpg", id, format!("{}{}", size.name, thumbnail_type));
+      let url = format!("{}/{}/{}.jpg", YT_THUMBNAIL_HOST_URL, id, format!("{}{}", size.name, thumbnail_type));
       thumbnails.push(Thumbnail {
         quality: format_name,
         url: url,

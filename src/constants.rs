@@ -2,6 +2,7 @@
 // Urls
 pub const WEBSITE_BASE_URL : &str = "https://www.youtube.com";
 pub const WEBSITE_VIDEO_PATH : &str = "/watch?v=";
+pub const YT_THUMBNAIL_HOST_URL : &str = "https://i.ytimg.com/vi";
 // API info
 pub const INNERTUBE_API_URL : &str = "/youtubei/";
 pub const DEFAULT_WEB_API_KEY : &str = "AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8";

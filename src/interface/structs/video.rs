@@ -628,7 +628,7 @@ impl Video {
                     if captures.len() > 1 {
                       // TODO : actually decipher the decoded url
                       let decoded_url = urldecode::decode(String::from(&captures[1]));
-                      decoded_url.to_string()
+                      cipher.to_string()
                     } else {
                       String::from("")
                     }
@@ -763,7 +763,7 @@ impl Video {
                     if captures.len() > 1 {
                       // TODO : actually decipher the decoded url
                       let decoded_url = urldecode::decode(String::from(&captures[1]));
-                      decoded_url.to_string()
+                      cipher.to_string()
                     } else {
                       String::from("")
                     }
