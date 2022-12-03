@@ -1015,7 +1015,7 @@ impl Video {
       format.clone().fmt_inv()
     }).collect::<Vec<serde_json::Map<std::string::String, serde_json::Value>>>()));
     j_object.insert(String::from("captions"), json!(self.captions.iter().map(|caption| {
-      serde_json::from_str::<Value>(&serde_json::to_string_pretty(&caption).unwrap()).unwrap()
+      json!(caption)
     }).collect::<Vec<Value>>()));
     j_object.insert(String::from("recommendedVideos"), json!(self.recommended_videos.iter().map(|recommended_video| {
       recommended_video.clone().fmt_inv()
