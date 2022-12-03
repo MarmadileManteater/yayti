@@ -958,14 +958,7 @@ impl Video {
     j_object.insert(String::from("title"), Value::String(String::from(self.title)));
     j_object.insert(String::from("videoId"), Value::String(String::from(self.video_id)));
     j_object.insert(String::from("videoThumbnails"), self.video_thumbnails.iter().map(|thumbnail| {
-      let thumbnail_string = match serde_json::to_string_pretty(thumbnail) {
-        Ok(thumbnail_string) => thumbnail_string,
-        Err(_error) => String::from("[]")
-      };
-      match serde_json::from_str(&thumbnail_string) {
-        Ok(thumbnail_value) => thumbnail_value,
-        Err(_err) => Value::default()
-      }
+      json!(thumbnail)
     }).collect());
     j_object.insert(String::from("storyboards"), Value::Array(Vec::<Value>::new()));
     j_object.insert(String::from("description"), Value::String(self.description.replace("\n", "\\n")));
