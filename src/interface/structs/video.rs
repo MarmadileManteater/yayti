@@ -1020,6 +1020,9 @@ impl Video {
     j_object.insert(String::from("recommendedVideos"), json!(self.recommended_videos.iter().map(|recommended_video| {
       recommended_video.clone().fmt_inv()
     }).collect::<Vec<serde_json::Map<std::string::String, serde_json::Value>>>()));
-    Ok(serde_json::to_string_pretty(&j_object).unwrap())
+    match serde_json::to_string_pretty(&j_object) {
+      Ok(str_result) => Ok(str_result),
+      Err(err) => Err(err)
+    }
   }
 }
