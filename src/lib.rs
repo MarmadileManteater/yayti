@@ -7,6 +7,7 @@ pub use interface::{generate_yt_video_thumbnail_url, generate_yt_video_thumbnail
 
 #[cfg(test)]
 mod tests {
+
   use super::*;
 
   /* TODO write some tests🧪 */
@@ -41,7 +42,7 @@ mod tests {
   #[tokio::test]
   async fn video_info_livestream() {
     fn assert(video: &interface::Video) {
-      assert_eq!("lofi hip hop radio - beats to relax/study to", video.title);
+      assert_eq!("lofi hip hop radio 📚 - beats to relax/study to", video.title);
       assert_eq!("Lofi Girl", video.author);
       assert_eq!("UCSJ4gkVC6NrvII8umztf0Ow", video.author_id);
       assert_ne!("", video.dash_url);
@@ -75,6 +76,8 @@ mod tests {
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
       assert_eq!(false, video.is_live);
+      assert_ne!("", video.description_html);
+      assert_ne!("", video.description);
       for i in 0..video.recommended_videos.len() {
         assert_ne!("", video.recommended_videos[i].author);
         assert_ne!("", video.recommended_videos[i].author_id);
@@ -99,6 +102,8 @@ mod tests {
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
       assert_eq!(false, video.is_live);
+      assert_ne!("", video.description_html);
+      assert_ne!("", video.description);
       for i in 0..video.recommended_videos.len() {
         assert_ne!("", video.recommended_videos[i].author);
         assert_ne!("", video.recommended_videos[i].author_id);
@@ -123,6 +128,8 @@ mod tests {
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
       assert_eq!(false, video.is_live);
+      assert_ne!("", video.description_html);
+      assert_ne!("", video.description);
       for i in 0..video.recommended_videos.len() {
         assert_ne!("", video.recommended_videos[i].author);
         assert_ne!("", video.recommended_videos[i].author_id);
@@ -146,6 +153,8 @@ mod tests {
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
       assert_eq!(false, video.is_live);
+      assert_ne!("", video.description_html);
+      assert_ne!("", video.description);
       for i in 0..video.recommended_videos.len() {
         assert_ne!("", video.recommended_videos[i].author);
         assert_ne!("", video.recommended_videos[i].author_id);
@@ -169,6 +178,8 @@ mod tests {
       assert_ne!(0, video.format_streams.len());
       assert_ne!(0, video.adaptive_formats.len());
       assert_eq!(false, video.is_live);
+      assert_ne!("", video.description_html);
+      assert_ne!("", video.description);
       for i in 0..video.recommended_videos.len() {
         assert_ne!("", video.recommended_videos[i].author);
         assert_ne!("", video.recommended_videos[i].author_id);
