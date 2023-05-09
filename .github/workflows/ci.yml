@@ -1,4 +1,4 @@
-name: Run 🧪tests
+name: Build 🏗 & Run 🧪tests
 
 on:
   push:
@@ -12,7 +12,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: ⬇ Download maps
@@ -33,3 +32,8 @@ jobs:
       run: cargo build --verbose --all-features
     - name: 🧪 Test
       run: cargo test --verbose --all-features
+    - name: 📦 Publish build output
+      uses: actions/upload-artifact@v3
+      with:
+        name: lib
+        path: target/debug
