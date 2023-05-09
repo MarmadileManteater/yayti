@@ -22,7 +22,7 @@ mod tests {
   #[serial]
   async fn scrape_video_parse() {
     let res = scrape_video_page("JgADogL6Bp8", Some("cs")).await.unwrap();
-    let page_data = serde_json::from_str::<serde_json::Value>(&res.next.unwrap()).unwrap();
+    let page_data = serde_json::from_str::<serde_json::Value>(&res.next).unwrap();
     let video_title = web::video::get_title(&page_data).unwrap();
     let description = web::video::get_description(&page_data).unwrap();
     let description_html = web::video::get_description_html(&page_data).unwrap();
