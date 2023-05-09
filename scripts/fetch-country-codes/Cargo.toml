@@ -1,0 +1,12 @@
+[package]
+name = "fetch-country-codes"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+yayti = {path = "../../../yayti"}
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+serde = { version = "1.0.147", features = ["derive"] }
+serde_json = { version = "1.0.87", features = ["preserve_order"] }

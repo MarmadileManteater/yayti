@@ -1,1 +1,4 @@
 /target
+/scripts/*/target
+/scripts/*/.vscode
+/examples

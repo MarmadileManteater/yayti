@@ -1,8 +1,11 @@
 
-use super::super::super::constants::{DEFAULT_WEB_API_KEY, DEFAULT_WEB_CVER, DEFAULT_ANDROID_API_KEY, DEFAULT_ANDROID_CVER};
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
+pub mod android;
+pub mod tv;
+pub mod web;
+pub mod ciphers;
 
+use crate::constants::{DEFAULT_WEB_API_KEY, DEFAULT_WEB_CVER, DEFAULT_ANDROID_API_KEY, DEFAULT_ANDROID_CVER, DEFAULT_TV_CVER};
+use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ClientContext {
@@ -14,19 +17,34 @@ pub struct ClientContext {
   pub os_name: String,
   pub os_version: String,
   pub platform: String,
+  pub form_factor: String
 }
 
 impl ClientContext {
+  pub fn default_tv() -> ClientContext {
+    ClientContext {
+      api_key: String::from(DEFAULT_WEB_API_KEY),
+      api_version: String::from("v1"),
+      client_version: String::from(DEFAULT_TV_CVER),
+      user_agent: String::from("gzip(gfe)"),
+      client_name: String::from("TVHTML5_SIMPLY_EMBEDDED_PLAYER"),
+      os_name: String::from(""),
+      os_version: String::from(""),
+      platform: String::from("TV"),
+      form_factor: String::from("UNKNOWN_FORM_FACTOR")
+    }
+  }
   pub fn default_android() -> ClientContext {
     ClientContext {
       api_key: String::from(DEFAULT_ANDROID_API_KEY),
       api_version: String::from("v1"),
       client_version: String::from(DEFAULT_ANDROID_CVER),
-      user_agent: String::from("com.google.android.youtube/17.33.42 (Linux; U; Android 12; US) gzip"),
+      user_agent: format!("com.google.android.youtube/{} (Linux; U; Android 10; US)", DEFAULT_ANDROID_CVER),
       client_name: String::from("ANDROID"),
       os_name: String::from("Android"),
       os_version: String::from("12"),
-      platform: String::from("MOBILE")
+      platform: String::from("MOBILE"),
+      form_factor: String::from("UNKNOWN_FORM_FACTOR")
     }
   }
   pub fn default_web() -> ClientContext {
@@ -38,10 +56,11 @@ impl ClientContext {
       client_name: String::from("WEB"),
       os_name: String::from(""),
       os_version: String::from(""),
-      platform: String::from("DESKTOP")
+      platform: String::from("DESKTOP"),
+      form_factor: String::from("UNKNOWN_FORM_FACTOR")
     }
   }
-  pub fn from_json(j_object: &Value) -> ClientContext {
+  pub fn from_json(j_object: &serde_json::Value) -> ClientContext {
     let defaults = ClientContext::default_web();
     let innertube_api_key = match j_object["INNERTUBE_API_KEY"].as_str() {
       Some(innertube_api_key) => String::from(innertube_api_key),
@@ -84,7 +103,8 @@ impl ClientContext {
       client_name: client_name,
       os_name: os_name,
       os_version: os_version,
-      platform: platform
+      platform: platform,
+      form_factor: String::from("UNKNOWN_FORM_FACTOR")
     }
   }
 }

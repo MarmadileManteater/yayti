@@ -1,0 +1,15 @@
+[package]
+name = "sus-out-month-information"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+yayti = {path = "../../../yayti"}
+shared = {path = "../shared"}
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+serde_json = { version = "1.0.87", features = ["preserve_order"] }
+serde = "1.0.160"
+chrono = "0.4.24"
+regex = "1.8.1"
