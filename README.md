@@ -18,7 +18,7 @@ let Ok(player_value) = from_str::<Value>(&video_page_response.player) else { tod
 // Both the `player` and `next` responses contain the basic info
 let Some(title) = get_title(&next_value) else { todo!() }; 
 let Some(description) = get_description(&player_value) else { todo!() };
-let Some(description_html) = get_description_html(&next_value) else { todo!() };\
+let Some(description_html) = get_description_html(&next_value) else { todo!() };
 
 println!("title: {}", title);
 // Too Many Cooks | Adult Swim
