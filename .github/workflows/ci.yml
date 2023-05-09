@@ -32,8 +32,3 @@ jobs:
       run: cargo build --verbose --all-features
     - name: 🧪 Test
       run: cargo test --verbose --all-features
-    - name: 📦 Publish build output
-      uses: actions/upload-artifact@v3
-      with:
-        name: lib
-        path: target/debug
