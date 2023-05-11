@@ -31,10 +31,12 @@ use yayti::parsers::{ClientContext, ciphers::{extract_sig_timestamp, decipher_st
 use serde_json::{from_str, Value};
 
 // this is used to fetch the code to decipher streams
+// corresponds to fetching GET: https://www.youtube.com/iframe_api
 let Ok(player_js_id) = get_player_js_id().await else { todo!() };
-// you should request it every time
+// you should request it often or semi-frequently
 
 // this is the code to decipher streams
+// corresponds to fetching GET: `https://www.youtube/s/player/${player_js_id}/player_ias.vflset/en_US/base.js`
 let Ok(player_js_response) = get_player_response(&player_js_id).await else { todo!() };
 // you should only request it again when the player_js_id changes
 
@@ -58,10 +60,12 @@ use yayti::parsers::{ClientContext, ciphers::{extract_sig_timestamp, create_exec
 use serde_json::{from_str, Value};
 
 // this is used to fetch the code to decipher streams
+// corresponds to fetching GET: https://www.youtube.com/iframe_api
 let Ok(player_js_id) = get_player_js_id().await else { todo!() };
-// you should request it every time
+// you should request it often or semi-frequently
 
 // this is the code to decipher streams
+// corresponds to fetching GET: `https://www.youtube/s/player/${player_js_id}/player_ias.vflset/en_US/base.js`
 let Ok(player_js_response) = get_player_response(&player_js_id).await else { todo!() };
 // you should only request it again when the player_js_id changes
 
