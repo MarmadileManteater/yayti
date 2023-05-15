@@ -2,26 +2,39 @@
 use regex::Regex;
 use std::str::FromStr;
 use urlencoding::decode;
+use std::num::ParseIntError;
+use std::fmt::{Formatter, Display};
 #[cfg(feature = "decipher_streams")]
 use boa_engine::{Context};
 
-pub fn extract_sig_timestamp(player_res: &str) -> i32 {
+pub fn extract_sig_timestamp(player_res: &str) -> Result<i32, ParseIntError> {
   let re = Regex::new(r"signatureTimestamp:([^,]*),").unwrap();
   match re.captures(player_res) {
     Some(captures) => {
-      let timestamp = captures.get(1).unwrap().as_str();
-      match i32::from_str(timestamp) {
-        Ok(timestamp_number) => timestamp_number,
-        Err(_) => 0
-      }
+      let timestamp = match captures.get(1) { Some(group) => group.as_str(), None => "" };
+      i32::from_str(timestamp)
     },
-    None => {
-      0
+    None => {// might be a better way to do this
+      i32::from_str("")// will be an error
     }
   }
 }
 
-pub fn extract_sig_js_code(player_res: &str) -> Result<String, String> {
+pub enum ExtractSigJsCodeError {
+  NoObjectNameFound,
+  NoFunctionsOrCallsFound
+}
+
+impl Display for ExtractSigJsCodeError {
+  fn fmt(&self, f: &mut Formatter) -> std::fmt::Result {
+    write!(f, "{}", match self {
+      ExtractSigJsCodeError::NoObjectNameFound => "No object name found when extracting sig js code",
+      ExtractSigJsCodeError::NoFunctionsOrCallsFound => "No functions or calls found when extracting sig js code"
+    })
+  }
+}
+
+pub fn extract_sig_js_code(player_res: &str) -> Result<String, ExtractSigJsCodeError> {
   let calls_regex = Regex::new(r#"function\(a\)\{a=a.split\(""\)(.*?)return a.join\(""\)\}"#).unwrap();
   let calls = match calls_regex.captures(player_res) {
     Some(captures) => {
@@ -59,14 +72,29 @@ pub fn extract_sig_js_code(player_res: &str) -> Result<String, String> {
     (Some(object_name), Some(functions), None) => {
       Ok(format!(r#"function decipher_sig(a) {{ a = a.split(""); let {}={{{}}} return a.join("") }}"#, object_name, functions))
     },
+    (None, _, _) => {
+      Err(ExtractSigJsCodeError::NoObjectNameFound)
+    },
     _ => {
-      Err(String::from("ERROR: object name, or functions and calls missing"))
+      Err(ExtractSigJsCodeError::NoFunctionsOrCallsFound)
     }
   }
   
 } 
 
-pub fn extract_nsig_js_code(player_res: &str) -> Result<String, String> {
+pub enum ExtractNsigJsCodeError {
+  NoNsigFound
+}
+
+impl Display for ExtractNsigJsCodeError {
+  fn fmt(&self, f: &mut Formatter) -> std::fmt::Result {
+    write!(f, "{}", match self {
+      ExtractNsigJsCodeError::NoNsigFound => "No nsig code found",
+    })
+  }
+}
+
+pub fn extract_nsig_js_code(player_res: &str) -> Result<String, ExtractNsigJsCodeError> {
   let nsig_regex = Regex::new(r#"b=a.split\(""\)([\s\S]*?)}return b\.join\(""\)"#).unwrap();
   let nsig = match nsig_regex.captures(player_res) {
     Some(captures) => {
@@ -81,74 +109,98 @@ pub fn extract_nsig_js_code(player_res: &str) -> Result<String, String> {
       Ok(format!(r#"function decipher_nsig(a) {{ let b=a.split(""){}}} return b.join("")}}"#, nsig))
     },
     None => {
-      Err(String::from("nsig failed to extract from player.js"))
+      Err(ExtractNsigJsCodeError::NoNsigFound)
     }
   }
 }
 
-pub fn create_formatable_decipher_js_code(player_res: &str) -> Result<String, String> {
+pub enum CreateFormattableDecipherJsError {
+  ErrorExtractingSig(ExtractSigJsCodeError),
+  ErrorExtractingNsig(ExtractNsigJsCodeError)
+}
+
+impl Display for CreateFormattableDecipherJsError {
+  fn fmt(&self, f: &mut Formatter) -> std::fmt::Result {
+    write!(f, "{}", match self {
+      CreateFormattableDecipherJsError::ErrorExtractingSig(e) => format!("{}", e),
+      CreateFormattableDecipherJsError::ErrorExtractingNsig(e) => format!("{}", e),
+    })
+  }
+}
+
+pub fn create_formatable_decipher_js_code(player_res: &str) -> Result<String, CreateFormattableDecipherJsError> {
   let mut errors = Vec::<String>::new();
   let sig_js = match extract_sig_js_code(player_res) {
-    Ok(sig_js) => {
-      Some(sig_js)
-    },
-    Err(error) => {
-      errors.push(error);
-      None
+    Ok(result) => result,
+    Err(e) => {
+      return Err(CreateFormattableDecipherJsError::ErrorExtractingSig(e)) 
     }
   };
   let nsig_js = match extract_nsig_js_code(player_res) {
-    Ok(nsig_js) => {
-      Some(nsig_js)
-    },
-    Err(error) => {
-      errors.push(error);
-      None
+    Ok(result) => result,
+    Err(e) => {
+      return Err(CreateFormattableDecipherJsError::ErrorExtractingNsig(e)) 
     }
   };
-  if errors.len() == 0 {
-    Ok(format!(r#"{}; {};
+  Ok(format!(r#"{}; {};
 var deciphered_sig = decipher_sig(s);
 var deciphered_nsig = decipher_nsig(n);
 var deciphered_url = `${{url.replace(`&n=${{n}}`, `&n=${{deciphered_nsig}}`)}}&${{sp}}=${{encodeURIComponent(deciphered_sig)}}`;
-deciphered_url"#, sig_js.unwrap(), nsig_js.unwrap()))
-  } else {
-    Err(errors.join("\r\n"))
+deciphered_url"#, sig_js, nsig_js))
+}
+
+pub enum CreateExecutableDecipherJsError {
+  ErrorCreatingFormattableCode(CreateFormattableDecipherJsError),
+  ErrorFormatingCodeIntoExecutable(FormatDecipherCodeError)
+}
+
+impl Display for CreateExecutableDecipherJsError {
+  fn fmt(&self, f: &mut Formatter) -> std::fmt::Result {
+    write!(f, "{}", match self {
+      CreateExecutableDecipherJsError::ErrorCreatingFormattableCode(e) => format!("{}", e),
+      CreateExecutableDecipherJsError::ErrorFormatingCodeIntoExecutable(e) => format!("{}", e),
+    })
   }
 }
 
-pub fn create_executable_decipher_js_code(ciphered_url: &str, player_res: &str) -> Result<String, String> {
+pub fn create_executable_decipher_js_code(ciphered_url: &str, player_res: &str) -> Result<String, CreateExecutableDecipherJsError> {
   match create_formatable_decipher_js_code(player_res) {
     Ok(formatable_js_code) => {
-      format_decipher_code_into_executable(ciphered_url, &formatable_js_code)
+      match format_decipher_code_into_executable(ciphered_url, &formatable_js_code) {
+        Ok(decipher_code) => Ok(decipher_code),
+        Err(error) => Err(CreateExecutableDecipherJsError::ErrorFormatingCodeIntoExecutable(error))
+      }
     },
     Err(error) => {
-      Err(error)
+      Err(CreateExecutableDecipherJsError::ErrorCreatingFormattableCode(error))
     }
   }
 }
 
-pub fn format_decipher_code_into_executable(ciphered_url: &str, js_code: &str) -> Result<String, String> {
+pub fn get_s_sp_n_url(signature_cipher: &str) -> (Option<String>, Option<String>, Option<String>, Option<String>) {
   let s_re = Regex::new(r"s=(.*?)&").unwrap();
-  let s = match s_re.captures(ciphered_url) {
+  let s = match s_re.captures(signature_cipher) {
     Some(captures) => {
-      Some(decode(captures.get(1).unwrap().as_str()).unwrap())
+      match decode(captures.get(1).unwrap().as_str()) {
+        Ok(decoded_s) => Some(format!("{}", decoded_s)),
+        Err(_) => None
+      }
     },
     None => {
       None
     }
   };
   let sp_re = Regex::new(r"&sp=(.*?)&").unwrap();
-  let sp = match sp_re.captures(ciphered_url) {
+  let sp = match sp_re.captures(signature_cipher) {
     Some(captures) => {
-      Some(captures.get(1).unwrap().as_str())
+      Some(String::from(captures.get(1).unwrap().as_str()))
     },
     None => {
       None
     }
   };
   let url_re = Regex::new(r"&url=(.*)").unwrap();
-  let encoded_url = match url_re.captures(ciphered_url) {
+  let encoded_url = match url_re.captures(signature_cipher) {
     Some(captures) => {
       Some(captures.get(1).unwrap().as_str())
     },
@@ -164,12 +216,29 @@ pub fn format_decipher_code_into_executable(ciphered_url: &str, js_code: &str) -
   let n = match decoded_url {
     Some(ref decoded_url) => {
       match n_re.captures(decoded_url) {
-        Some(captures) => Some(captures.get(1).unwrap().as_str()),
+        Some(captures) => Some(String::from(captures.get(1).unwrap().as_str())),
         None => None
       }
     },
     None => None
   };
+  (s,sp,n,decoded_url)
+}
+
+pub enum FormatDecipherCodeError {
+  ErrorParsingSignature
+}
+
+impl Display for FormatDecipherCodeError {
+  fn fmt(&self, f: &mut Formatter) -> std::fmt::Result {
+    write!(f, "{}", match self {
+      FormatDecipherCodeError::ErrorParsingSignature => "Error parsing signatureCipher",
+    })
+  }
+}
+
+pub fn format_decipher_code_into_executable(ciphered_url: &str, js_code: &str) -> Result<String, FormatDecipherCodeError> {
+  let (s,sp,n,decoded_url) = get_s_sp_n_url(ciphered_url);
   match (decoded_url.clone(), s, sp, n) {
     (Some(decoded_url), Some(s), Some(sp), Some(n)) => {
       Ok(format!(r#"var url = "{}";
@@ -179,7 +248,7 @@ pub fn format_decipher_code_into_executable(ciphered_url: &str, js_code: &str) -
       {}"#, decoded_url, s, sp, n, js_code))
     },
     _ => {
-      Err(String::from("Error parsing ciphered url"))
+      Err(FormatDecipherCodeError::ErrorParsingSignature)
     }
   }
 
@@ -203,7 +272,7 @@ pub fn decipher_streams(ciphered_urls: Vec::<String>, player_res: &str) -> Resul
         }
       }).collect::<Vec::<Option<String>>>())
     },
-    Err(error) => Err(error)
+    Err(error) => Err(format!("{}", error))
   }
 }
 
@@ -214,7 +283,7 @@ pub fn decipher_stream(ciphered_url: &str, player_res: &str) -> Result<String, S
       run_js_in_boa(js_code)
     },
     Err(error) => {
-      Err(error)
+      Err(format!("{}", error))
     }
   }
 }
