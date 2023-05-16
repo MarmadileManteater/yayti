@@ -71,7 +71,12 @@ pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: ser
       Some(published) => {
         existing_map.insert(String::from("published"), json!(published));
       },
-      None => {}
+      None => match get_publish_date(json) {
+        Some(published) => {
+          existing_map.insert(String::from("published"), json!(published));
+        },
+        None => {}
+      }
     };
   }
   if !existing_map.contains_key("publishedText") {
@@ -162,6 +167,22 @@ pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: ser
       None => {}
     }
   }
+  if !existing_map.contains_key("isListed") {
+    match is_listed(json) {
+      Some(is_listed) => {
+        existing_map.insert(String::from("isListed"), json!(is_listed));
+      },
+      None => {}
+    }
+  }
+  if !existing_map.contains_key("liveNow") {
+    match is_live_now(json) {
+      Some(live_now) => {
+        existing_map.insert(String::from("liveNow"), json!(live_now));
+      },
+      None => {}
+    }
+  }
   if !existing_map.contains_key("formatStreams") {
     match get_legacy_formats(json) {
       Some(legacy_formats) => {
@@ -244,7 +265,12 @@ pub fn fmt_inv_with_existing_map_and_decipher(json: &Value, lang: &str, player_r
       Some(published) => {
         existing_map.insert(String::from("published"), json!(published));
       },
-      None => {}
+      None => match get_publish_date(json) {
+        Some(published) => {
+          existing_map.insert(String::from("published"), json!(published));
+        },
+        None => {}
+      }
     };
   }
   if !existing_map.contains_key("publishedText") {
@@ -387,6 +413,22 @@ pub fn fmt_inv_with_existing_map_and_decipher(json: &Value, lang: &str, player_r
     match get_length_seconds(json) {
       Some(length_seconds) => {
         existing_map.insert(String::from("lengthSeconds"), json!(length_seconds));
+      },
+      None => {}
+    }
+  }
+  if !existing_map.contains_key("isListed") {
+    match is_listed(json) {
+      Some(is_listed) => {
+        existing_map.insert(String::from("isListed"), json!(is_listed));
+      },
+      None => {}
+    }
+  }
+  if !existing_map.contains_key("liveNow") {
+    match is_live_now(json) {
+      Some(live_now) => {
+        existing_map.insert(String::from("liveNow"), json!(live_now));
       },
       None => {}
     }
