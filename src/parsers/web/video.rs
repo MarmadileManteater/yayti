@@ -87,6 +87,14 @@ pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: ser
       None => {}
     };
   }
+  if !existing_map.contains_key("keywords") {
+    match get_keywords(json) {
+      Some(keywords) => {
+        existing_map.insert(String::from("keywords"), json!(keywords));
+      },
+      None => {}
+    }
+  }
   if !existing_map.contains_key("viewCount") {
     match get_view_count(json) {
       Some(view_count) => {
@@ -373,6 +381,14 @@ pub fn fmt_inv_with_existing_map_and_decipher(json: &Value, lang: &str, player_r
     match get_author_thumbnails(json) {
       Some(author_thumbnails) => {
         existing_map.insert(String::from("authorThumbnails"), json!(author_thumbnails));
+      },
+      None => {}
+    }
+  }
+  if !existing_map.contains_key("keywords") {
+    match get_keywords(json) {
+      Some(keywords) => {
+        existing_map.insert(String::from("keywords"), json!(keywords));
       },
       None => {}
     }
@@ -915,14 +931,14 @@ pub fn get_published_text(json: &Value) -> Option<String> {
 }
 
 // Gets the keywords from the `/player` endpoint response
-pub fn get_keywords(json: &Value) -> Option<String> {
+pub fn get_keywords(json: &Value) -> Option<Vec::<String>> {
   match json["videoDetails"]["keywords"].as_array() {
     Some(keyword_array) => Some(keyword_array.into_iter().filter_map(|keyword| {
       match keyword.as_str() {
         Some(keyword) => Some(String::from(keyword)),
         None => None
       }
-    }).collect()),
+    }).collect::<Vec::<String>>()),
     None => None
   }
 }
