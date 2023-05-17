@@ -103,10 +103,10 @@ pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: ser
       None => {}
     }
   }
-  if !existing_map.contains_key("allowedRegions") {
-    match get_available_countries(json) {
-      Some(available_countries) => {
-        existing_map.insert(String::from("allowedRegions"), json!(available_countries));
+  if !existing_map.contains_key("isFamilyFriendly") {
+    match is_family_friendly(json) {
+      Some(family_friendly) => {
+        existing_map.insert(String::from("isFamilyFriendly"), json!(family_friendly));
       },
       None => {}
     }
@@ -115,6 +115,14 @@ pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: ser
     match get_available_countries(json) {
       Some(available_countries) => {
         existing_map.insert(String::from("allowedRegions"), json!(available_countries));
+      },
+      None => {}
+    }
+  }
+  if !existing_map.contains_key("genre") {
+    match get_category(json) {
+      Some(category) => {
+        existing_map.insert(String::from("genre"), json!(category));
       },
       None => {}
     }
@@ -167,6 +175,14 @@ pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: ser
       None => {}
     }
   }
+  if !existing_map.contains_key("allowRatings") {
+    match get_allow_ratings(json) {
+      Some(allow_ratings) => {
+        existing_map.insert(String::from("allowRatings"), json!(allow_ratings));
+      },
+      None => {}
+    }
+  }
   if !existing_map.contains_key("isListed") {
     match is_listed(json) {
       Some(is_listed) => {
@@ -179,6 +195,14 @@ pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: ser
     match is_live_now(json) {
       Some(live_now) => {
         existing_map.insert(String::from("liveNow"), json!(live_now));
+      },
+      None => {}
+    }
+  }
+  if !existing_map.contains_key("dashUrl") {
+    match get_dash_url(json) {
+      Some(dash_url) => {
+        existing_map.insert(String::from("dashUrl"), json!(dash_url));
       },
       None => {}
     }
@@ -305,6 +329,14 @@ pub fn fmt_inv_with_existing_map_and_decipher(json: &Value, lang: &str, player_r
       None => {}
     }
   }
+  if !existing_map.contains_key("isFamilyFriendly") {
+    match is_family_friendly(json) {
+      Some(family_friendly) => {
+        existing_map.insert(String::from("isFamilyFriendly"), json!(family_friendly));
+      },
+      None => {}
+    }
+  }
   if !existing_map.contains_key("allowedRegions") {
     match get_available_countries(json) {
       Some(available_countries) => {
@@ -361,6 +393,14 @@ pub fn fmt_inv_with_existing_map_and_decipher(json: &Value, lang: &str, player_r
       None => {}
     }
   }
+  if !existing_map.contains_key("isFamilyFriendly") {
+    match is_family_friendly(json) {
+      Some(family_friendly) => {
+        existing_map.insert(String::from("isFamilyFriendly"), json!(family_friendly));
+      },
+      None => {}
+    }
+  }
   if !existing_map.contains_key("allowedRegions") {
     match get_available_countries(json) {
       Some(available_countries) => {
@@ -373,6 +413,14 @@ pub fn fmt_inv_with_existing_map_and_decipher(json: &Value, lang: &str, player_r
     match get_available_countries(json) {
       Some(available_countries) => {
         existing_map.insert(String::from("allowedRegions"), json!(available_countries));
+      },
+      None => {}
+    }
+  }
+  if !existing_map.contains_key("genre") {
+    match get_category(json) {
+      Some(category) => {
+        existing_map.insert(String::from("genre"), json!(category));
       },
       None => {}
     }
@@ -425,6 +473,14 @@ pub fn fmt_inv_with_existing_map_and_decipher(json: &Value, lang: &str, player_r
       None => {}
     }
   }
+  if !existing_map.contains_key("allowRatings") {
+    match get_allow_ratings(json) {
+      Some(allow_ratings) => {
+        existing_map.insert(String::from("allowRatings"), json!(allow_ratings));
+      },
+      None => {}
+    }
+  }
   if !existing_map.contains_key("isListed") {
     match is_listed(json) {
       Some(is_listed) => {
@@ -437,6 +493,14 @@ pub fn fmt_inv_with_existing_map_and_decipher(json: &Value, lang: &str, player_r
     match is_live_now(json) {
       Some(live_now) => {
         existing_map.insert(String::from("liveNow"), json!(live_now));
+      },
+      None => {}
+    }
+  }
+  if !existing_map.contains_key("dashUrl") {
+    match get_dash_url(json) {
+      Some(dash_url) => {
+        existing_map.insert(String::from("dashUrl"), json!(dash_url));
       },
       None => {}
     }
@@ -866,7 +930,14 @@ pub fn get_keywords(json: &Value) -> Option<String> {
 // Gets the view count from the `/next` or the `/player` endpoint response
 pub fn get_view_count(json: &Value) -> Option<i32> {
   let match_numbers = Regex::new(r"[0-9]+").unwrap();
-  match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][0]["videoPrimaryInfoRenderer"]["viewCount"]["videoViewCountRenderer"]["viewCount"]["simpleText"].as_str() {
+  let views_text = match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][0]["videoPrimaryInfoRenderer"]["viewCount"]["videoViewCountRenderer"]["viewCount"]["simpleText"].as_str() {
+    Some(views_text) => Some(views_text),
+    None => match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][0]["videoPrimaryInfoRenderer"]["viewCount"]["videoViewCountRenderer"]["viewCount"]["runs"][0]["text"].as_str() {
+      Some(views_text) => Some(views_text),
+      None => None
+    }
+  };
+  match views_text {
     Some(view_text) => {
       let view_numbers_string = match_numbers.find_iter(view_text).map(|m| m.as_str()).collect::<String>();
       match i32::from_str(&view_numbers_string) {
@@ -1017,6 +1088,10 @@ pub fn get_length_seconds(json: &Value) -> Option<i32> {
   }
 }
 
+pub fn get_allow_ratings(json: &Value) -> Option<bool> {
+  json["videoDetails"]["allowRatings"].as_bool()
+}
+
 // Gets the listed status from the `/next` or the `/player` endpoint response
 pub fn is_listed(json: &Value) -> Option<bool> {
   match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][0]["videoPrimaryInfoRenderer"]["badges"].as_array() {
@@ -1052,6 +1127,13 @@ pub fn is_live_now(json: &Value) -> Option<bool> {
         None => None
       }
     }
+  }
+}
+
+pub fn get_dash_url(json: &Value) -> Option<String> {
+  match json["streamingData"]["dashManifestUrl"].as_str() {
+    Some(dash_url) => Some(String::from(dash_url)),
+    None => None
   }
 }
 
@@ -1135,6 +1217,10 @@ pub fn get_legacy_formats(json: &Value) -> Option<Vec<LegacyFormat>> {
     },
     None => None
   }
+}
+
+pub fn is_family_friendly(json: &Value) -> Option<bool> {
+  json["microformat"]["playerMicroformatRenderer"]["isFamilySafe"].as_bool()
 }
 
 // Gets the `availableCountries` from the `/player` endpoint response
