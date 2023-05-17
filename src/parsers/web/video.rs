@@ -215,6 +215,14 @@ pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: ser
       None => {}
     }
   }
+  if !existing_map.contains_key("musicTracks") {
+    match get_music_tracks(json) {
+      Some(tracks) => {
+        existing_map.insert(String::from("musicTracks"), tracks.into_iter().map(|track| track.into_inv()).collect::<Value>());
+      },
+      None => {}
+    }
+  }
   existing_map
 }
 
@@ -509,6 +517,22 @@ pub fn fmt_inv_with_existing_map_and_decipher(json: &Value, lang: &str, player_r
     match get_captions(json) {
       Some(captions) => {
         existing_map.insert(String::from("captions"), json!(captions));
+      },
+      None => {}
+    }
+  }
+  if !existing_map.contains_key("recommendedVideos") {
+    match get_recommended(json) {
+      Some(videos) => {
+        existing_map.insert(String::from("recommendedVideos"), videos.into_iter().filter_map(|format| format.into_inv()).collect::<Value>());
+      },
+      None => {}
+    }
+  }
+  if !existing_map.contains_key("musicTracks") {
+    match get_music_tracks(json) {
+      Some(tracks) => {
+        existing_map.insert(String::from("musicTracks"), tracks.into_iter().map(|track| track.into_inv()).collect::<Value>());
       },
       None => {}
     }
@@ -1123,6 +1147,14 @@ pub fn get_available_countries(json: &Value) -> Option<Vec<&str>> {
   }
 }
 
+// Gets the `category` from the `/player` endpoint response
+pub fn get_category(json: &Value) -> Option<String> {
+  match json["microformat"]["playerMicroformatRenderer"]["category"].as_str() {
+    Some(category) => Some(String::from(category)),
+    None => None
+  }
+}
+
 pub struct AdaptiveFormat {
   pub url: Option<String>,
   pub signature_cipher: Option<String>,
@@ -1441,6 +1473,134 @@ pub fn get_recommended(json: &Value) -> Option<Vec::<RecommendedItem>>  {
           }
         }
       }).collect::<Vec::<RecommendedItem>>())
+    },
+    None => None
+  }
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct MusicTrack {
+  song: Option<String>,
+  artist: Option<String>,
+  album: Option<String>,
+  license: Option<String>,
+  video_id: Option<String>
+}
+
+impl MusicTrack {
+  fn into_inv(&self) -> serde_json::Map::<String, Value> {
+    let mut j_object = serde_json::Map::<String, Value>::new();
+    match &self.song {
+      Some(song) => {
+        j_object.insert(String::from("song"), json!(song));
+      },
+      None => {}
+    };
+    match &self.artist {
+      Some(artist) => {
+        j_object.insert(String::from("artist"), json!(artist));
+      },
+      None => {}
+    };
+    match &self.album {
+      Some(album) => {
+        j_object.insert(String::from("album"), json!(album));
+      },
+      None => {}
+    };
+    match &self.license {
+      Some(license) => {
+        j_object.insert(String::from("license"), json!(license));
+      },
+      None => {}
+    };
+    match &self.video_id {
+      Some(video_id) => {
+        j_object.insert(String::from("videoId"), json!(video_id));
+      },
+      None => {}
+    };
+    j_object
+  }
+}
+
+pub fn get_music_tracks(json: &Value) -> Option<Vec::<MusicTrack>> {
+  match json["engagementPanels"].as_array() {
+    Some(panels) => {
+      for i in 0..panels.len() {
+        let result = match panels[i]["engagementPanelSectionListRenderer"]["content"]["structuredDescriptionContentRenderer"]["items"][2]["videoDescriptionMusicSectionRenderer"]["carouselLockups"].as_array() {
+          Some(carousel_lockups) => {
+            let mut songs = Vec::<MusicTrack>::new();
+            for lockup in carousel_lockups {
+              let song_title = match lockup["carouselLockupRenderer"]["videoLockup"]["compactVideoRenderer"]["title"]["runs"][0]["text"].as_str() {
+                Some(title) => Some(String::from(title)),
+                None => None
+              };
+              let video_id = match lockup["carouselLockupRenderer"]["videoLockup"]["compactVideoRenderer"]["navigationEndpoint"]["watchEndpoint"]["videoId"].as_str() {
+                Some(video_id) => Some(String::from(video_id)),
+                None => None
+              };
+              let (artist, album, licenses) = match lockup["carouselLockupRenderer"]["infoRows"].as_array() {
+                Some(rows) => {
+                  let mut artist = None::<String>;
+                  let mut album = None::<String>;
+                  let mut licences = None::<String>;
+                  for row in rows {
+                    let status_key = match row["infoRowRenderer"]["infoRowExpandStatusKey"].as_str() {
+                      Some(status_key) => Some(status_key),
+                      None => None
+                    };
+                    match status_key {
+                      Some(status_key) => {
+                        if status_key == "structured-description-music-section-artists-row-state-id" {
+                          match row["infoRowRenderer"]["defaultMetadata"]["simpleText"].as_str() {
+                            Some(artist_name) => {
+                              artist = Some(String::from(artist_name));
+                            },
+                            None => {}
+                          }
+                        } else if status_key == "structured-description-music-section-licenses-row-state-id" {
+                          match row["infoRowRenderer"]["expandedMetadata"]["simpleText"].as_str() {
+                            Some(license) => {
+                              licences = Some(String::from(license));
+                            },
+                            None => {}
+                          }
+                        }
+                      },
+                      None => {
+                        // album info
+                        match row["infoRowRenderer"]["defaultMetadata"]["simpleText"].as_str() {
+                          Some(album_name) => {
+                            album = Some(String::from(album_name));
+                          },
+                          None => {}
+                        };
+                      }
+                    }
+                  }
+                  (artist, album, licences)
+                },
+                None => (None, None, None)
+              };
+              songs.push(MusicTrack {
+                song: song_title,
+                artist: artist,
+                album: album,
+                license: licenses,
+                video_id: video_id
+              })
+            }
+            Some(songs)
+          },
+          None => None
+        };
+        match result {
+          Some(result) => return Some(result),
+          _ => {}
+        };
+      }
+      None
     },
     None => None
   }
