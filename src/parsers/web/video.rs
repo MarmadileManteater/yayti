@@ -207,6 +207,14 @@ pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: ser
       None => {}
     }
   }
+  if !existing_map.contains_key("hlsUrl") {
+    match get_hls_url(json) {
+      Some(hls_url) => {
+        existing_map.insert(String::from("hlsUrl"), json!(hls_url));
+      },
+      None => {}
+    }
+  }
   if !existing_map.contains_key("dashUrl") {
     match get_dash_url(json) {
       Some(dash_url) => {
@@ -509,6 +517,14 @@ pub fn fmt_inv_with_existing_map_and_decipher(json: &Value, lang: &str, player_r
     match is_live_now(json) {
       Some(live_now) => {
         existing_map.insert(String::from("liveNow"), json!(live_now));
+      },
+      None => {}
+    }
+  }
+  if !existing_map.contains_key("hlsUrl") {
+    match get_hls_url(json) {
+      Some(hls_url) => {
+        existing_map.insert(String::from("hlsUrl"), json!(hls_url));
       },
       None => {}
     }
@@ -1149,6 +1165,13 @@ pub fn is_live_now(json: &Value) -> Option<bool> {
 pub fn get_dash_url(json: &Value) -> Option<String> {
   match json["streamingData"]["dashManifestUrl"].as_str() {
     Some(dash_url) => Some(String::from(dash_url)),
+    None => None
+  }
+}
+
+pub fn get_hls_url(json: &Value) -> Option<String> {
+  match json["streamingData"]["hlsManifestUrl"].as_str() {
+    Some(hls_url) => Some(String::from(hls_url)),
     None => None
   }
 }
