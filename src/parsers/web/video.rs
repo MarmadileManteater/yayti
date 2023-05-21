@@ -1658,7 +1658,7 @@ pub fn get_music_tracks(json: &Value) -> Option<Vec::<MusicTrack>> {
                 Some(carousel_lockups) => {
                   let mut songs = Vec::<MusicTrack>::new();
                   for lockup in carousel_lockups {
-                    let song_title = match lockup["carouselLockupRenderer"]["videoLockup"]["compactVideoRenderer"]["title"]["runs"][0]["text"].as_str() {
+                    let mut song_title = match lockup["carouselLockupRenderer"]["videoLockup"]["compactVideoRenderer"]["title"]["runs"][0]["text"].as_str() {
                       Some(title) => Some(String::from(title)),
                       None => None
                     };
@@ -1696,12 +1696,25 @@ pub fn get_music_tracks(json: &Value) -> Option<Vec::<MusicTrack>> {
                             },
                             None => {
                               // album info
-                              match row["infoRowRenderer"]["defaultMetadata"]["simpleText"].as_str() {
-                                Some(album_name) => {
-                                  album = Some(String::from(album_name));
+                              match song_title {
+                                Some(_) => {// song is already known this must be the album
+                                  match row["infoRowRenderer"]["defaultMetadata"]["simpleText"].as_str() {
+                                    Some(album_name) => {
+                                      album = Some(String::from(album_name));
+                                    },
+                                    None => {}
+                                  };
                                 },
-                                None => {}
-                              };
+                                None => {// song is not known, so this should be the song
+                                  match row["infoRowRenderer"]["defaultMetadata"]["simpleText"].as_str() {
+                                    Some(song_name) => {
+                                      song_title = Some(String::from(song_name));
+                                    },
+                                    None => {}
+                                  };
+                                }
+                              }
+                              
                             }
                           }
                         }
@@ -1727,9 +1740,8 @@ pub fn get_music_tracks(json: &Value) -> Option<Vec::<MusicTrack>> {
               };
             }
           },
-          None => {}// no structured description content renderer
+          None => {}
         };
-
       }
       None
     },
