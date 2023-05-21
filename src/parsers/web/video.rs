@@ -1651,77 +1651,85 @@ pub fn get_music_tracks(json: &Value) -> Option<Vec::<MusicTrack>> {
   match json["engagementPanels"].as_array() {
     Some(panels) => {
       for i in 0..panels.len() {
-        let result = match panels[i]["engagementPanelSectionListRenderer"]["content"]["structuredDescriptionContentRenderer"]["items"][2]["videoDescriptionMusicSectionRenderer"]["carouselLockups"].as_array() {
-          Some(carousel_lockups) => {
-            let mut songs = Vec::<MusicTrack>::new();
-            for lockup in carousel_lockups {
-              let song_title = match lockup["carouselLockupRenderer"]["videoLockup"]["compactVideoRenderer"]["title"]["runs"][0]["text"].as_str() {
-                Some(title) => Some(String::from(title)),
-                None => None
-              };
-              let video_id = match lockup["carouselLockupRenderer"]["videoLockup"]["compactVideoRenderer"]["navigationEndpoint"]["watchEndpoint"]["videoId"].as_str() {
-                Some(video_id) => Some(String::from(video_id)),
-                None => None
-              };
-              let (artist, album, licenses) = match lockup["carouselLockupRenderer"]["infoRows"].as_array() {
-                Some(rows) => {
-                  let mut artist = None::<String>;
-                  let mut album = None::<String>;
-                  let mut licences = None::<String>;
-                  for row in rows {
-                    let status_key = match row["infoRowRenderer"]["infoRowExpandStatusKey"].as_str() {
-                      Some(status_key) => Some(status_key),
+        match panels[i]["engagementPanelSectionListRenderer"]["content"]["structuredDescriptionContentRenderer"]["items"].as_array() {
+          Some(items) => {
+            for k in 0..items.len() {
+              let result = match items[k]["videoDescriptionMusicSectionRenderer"]["carouselLockups"].as_array() {
+                Some(carousel_lockups) => {
+                  let mut songs = Vec::<MusicTrack>::new();
+                  for lockup in carousel_lockups {
+                    let song_title = match lockup["carouselLockupRenderer"]["videoLockup"]["compactVideoRenderer"]["title"]["runs"][0]["text"].as_str() {
+                      Some(title) => Some(String::from(title)),
                       None => None
                     };
-                    match status_key {
-                      Some(status_key) => {
-                        if status_key == "structured-description-music-section-artists-row-state-id" {
-                          match row["infoRowRenderer"]["defaultMetadata"]["simpleText"].as_str() {
-                            Some(artist_name) => {
-                              artist = Some(String::from(artist_name));
+                    let video_id = match lockup["carouselLockupRenderer"]["videoLockup"]["compactVideoRenderer"]["navigationEndpoint"]["watchEndpoint"]["videoId"].as_str() {
+                      Some(video_id) => Some(String::from(video_id)),
+                      None => None
+                    };
+                    let (artist, album, licenses) = match lockup["carouselLockupRenderer"]["infoRows"].as_array() {
+                      Some(rows) => {
+                        let mut artist = None::<String>;
+                        let mut album = None::<String>;
+                        let mut licences = None::<String>;
+                        for row in rows {
+                          let status_key = match row["infoRowRenderer"]["infoRowExpandStatusKey"].as_str() {
+                            Some(status_key) => Some(status_key),
+                            None => None
+                          };
+                          match status_key {
+                            Some(status_key) => {
+                              if status_key == "structured-description-music-section-artists-row-state-id" {
+                                match row["infoRowRenderer"]["defaultMetadata"]["simpleText"].as_str() {
+                                  Some(artist_name) => {
+                                    artist = Some(String::from(artist_name));
+                                  },
+                                  None => {}
+                                }
+                              } else if status_key == "structured-description-music-section-licenses-row-state-id" {
+                                match row["infoRowRenderer"]["expandedMetadata"]["simpleText"].as_str() {
+                                  Some(license) => {
+                                    licences = Some(String::from(license));
+                                  },
+                                  None => {}
+                                }
+                              }
                             },
-                            None => {}
-                          }
-                        } else if status_key == "structured-description-music-section-licenses-row-state-id" {
-                          match row["infoRowRenderer"]["expandedMetadata"]["simpleText"].as_str() {
-                            Some(license) => {
-                              licences = Some(String::from(license));
-                            },
-                            None => {}
+                            None => {
+                              // album info
+                              match row["infoRowRenderer"]["defaultMetadata"]["simpleText"].as_str() {
+                                Some(album_name) => {
+                                  album = Some(String::from(album_name));
+                                },
+                                None => {}
+                              };
+                            }
                           }
                         }
+                        (artist, album, licences)
                       },
-                      None => {
-                        // album info
-                        match row["infoRowRenderer"]["defaultMetadata"]["simpleText"].as_str() {
-                          Some(album_name) => {
-                            album = Some(String::from(album_name));
-                          },
-                          None => {}
-                        };
-                      }
-                    }
+                      None => (None, None, None)
+                    };
+                    songs.push(MusicTrack {
+                      song: song_title,
+                      artist: artist,
+                      album: album,
+                      license: licenses,
+                      video_id: video_id
+                    })
                   }
-                  (artist, album, licences)
+                  Some(songs)
                 },
-                None => (None, None, None)
+                None => None
               };
-              songs.push(MusicTrack {
-                song: song_title,
-                artist: artist,
-                album: album,
-                license: licenses,
-                video_id: video_id
-              })
+              match result {
+                Some(result) => return Some(result),
+                None => {}
+              };
             }
-            Some(songs)
           },
-          None => None
+          None => {}// no structured description content renderer
         };
-        match result {
-          Some(result) => return Some(result),
-          _ => {}
-        };
+
       }
       None
     },
