@@ -129,7 +129,6 @@ impl Display for CreateFormattableDecipherJsError {
 }
 
 pub fn create_formatable_decipher_js_code(player_res: &str) -> Result<String, CreateFormattableDecipherJsError> {
-  let mut errors = Vec::<String>::new();
   let sig_js = match extract_sig_js_code(player_res) {
     Ok(result) => result,
     Err(e) => {
@@ -279,7 +278,7 @@ pub fn decipher_streams(ciphered_urls: Vec::<String>, player_res: &str) -> Resul
 #[cfg(feature = "decipher_streams")]
 pub fn decipher_stream(ciphered_url: &str, player_res: &str) -> Result<String, String> {
   match create_executable_decipher_js_code(ciphered_url, player_res) {
-    Ok(mut js_code) => {
+    Ok(js_code) => {
       run_js_in_boa(js_code)
     },
     Err(error) => {

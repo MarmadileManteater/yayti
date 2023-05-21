@@ -10,8 +10,6 @@ use serde::{Deserialize, Serialize};
 use serde_json::json;
 #[cfg(feature = "decipher_streams")]
 use super::super::ciphers::{create_formatable_decipher_js_code,format_decipher_code_into_executable, run_js_in_boa};
-use std::fs::File;
-use std::io::Write;
 
 fn add_host_param_to_url(url: &str) -> String {
   let host_re = Regex::new(r"(.*?\.googlevideo\.com)").unwrap();
@@ -28,7 +26,7 @@ fn add_host_param_to_url(url: &str) -> String {
 
 #[cfg(feature = "parse_languages_to_published")]
 pub fn fmt_inv(json: &Value, lang: &str) -> serde_json::Map<String, serde_json::Value> {
-  let mut output = serde_json::Map::new();
+  let output = serde_json::Map::new();
   fmt_inv_with_existing_map(json, lang, output)
 }
 
@@ -269,7 +267,7 @@ pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: ser
 #[cfg(feature = "parse_languages_to_published")]
 #[cfg(feature = "decipher_streams")]
 pub fn fmt_inv_and_decipher(json: &Value, lang: &str, player_res: &str) -> serde_json::Map<String, serde_json::Value> {
-  let mut output = serde_json::Map::new();
+  let output = serde_json::Map::new();
   fmt_inv_with_existing_map_and_decipher(json, lang, player_res, output)
 }
 
@@ -604,7 +602,7 @@ pub fn fmt_inv_with_existing_map_and_decipher(json: &Value, lang: &str, player_r
             formats[i].url = Some(add_host_param_to_url(&formats[i].url.as_ref().unwrap()));
           }
         }
-        existing_map.insert(String::from("adaptiveFormats"), formats.into_iter().map(|mut format| format.into_inv()).collect::<Value>());
+        existing_map.insert(String::from("adaptiveFormats"), formats.into_iter().map(|format| format.into_inv()).collect::<Value>());
       },
       None => {}
     }
@@ -1336,26 +1334,26 @@ impl AdaptiveFormat {
     };
     match &self.audio_quality {
       Some(audio_quality) => {
-        j_object.insert(String::from("audioQuality"), json!(self.audio_quality));
+        j_object.insert(String::from("audioQuality"), json!(audio_quality));
       },
       None => {}
     };
     match self.audio_sample_rate {
       Some(audio_sample_rate) => {
-        j_object.insert(String::from("audioSampleRate"), json!(self.audio_sample_rate));
+        j_object.insert(String::from("audioSampleRate"), json!(audio_sample_rate));
       },
       None => {}
     };
     match self.audio_channels {
       Some(audio_channels) => {
-        j_object.insert(String::from("audioChannels"), json!(self.audio_channels));
+        j_object.insert(String::from("audioChannels"), json!(audio_channels));
       },
       None => {}
     }
     j_object.insert(String::from("quality"), json!(self.quality));
     match &self.quality_label {
       Some(quality_label) => {
-        j_object.insert(String::from("qualityLabel"), json!(self.quality_label));
+        j_object.insert(String::from("qualityLabel"), json!(quality_label));
       },
       None => {
         j_object.insert(String::from("qualityLabel"), json!(format!("{}", self.bitrate)));
@@ -1729,4 +1727,35 @@ pub fn get_music_tracks(json: &Value) -> Option<Vec::<MusicTrack>> {
     },
     None => None
   }
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct CommentContinuation {
+  pub title: String,
+  pub token: String
+}
+
+pub fn get_comment_continuations(json: &Value) -> Option<Vec::<CommentContinuation>> {
+  match json["engagementPanels"].as_array() {
+    Some(panels) => {
+      for i in 0..panels.len() {
+        match panels[i]["engagementPanelSectionListRenderer"]["header"]["engagementPanelTitleHeaderRenderer"]["menu"]["sortFilterSubMenuRenderer"]["subMenuItems"].as_array() {
+          Some(sub_menu_items) => {
+            return Some(sub_menu_items.into_iter().filter_map(|item| {
+              let Some(title) = item["title"].as_str() else { return None };
+              let Some(token) = item["serviceEndpoint"]["continuationCommand"]["token"].as_str() else { return None };
+
+              Some(CommentContinuation {
+                title: String::from(title),
+                token: String::from(token)
+              })
+            }).collect::<Vec::<CommentContinuation>>());
+          },
+          None => {}
+        };
+      }
+    },
+    None => {}
+  };
+  None
 }

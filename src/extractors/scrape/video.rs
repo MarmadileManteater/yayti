@@ -1,9 +1,6 @@
 
-use serde_json::Value;
-
 use reqwest::Client;
 use regex::Regex;
-use log::warn;
 
 use crate::constants::{WEBSITE_BASE_URL, WEBSITE_VIDEO_PATH};
 
