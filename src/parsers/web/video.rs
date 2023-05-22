@@ -1607,7 +1607,8 @@ pub struct MusicTrack {
   artist: Option<String>,
   album: Option<String>,
   license: Option<String>,
-  video_id: Option<String>
+  video_id: Option<String>,
+  channel_id: Option<String>
 }
 
 impl MusicTrack {
@@ -1643,6 +1644,12 @@ impl MusicTrack {
       },
       None => {}
     };
+    match &self.channel_id {
+      Some(channel_id) => {
+        j_object.insert(String::from("channelId"), json!(channel_id));
+      },
+      None => {}
+    };
     j_object
   }
 }
@@ -1666,11 +1673,13 @@ pub fn get_music_tracks(json: &Value) -> Option<Vec::<MusicTrack>> {
                       Some(video_id) => Some(String::from(video_id)),
                       None => None
                     };
-                    let (artist, album, licenses) = match lockup["carouselLockupRenderer"]["infoRows"].as_array() {
+                    let (artist, channel_id, album, licenses, video_id) = match lockup["carouselLockupRenderer"]["infoRows"].as_array() {
                       Some(rows) => {
                         let mut artist = None::<String>;
+                        let mut channel_id = None::<String>;
                         let mut album = None::<String>;
                         let mut licences = None::<String>;
+                        let mut video_id = video_id;
                         for row in rows {
                           let status_key = match row["infoRowRenderer"]["infoRowExpandStatusKey"].as_str() {
                             Some(status_key) => Some(status_key),
@@ -1683,7 +1692,26 @@ pub fn get_music_tracks(json: &Value) -> Option<Vec::<MusicTrack>> {
                                   Some(artist_name) => {
                                     artist = Some(String::from(artist_name));
                                   },
-                                  None => {}
+                                  None => match row["infoRowRenderer"]["defaultMetadata"]["runs"].as_array() {
+                                    Some(artist_name_runs) => {
+                                      if artist_name_runs.len() > 0 {
+                                        let run = &artist_name_runs[0];
+                                        match run["text"].as_str() {
+                                          Some(text) => {
+                                            artist = Some(String::from(text))
+                                          },
+                                          None => {}
+                                        };
+                                        match run["navigationEndpoint"]["browseEndpoint"]["browseId"].as_str() {
+                                          Some(browse_id) => {
+                                            channel_id = Some(String::from(browse_id));
+                                          },
+                                          None => {}
+                                        }
+                                      }
+                                    },
+                                    None => {}
+                                  }
                                 }
                               } else if status_key == "structured-description-music-section-licenses-row-state-id" {
                                 match row["infoRowRenderer"]["expandedMetadata"]["simpleText"].as_str() {
@@ -1710,7 +1738,20 @@ pub fn get_music_tracks(json: &Value) -> Option<Vec::<MusicTrack>> {
                                     Some(song_name) => {
                                       song_title = Some(String::from(song_name));
                                     },
-                                    None => {}
+                                    None => match row["infoRowRenderer"]["defaultMetadata"]["runs"].as_array() {
+                                      Some(song_name_runs) => {
+                                        if song_name_runs.len() > 0 {
+                                          let run = &song_name_runs[0];
+                                          match run["navigationEndpoint"]["watchEndpoint"]["videoId"].as_str() {
+                                            Some(watch_id) => {
+                                              video_id = Some(String::from(watch_id));
+                                            },
+                                            None => {}
+                                          }
+                                        }
+                                      },
+                                      None => {}
+                                    }
                                   };
                                 }
                               }
@@ -1718,16 +1759,17 @@ pub fn get_music_tracks(json: &Value) -> Option<Vec::<MusicTrack>> {
                             }
                           }
                         }
-                        (artist, album, licences)
+                        (artist, channel_id, album, licences, video_id)
                       },
-                      None => (None, None, None)
+                      None => (None, None, None, None, video_id)
                     };
                     songs.push(MusicTrack {
                       song: song_title,
                       artist: artist,
                       album: album,
                       license: licenses,
-                      video_id: video_id
+                      video_id: video_id,
+                      channel_id: channel_id
                     })
                   }
                   Some(songs)
