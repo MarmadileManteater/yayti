@@ -663,113 +663,131 @@ pub fn get_description(json: &Value) -> Option<String> {
 
 // Gets the description html from the `/next` endpoint response 
 pub fn get_description_html(json: &Value) -> Option<String> {
-  match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][1]["videoSecondaryInfoRenderer"]["attributedDescription"]["content"].as_str() {
-    Some(attributed_description) => {
-      match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][1]["videoSecondaryInfoRenderer"]["attributedDescription"]["commandRuns"].as_array() {
-        Some(command_runs) => {
-          if command_runs.len() > 0 {
-            let mut offset: usize = 0;
-            let encoded_attributed_description = attributed_description.encode_utf16().collect::<Vec::<u16>>();
-            let mut description_with_attr = encoded_attributed_description.clone();
-            for i in 0..command_runs.len() {
-              let command_run = &command_runs[i];
-              let start_index = match command_run["startIndex"].as_i64() {
-                Some(start_index) => start_index as usize,
-                None => 0
-              };
-              let length = match command_run["length"].as_i64() {
-                Some(length) => length as usize,
-                None => 0
-              };
-              if length != 0 {
-                let url = match command_run["onTap"]["innertubeCommand"]["urlEndpoint"]["url"].as_str() {
-                  Some(url_endpoint) => {
-                    if url_endpoint.contains("&q=") && url_endpoint.contains("&v=") {
-                      Some(String::from(decode(url_endpoint.split("&q=").collect::<Vec::<&str>>()[1].to_string().split("&v=").collect::<Vec::<&str>>()[0]).unwrap()))
-                    } else if !url_endpoint.contains("https://www.youtube.com/redirect") {
-                      Some(String::from(url_endpoint))
-                    } else {
-                      None
-                    }
-                  },
-                  None => match command_run["onTap"]["innertubeCommand"]["watchEndpoint"]["videoId"].as_str() {
-                    Some(video_id) => {
-                      match command_run["onTap"]["innertubeCommand"]["watchEndpoint"]["startTimeSeconds"].as_i64() {
-                        Some(start_time_seconds) => {
-                          if start_time_seconds > 0 {
-                            Some(String::from(format!("{}/{}?t={}", SHORT_WEBSITE_BASE_URL, video_id, start_time_seconds)))
-                          } else {
-                            Some(String::from(format!("{}/{}", SHORT_WEBSITE_BASE_URL, video_id)))
-                          }
+  let contents = match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"].as_array() {
+    Some(contents) => contents,
+    None => { return None }
+  };
+  for i in 0..contents.len() {
+    let description_html = match contents[i]["videoSecondaryInfoRenderer"]["attributedDescription"]["content"].as_str() {
+      Some(attributed_description) => {
+        match contents[i]["videoSecondaryInfoRenderer"]["attributedDescription"]["commandRuns"].as_array() {
+          Some(command_runs) => {
+            if command_runs.len() > 0 {
+              let mut offset: usize = 0;
+              let encoded_attributed_description = attributed_description.encode_utf16().collect::<Vec::<u16>>();
+              let mut description_with_attr = encoded_attributed_description.clone();
+              for i in 0..command_runs.len() {
+                let command_run = &command_runs[i];
+                let start_index = match command_run["startIndex"].as_i64() {
+                  Some(start_index) => start_index as usize,
+                  None => 0
+                };
+                let length = match command_run["length"].as_i64() {
+                  Some(length) => length as usize,
+                  None => 0
+                };
+                if length != 0 {
+                  let url = match command_run["onTap"]["innertubeCommand"]["urlEndpoint"]["url"].as_str() {
+                    Some(url_endpoint) => {
+                      if url_endpoint.contains("&q=") && url_endpoint.contains("&v=") {
+                        Some(String::from(decode(url_endpoint.split("&q=").collect::<Vec::<&str>>()[1].to_string().split("&v=").collect::<Vec::<&str>>()[0]).unwrap()))
+                      } else if !url_endpoint.contains("https://www.youtube.com/redirect") {
+                        Some(String::from(url_endpoint))
+                      } else {
+                        None
+                      }
+                    },
+                    None => match command_run["onTap"]["innertubeCommand"]["watchEndpoint"]["videoId"].as_str() {
+                      Some(video_id) => {
+                        match command_run["onTap"]["innertubeCommand"]["watchEndpoint"]["startTimeSeconds"].as_i64() {
+                          Some(start_time_seconds) => {
+                            if start_time_seconds > 0 {
+                              Some(String::from(format!("{}/{}?t={}", SHORT_WEBSITE_BASE_URL, video_id, start_time_seconds)))
+                            } else {
+                              Some(String::from(format!("{}/{}", SHORT_WEBSITE_BASE_URL, video_id)))
+                            }
+                          },
+                          None => None
+                        }
+                      },
+                      None => match command_run["onTap"]["innertubeCommand"]["browseEndpoint"]["canonicalBaseUrl"].as_str() {
+                        Some(base_url) => {
+                          Some(String::from(format!("{}{}", WEBSITE_BASE_URL, base_url)))
                         },
                         None => None
                       }
-                    },
-                    None => match command_run["onTap"]["innertubeCommand"]["browseEndpoint"]["canonicalBaseUrl"].as_str() {
-                      Some(base_url) => {
-                        Some(String::from(format!("{}{}", WEBSITE_BASE_URL, base_url)))
-                      },
-                      None => None
                     }
-                  }
-                };
-                match url {
-                  Some(url) => {
-                    let link_contents = match encoded_attributed_description.subvector_as_str(start_index, start_index + length) {
-                      Ok(contents) => contents,
-                      Err(err) => {
-                        println!("ERROR when decoding description html link contents: {}", err.message);
-                        String::from("")
-                      }
-                    };
-
-                    let attr_len = encoded_attributed_description.len();
-                    let before_author_name = Regex::new(r"/\s@*").unwrap();
-                    let link = format!("<a href=\"{}\">{}</a>" , url, before_author_name.replace(&link_contents.replace("•", ""), "@").trim());
-                    let before = match description_with_attr.subvector_as_str(0, start_index + offset) {
-                      Ok(contents) => contents,
-                      Err(err) => {
-                        println!("ERROR when decoding description html: {}", err.message);
-                        String::from("")
-                      }
-                    };
-
-                    let after = match description_with_attr.subvector_as_str(start_index + length + offset, description_with_attr.len()) {
-                      Ok(contents) => contents,
-                      Err(err) => {
-                        println!("ERROR when decoding description html: {}", err.message);
-                        String::from("")
-                      }
-                    };
-                    
-                    description_with_attr = String::from(format!("{}{}{}", before, link, after)).encode_utf16().collect::<Vec::<u16>>();
-                    
-                    offset = description_with_attr.len() - attr_len;
-                  },
-                  None => {}
-                };
+                  };
+                  match url {
+                    Some(url) => {
+                      let link_contents = match encoded_attributed_description.subvector_as_str(start_index, start_index + length) {
+                        Ok(contents) => contents,
+                        Err(err) => {
+                          println!("ERROR when decoding description html link contents: {}", err.message);
+                          String::from("")
+                        }
+                      };
+  
+                      let attr_len = encoded_attributed_description.len();
+                      let before_author_name = Regex::new(r"/\s@*").unwrap();
+                      let link = format!("<a href=\"{}\">{}</a>" , url, before_author_name.replace(&link_contents.replace("•", ""), "@").trim());
+                      let before = match description_with_attr.subvector_as_str(0, start_index + offset) {
+                        Ok(contents) => contents,
+                        Err(err) => {
+                          println!("ERROR when decoding description html: {}", err.message);
+                          String::from("")
+                        }
+                      };
+  
+                      let after = match description_with_attr.subvector_as_str(start_index + length + offset, description_with_attr.len()) {
+                        Ok(contents) => contents,
+                        Err(err) => {
+                          println!("ERROR when decoding description html: {}", err.message);
+                          String::from("")
+                        }
+                      };
+                      
+                      description_with_attr = String::from(format!("{}{}{}", before, link, after)).encode_utf16().collect::<Vec::<u16>>();
+                      
+                      offset = description_with_attr.len() - attr_len;
+                    },
+                    None => {}
+                  };
+                }
               }
+              Some(String::from_utf16(&description_with_attr).unwrap())
+            } else {
+              Some(String::from(attributed_description))
             }
-            Some(String::from_utf16(&description_with_attr).unwrap())
-          } else {
-            Some(String::from(attributed_description))
-          }
-        },
-        None => Some(String::from(attributed_description))
+          },
+          None => Some(String::from(attributed_description))
+        }
       }
+      None => None
+    };
+    match description_html {
+      Some(result) => { return Some(result); },
+      None => {}
     }
-    None => None
   }
+  None
 }
 
 // Gets the full date text from the `/next` endpoint response
 pub fn get_date_text(json: &Value) -> Option<String> {
-  match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][0]["videoPrimaryInfoRenderer"]["dateText"]["simpleText"].as_str() {
-    Some(date_text) => {
-      Some(String::from(date_text))
-    },
-    None => None
+  let contents = match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"].as_array() {
+    Some(contents) => contents,
+    None => { return None }
+  };
+  for i in 0..contents.len() {
+    match contents[i]["videoPrimaryInfoRenderer"]["dateText"]["simpleText"].as_str() {
+      Some(date_text) => {
+        return Some(String::from(date_text));
+      },
+      None => {}
+    }
   }
+  None
 }
 
 // Gets the month+day and the year the video was uploaded from the `/next` endpoint response
@@ -936,12 +954,19 @@ pub fn get_publish_date(json: &Value) -> Option<i64> {
 
 // Gets the published text from the `/next` endpoint response
 pub fn get_published_text(json: &Value) -> Option<String> {
-  match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][0]["videoPrimaryInfoRenderer"]["relativeDateText"]["simpleText"].as_str() {
-    Some(date_text) => {
-      Some(String::from(date_text))
-    },
-    None => None
+  let contents = match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"].as_array() {
+    Some(contents) => contents,
+    None => { return None }
+  };
+  for i in 0..contents.len() {
+    match contents[i]["videoPrimaryInfoRenderer"]["relativeDateText"]["simpleText"].as_str() {
+      Some(date_text) => {
+        return Some(String::from(date_text))
+      },
+      None => {}
+    }
   }
+  None
 }
 
 // Gets the keywords from the `/player` endpoint response
@@ -960,16 +985,27 @@ pub fn get_keywords(json: &Value) -> Option<Vec::<String>> {
 // Gets the view count from the `/next` or the `/player` endpoint response
 pub fn get_view_count(json: &Value) -> Option<i32> {
   let match_numbers = Regex::new(r"[0-9]+").unwrap();
-  let views_text = match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][0]["videoPrimaryInfoRenderer"]["viewCount"]["videoViewCountRenderer"]["viewCount"]["simpleText"].as_str() {
-    Some(views_text) => Some(views_text),
-    None => match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][0]["videoPrimaryInfoRenderer"]["viewCount"]["videoViewCountRenderer"]["viewCount"]["runs"][0]["text"].as_str() {
-      Some(views_text) => Some(views_text),
-      None => None
-    }
+  let contents = match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"].as_array() {
+    Some(contents) => contents,
+    None => { return None }
   };
+  let mut views_text = None::<String>;
+  for i in 0..contents.len() {
+    views_text = match contents[i]["videoPrimaryInfoRenderer"]["viewCount"]["videoViewCountRenderer"]["viewCount"]["simpleText"].as_str() {
+      Some(views_text) => Some(String::from(views_text)),
+      None => match contents[i]["videoPrimaryInfoRenderer"]["viewCount"]["videoViewCountRenderer"]["viewCount"]["runs"][0]["text"].as_str() {
+        Some(views_text) => Some(String::from(views_text)),
+        None => None
+      }
+    };
+    match views_text {
+      Some(_) => break,
+      None => continue
+    }
+  }
   match views_text {
     Some(view_text) => {
-      let view_numbers_string = match_numbers.find_iter(view_text).map(|m| m.as_str()).collect::<String>();
+      let view_numbers_string = match_numbers.find_iter(&view_text).map(|m| m.as_str()).collect::<String>();
       match i32::from_str(&view_numbers_string) {
         Ok(number) => Some(number),
         Err(_) => match json["engagementPanels"].as_array() {
@@ -1012,38 +1048,38 @@ pub fn get_view_count(json: &Value) -> Option<i32> {
 // Gets the like count from the `/next` endpoint response
 pub fn get_like_count(json: &Value) -> Option<i32> {
   let match_numbers = Regex::new(r"[0-9]+").unwrap();
-  match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][0]["videoPrimaryInfoRenderer"]["videoActions"]["menuRenderer"]["topLevelButtons"][0]["segmentedLikeDislikeButtonRenderer"]["likeButton"]["toggleButtonRenderer"]["defaultText"]["accessibility"]["accessibilityData"]["label"].as_str() {
-    Some(like_text) => {
-      let like_numbers_string = match_numbers.find_iter(like_text).map(|m| m.as_str()).collect::<String>();
-      match i32::from_str(&like_numbers_string) {
-        Ok(number) => Some(number),
-        Err(_) => match json["engagementPanels"].as_array() {
-          Some(panels) => {
-            let mut final_result = None;
-            for i in 0..panels.len() {
-              final_result = match panels[i]["engagementPanelSectionListRenderer"]["content"]["structuredDescriptionContentRenderer"]["items"][0]["videoDescriptionHeaderRenderer"]["factoid"][0]["factoidRenderer"]["value"]["simpleText"].as_str() {
-                Some(views_factoid) => { 
-                  if views_factoid == "0" {
-                    Some(0)
-                  } else {
-                    None
-                  }
-                },
-                None => None
-              };
-              match final_result {
-                Some(_) => { break },
-                None => {}
-              };
-            }
-            final_result
-          },
-          None => None
+  let contents = match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"].as_array() {
+    Some(contents) => contents,
+    None => { return None }
+  };
+  for i in 0..contents.len() {
+    match contents[i]["videoPrimaryInfoRenderer"]["videoActions"]["menuRenderer"]["topLevelButtons"][0]["segmentedLikeDislikeButtonRenderer"]["likeButton"]["toggleButtonRenderer"]["defaultText"]["accessibility"]["accessibilityData"]["label"].as_str() {
+      Some(like_text) => {
+        let like_numbers_string = match_numbers.find_iter(like_text).map(|m| m.as_str()).collect::<String>();
+        match i32::from_str(&like_numbers_string) {
+          Ok(number) => { return Some(number) },
+          Err(_) => match json["engagementPanels"].as_array() {
+            Some(panels) => {
+              for i in 0..panels.len() {
+                match panels[i]["engagementPanelSectionListRenderer"]["content"]["structuredDescriptionContentRenderer"]["items"][0]["videoDescriptionHeaderRenderer"]["factoid"][0]["factoidRenderer"]["value"]["simpleText"].as_str() {
+                  Some(views_factoid) => { 
+                    if views_factoid == "0" {
+                      return Some(0);
+                    } else {
+                    }
+                  },
+                  None => {}
+                };
+              }
+            },
+            None => {}
+          }
         }
-      }
-    },
-    None => None
+      },
+      None => {}
+    }
   }
+  None
 }
 
 // Gets the author from the `/next` or the `/player` endpoint response
@@ -1076,34 +1112,50 @@ pub struct Thumbnail {
 }
 
 pub fn get_author_thumbnails(json: &Value) -> Option<Vec<Thumbnail>> {
-  match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][1]["videoSecondaryInfoRenderer"]["owner"]["videoOwnerRenderer"]["thumbnail"]["thumbnails"].as_array() {
-    Some(author_thumbnails) => {
-      Some(author_thumbnails.into_iter().map(|thumbnail| {
-        Thumbnail {
-          url: String::from(thumbnail["url"].as_str().unwrap_or("")),
-          width: thumbnail["width"].as_i64().unwrap_or(0) as i32,
-          height: thumbnail["height"].as_i64().unwrap_or(0) as i32
-        }
-      }).collect::<Vec<Thumbnail>>())
-    },
-    None => None
+  let contents = match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"].as_array() {
+    Some(contents) => contents,
+    None => { return None }
+  };
+  for i in 0..contents.len() {
+    match contents[i]["videoSecondaryInfoRenderer"]["owner"]["videoOwnerRenderer"]["thumbnail"]["thumbnails"].as_array() {
+      Some(author_thumbnails) => {
+        return Some(author_thumbnails.into_iter().map(|thumbnail| {
+          Thumbnail {
+            url: String::from(thumbnail["url"].as_str().unwrap_or("")),
+            width: thumbnail["width"].as_i64().unwrap_or(0) as i32,
+            height: thumbnail["height"].as_i64().unwrap_or(0) as i32
+          }
+        }).collect::<Vec<Thumbnail>>());
+      },
+      None => {}
+    }
   }
+  None
 }
 
 // Gets the sub count text from the `/next` endpoint response
 pub fn get_sub_count_text(json: &Value) -> Option<String> {
   let match_numbers = Regex::new(r"[0-9]+").unwrap();
-  match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][1]["videoSecondaryInfoRenderer"]["owner"]["videoOwnerRenderer"]["subscriberCountText"]["simpleText"].as_str() {
-    Some(text) => Some(String::from(text.split(" ").filter_map(|part| { 
-      match match_numbers.captures(part) {
-        Some(_) => {
-          Some(part)
-        },
-        None => None
-      }
-    }).collect::<Vec::<&str>>()[0])),
-    None => None
+  let contents = match json["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"].as_array() {
+    Some(contents) => contents,
+    None => { return None }
+  };
+  for i in 0..contents.len() {
+    match contents[i]["videoSecondaryInfoRenderer"]["owner"]["videoOwnerRenderer"]["subscriberCountText"]["simpleText"].as_str() {
+      Some(text) => { 
+        return Some(String::from(text.split(" ").filter_map(|part| { 
+          match match_numbers.captures(part) {
+            Some(_) => {
+              Some(part)
+            },
+            None => None
+          }
+        }).collect::<Vec::<&str>>()[0]))
+      },
+      None => {}
+    }
   }
+  None
 }
 
 pub fn get_length_seconds(json: &Value) -> Option<i32> {

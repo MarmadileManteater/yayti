@@ -310,12 +310,12 @@ pub fn run_js_in_boa(mut js_code: String) -> Result<String, String> {
           Ok(format!("{}", result.as_str()))
         },
         Err(_) => {
-          Err(String::from("error parsing JS output"))
+          Err(String::from("Error parsing JS output"))
         }
       }
     },
-    Err(_) => {
-      Err(String::from("error running JS"))
+    Err(error) => {
+      Err(format!("Error running JS: {}", error.to_json(&mut context).unwrap()["message"]))
     }
   }
 } 
