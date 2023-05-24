@@ -53,7 +53,12 @@ pub fn extract_sig_js_code(player_res: &str) -> Result<String, ExtractSigJsCodeE
       None
     }
   };
-  let functions_regex = Regex::new(&format!(r"(?m)var {}=\{{([\s\S]*?)\}};", object_name.clone().unwrap_or(String::from("")))).unwrap();
+  let functions_regex = if object_name.clone().unwrap_or(String::from("")).starts_with("$") {// $ needs to be escaped in regex
+    Regex::new(&format!(r"(?m)var \{}=\{{([\s\S]*?)\}};", object_name.clone().unwrap_or(String::from("")))).unwrap()
+  } else {
+    Regex::new(&format!(r"(?m)var {}=\{{([\s\S]*?)\}};", object_name.clone().unwrap_or(String::from("")))).unwrap()
+  };
+  
   let functions = match functions_regex.captures(player_res) {
     Some(captures) => {
       Some(captures.get(1).unwrap().as_str())
