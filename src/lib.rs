@@ -13,11 +13,9 @@ mod tests {
   use extractors::innertube::*;
   use extractors::scrape::video::*;
   use parsers::*;
-  use std::fs::File;
-  use std::io::Write;
 
   use super::*;
-
+  
   #[tokio::test]
   #[serial]
   async fn scrape_video_parse() {
@@ -26,12 +24,14 @@ mod tests {
     let video_title = web::video::get_title(&page_data).unwrap();
     let description = web::video::get_description(&page_data).unwrap();
     let description_html = web::video::get_description_html(&page_data).unwrap();
+    #[cfg(feature = "parse_languages_to_published")]
     let published = web::video::get_published(&page_data, "cs").unwrap();
     assert_eq!("This is Pure False Advertising - HP 550 Keyboard", video_title);
     assert_eq!(true, description.contains("It’s no secret their chairs are great!"));
     assert_eq!(true, description_html.contains(r#"OUR WAN PODCAST GEAR: <a href="https://lmg.gg/wanset">"#));
     assert_eq!(true, description_html.contains(r#"Artist Link: <a href="http://www.youtube.com/approachingnirvana">"#));
     assert_eq!(true, description_html.contains(r#"<a href="https://youtu.be/PKfxmFU3lWY">"#));
+    #[cfg(feature = "parse_languages_to_published")]
     assert_eq!(1681603200, published);
   }
 
@@ -43,12 +43,14 @@ mod tests {
     let video_title = web::video::get_title(&page_data).unwrap();
     let description = web::video::get_description(&page_data).unwrap();
     let description_html = web::video::get_description_html(&page_data).unwrap();
+    #[cfg(feature = "parse_languages_to_published")]
     let published = web::video::get_published(&page_data, "en").unwrap();
     assert_eq!("This is Pure False Advertising - HP 550 Keyboard", video_title);
     assert_eq!(true, description.contains("It’s no secret their chairs are great!"));
     assert_eq!(true, description_html.contains(r#"OUR WAN PODCAST GEAR: <a href="https://lmg.gg/wanset">"#));
     assert_eq!(true, description_html.contains(r#"Artist Link: <a href="http://www.youtube.com/approachingnirvana">"#));
     assert_eq!(true, description_html.contains(r#"<a href="https://youtu.be/PKfxmFU3lWY">"#));
+    #[cfg(feature = "parse_languages_to_published")]
     assert_eq!(1681603200, published);
   }
 
@@ -59,10 +61,12 @@ mod tests {
     let video_title = web::video::get_title(&page_data).unwrap();
     let description = web::video::get_description(&page_data).unwrap();
     let description_html = web::video::get_description_html(&page_data).unwrap();
+    #[cfg(feature = "parse_languages_to_published")]
     let published = web::video::get_published(&page_data, "cs").unwrap();
     assert_eq!("Fast ASMR Does the BEST Triggers with Me! | In-Person ASMR Session", video_title);
     assert_eq!(true, description.contains("Start speaking a new language in 3 weeks with Babbel 🎉"));
     assert_eq!(true, description_html.contains(r#"➡️  HERE: <a href="https://go.babbel.com/t?bsc=1200m60-youtube-gibiasmr"#));
+    #[cfg(feature = "parse_languages_to_published")]
     assert_eq!(1681516800, published);
   }
 
@@ -73,10 +77,12 @@ mod tests {
     let video_title = web::video::get_title(&page_data).unwrap();
     let description = web::video::get_description(&page_data).unwrap();
     let description_html = web::video::get_description_html(&page_data).unwrap();
+    #[cfg(feature = "parse_languages_to_published")]
     let published = web::video::get_published(&page_data, "eu").unwrap();
     assert_eq!(r#"🌸 ASMR: "Let's Stim Together!!" Under-Stimulation Comfort"#, video_title);
     assert_eq!(true, description.contains("◑﹏◐"));
     assert_eq!(true, description_html.contains(r#"~ <a href="https://linktr.ee/8bitauthor"#));
+    #[cfg(feature = "parse_languages_to_published")]
     assert_eq!(1659744000, published);
   }
 
