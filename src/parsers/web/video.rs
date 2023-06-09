@@ -3,7 +3,7 @@ use serde_json::Value;
 use urlencoding::{decode,encode};
 use crate::constants::{SHORT_WEBSITE_BASE_URL, WEBSITE_BASE_URL};
 use crate::helpers::{UTF16Substring};
-use chrono::{ NaiveDate, NaiveTime};
+use chrono::{NaiveDate, NaiveTime};
 use regex::Regex;
 use std::str::FromStr;
 use serde::{Deserialize, Serialize};
@@ -11,6 +11,7 @@ use serde_json::json;
 #[cfg(feature = "decipher_streams")]
 use super::super::ciphers::{create_formatable_decipher_js_code,format_decipher_code_into_executable, run_js_in_boa};
 
+#[cfg(feature = "decipher_streams")]
 fn add_host_param_to_url(url: &str) -> String {
   let host_re = Regex::new(r"(.*?\.googlevideo\.com)").unwrap();
   match host_re.captures(url) {

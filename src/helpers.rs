@@ -67,7 +67,7 @@ pub fn generate_yt_video_thumbnails_within_max_size(id: &str, max_width: i32) ->
         }
       };
       let url = format!("{}/{}/{}.jpg", YT_THUMBNAIL_HOST_URL, id, format!("{}{}", size.name, thumbnail_type));
-      if size.width < max_width {
+      if size.width <= max_width {
         thumbnails.push(Thumbnail {
           quality: format_name,
           url: url,
