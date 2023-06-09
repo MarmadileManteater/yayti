@@ -21,7 +21,7 @@ rand = "0.8.5"
 
 [features]
 default = ["scrape_pages", "innertube"]
-innertube = ["reqwest"]
-scrape_pages = []
+innertube = ["dep:reqwest"]
+scrape_pages = ["dep:reqwest"]
 parse_languages_to_published = []
 decipher_streams = ["dep:boa_engine"]
