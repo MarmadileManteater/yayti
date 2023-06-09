@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 chrono = "0.4.23"
 regex = "1.7.0"
-reqwest = "0.11.12"
+reqwest = { version = "0.11.12", optional = true }
 serde = { version = "1.0.147", features = ["derive"] }
 serde_json = { version = "1.0.87", features = ["preserve_order"] }
 substring = "1.4.5"
@@ -20,5 +20,8 @@ urlencoding = "2.1.2"
 rand = "0.8.5"
 
 [features]
+default = ["scrape_pages", "innertube"]
+innertube = ["reqwest"]
+scrape_pages = []
 parse_languages_to_published = []
 decipher_streams = ["dep:boa_engine"]
