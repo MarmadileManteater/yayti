@@ -1,6 +1,6 @@
 
 use serde_json::Value;
-use urlencoding::{decode,encode};
+use urlencoding::{decode};
 use crate::constants::{SHORT_WEBSITE_BASE_URL, WEBSITE_BASE_URL};
 use crate::helpers::{UTF16Substring};
 use chrono::{NaiveDate, NaiveTime};
@@ -8,31 +8,8 @@ use regex::Regex;
 use std::str::FromStr;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-#[cfg(feature = "decipher_streams")]
-use super::super::ciphers::{create_formatable_decipher_js_code,format_decipher_code_into_executable, run_js_in_boa};
 
-#[cfg(feature = "decipher_streams")]
-fn add_host_param_to_url(url: &str) -> String {
-  let host_re = Regex::new(r"(.*?\.googlevideo\.com)").unwrap();
-  match host_re.captures(url) {
-    Some (host_captures) => {
-      let host = host_captures.get(1).unwrap().as_str();
-      format!("{}&host={}", url, encode(host))
-    },
-    None => {
-      format!("{}", url)
-    }
-  }
-}
-
-#[cfg(feature = "parse_languages_to_published")]
-pub fn fmt_inv(json: &Value, lang: &str) -> serde_json::Map<String, serde_json::Value> {
-  let output = serde_json::Map::new();
-  fmt_inv_with_existing_map(json, lang, output)
-}
-
-#[cfg(feature = "parse_languages_to_published")]
-pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: serde_json::Map<String, serde_json::Value>) -> serde_json::Map<String, serde_json::Value> {
+fn add_fields_to_map(json: &Value, mut existing_map: serde_json::Map<String, Value>) -> serde_json::Map<String, Value> {
   if !existing_map.contains_key("title") {
     match get_title(json) {
       Some(title) => {
@@ -66,16 +43,11 @@ pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: ser
     };
   }
   if !existing_map.contains_key("published") {
-    match get_published(json, lang) {
+    match get_publish_date(json) {
       Some(published) => {
         existing_map.insert(String::from("published"), json!(published));
       },
-      None => match get_publish_date(json) {
-        Some(published) => {
-          existing_map.insert(String::from("published"), json!(published));
-        },
-        None => {}
-      }
+      None => {}
     };
   }
   if !existing_map.contains_key("publishedText") {
@@ -265,374 +237,34 @@ pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: ser
   existing_map
 }
 
-#[cfg(feature = "parse_languages_to_published")]
-#[cfg(feature = "decipher_streams")]
-pub fn fmt_inv_and_decipher(json: &Value, lang: &str, player_res: &str) -> serde_json::Map<String, serde_json::Value> {
+#[cfg(not(feature = "parse_languages_to_published"))]
+pub fn fmt_inv(json: &Value) -> serde_json::Map<String, serde_json::Value> {
   let output = serde_json::Map::new();
-  fmt_inv_with_existing_map_and_decipher(json, lang, player_res, output)
+  fmt_inv_with_existing_map(json, output)
+}
+
+#[cfg(not(feature = "parse_languages_to_published"))]
+pub fn fmt_inv_with_existing_map(json: &Value, existing_map: serde_json::Map<String, serde_json::Value>) -> serde_json::Map<String, serde_json::Value> {
+  add_fields_to_map(json, existing_map)
 }
 
 #[cfg(feature = "parse_languages_to_published")]
-#[cfg(feature = "decipher_streams")]
-pub fn fmt_inv_with_existing_map_and_decipher(json: &Value, lang: &str, player_res: &str, mut existing_map: serde_json::Map<String, serde_json::Value>) -> serde_json::Map<String, serde_json::Value> {
-  if !existing_map.contains_key("title") {
-    match get_title(json) {
-      Some(title) => {
-        existing_map.insert(String::from("title"), json!(title));
-      },
-      None => {}
-    };
-  }
-  if !existing_map.contains_key("videoId") {
-    match get_video_id(json) {
-      Some(video_id) => {
-        existing_map.insert(String::from("videoId"), json!(video_id));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("description") {
-    match get_description(json) {
-      Some(description) => {
-        existing_map.insert(String::from("description"), json!(description));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("descriptionHtml") {
-    match get_description_html(json) {
-      Some(description_html) => {
-        existing_map.insert(String::from("descriptionHtml"), json!(description_html));
-      },
-      None => {}
-    };
-  }
+pub fn fmt_inv(json: &Value, lang: &str) -> serde_json::Map<String, serde_json::Value> {
+  let output = serde_json::Map::new();
+  fmt_inv_with_existing_map(json, lang, output)
+}
+
+#[cfg(feature = "parse_languages_to_published")]
+pub fn fmt_inv_with_existing_map(json: &Value, lang: &str, mut existing_map: serde_json::Map<String, serde_json::Value>) -> serde_json::Map<String, serde_json::Value> {
   if !existing_map.contains_key("published") {
     match get_published(json, lang) {
       Some(published) => {
         existing_map.insert(String::from("published"), json!(published));
       },
-      None => match get_publish_date(json) {
-        Some(published) => {
-          existing_map.insert(String::from("published"), json!(published));
-        },
-        None => {}
-      }
-    };
-  }
-  if !existing_map.contains_key("publishedText") {
-    match get_published_text(json) {
-      Some(published_text) => {
-        existing_map.insert(String::from("publishedText"), json!(published_text));
-      },
       None => {}
     };
   }
-  if !existing_map.contains_key("viewCount") {
-    match get_view_count(json) {
-      Some(view_count) => {
-        existing_map.insert(String::from("viewCount"), json!(view_count));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("likeCount") {
-    match get_like_count(json) {
-      Some(like_count) => {
-        existing_map.insert(String::from("likeCount"), json!(like_count));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("isFamilyFriendly") {
-    match is_family_friendly(json) {
-      Some(family_friendly) => {
-        existing_map.insert(String::from("isFamilyFriendly"), json!(family_friendly));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("allowedRegions") {
-    match get_available_countries(json) {
-      Some(available_countries) => {
-        existing_map.insert(String::from("allowedRegions"), json!(available_countries));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("allowedRegions") {
-    match get_available_countries(json) {
-      Some(available_countries) => {
-        existing_map.insert(String::from("allowedRegions"), json!(available_countries));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("authorId") {
-    match get_author_id(json) {
-      Some(author_id) => {
-        existing_map.insert(String::from("authorId"), json!(author_id));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("authorUrl") {
-    match get_author_id(json) {
-      Some(author_id) => {
-        existing_map.insert(String::from("authorUrl"), json!(format!("/channel/{}", author_id)));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("authorThumbnails") {
-    match get_author_thumbnails(json) {
-      Some(author_thumbnails) => {
-        existing_map.insert(String::from("authorThumbnails"), json!(author_thumbnails));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("keywords") {
-    match get_keywords(json) {
-      Some(keywords) => {
-        existing_map.insert(String::from("keywords"), json!(keywords));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("viewCount") {
-    match get_view_count(json) {
-      Some(view_count) => {
-        existing_map.insert(String::from("viewCount"), json!(view_count));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("likeCount") {
-    match get_like_count(json) {
-      Some(like_count) => {
-        existing_map.insert(String::from("likeCount"), json!(like_count));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("isFamilyFriendly") {
-    match is_family_friendly(json) {
-      Some(family_friendly) => {
-        existing_map.insert(String::from("isFamilyFriendly"), json!(family_friendly));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("allowedRegions") {
-    match get_available_countries(json) {
-      Some(available_countries) => {
-        existing_map.insert(String::from("allowedRegions"), json!(available_countries));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("allowedRegions") {
-    match get_available_countries(json) {
-      Some(available_countries) => {
-        existing_map.insert(String::from("allowedRegions"), json!(available_countries));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("genre") {
-    match get_category(json) {
-      Some(category) => {
-        existing_map.insert(String::from("genre"), json!(category));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("author") {
-    match get_author(json) {
-      Some(author) => {
-        existing_map.insert(String::from("author"), json!(author));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("authorId") {
-    match get_author_id(json) {
-      Some(author_id) => {
-        existing_map.insert(String::from("authorId"), json!(author_id));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("authorUrl") {
-    match get_author_id(json) {
-      Some(author_id) => {
-        existing_map.insert(String::from("authorUrl"), json!(format!("/channel/{}", author_id)));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("authorThumbnails") {
-    match get_author_thumbnails(json) {
-      Some(author_thumbnails) => {
-        existing_map.insert(String::from("authorUrl"), json!(author_thumbnails));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("subCountText") {
-    match get_sub_count_text(json) {
-      Some(sub_count_text) => {
-        existing_map.insert(String::from("subCountText"), json!(sub_count_text));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("lengthSeconds") {
-    match get_length_seconds(json) {
-      Some(length_seconds) => {
-        existing_map.insert(String::from("lengthSeconds"), json!(length_seconds));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("allowRatings") {
-    match get_allow_ratings(json) {
-      Some(allow_ratings) => {
-        existing_map.insert(String::from("allowRatings"), json!(allow_ratings));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("isListed") {
-    match is_listed(json) {
-      Some(is_listed) => {
-        existing_map.insert(String::from("isListed"), json!(is_listed));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("liveNow") {
-    match is_live_now(json) {
-      Some(live_now) => {
-        existing_map.insert(String::from("liveNow"), json!(live_now));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("hlsUrl") {
-    match get_hls_url(json) {
-      Some(hls_url) => {
-        existing_map.insert(String::from("hlsUrl"), json!(hls_url));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("dashUrl") {
-    match get_dash_url(json) {
-      Some(dash_url) => {
-        existing_map.insert(String::from("dashUrl"), json!(dash_url));
-      },
-      None => {}
-    }
-  }
-  let decipher_code = create_formatable_decipher_js_code(player_res).unwrap_or(String::from(""));
-  if !existing_map.contains_key("formatStreams") {
-    match get_legacy_formats(json) {
-      Some(legacy_formats) => {
-        match create_formatable_decipher_js_code(player_res) {
-          Ok(js_code) => {
-            existing_map.insert(String::from("formatStreams"), legacy_formats.into_iter().map(|mut format| {
-              match &format.signature_cipher {
-                Some(cipher) => {
-                  match format_decipher_code_into_executable(cipher, &js_code) {
-                    Ok(executable_js_code) => {
-                      match run_js_in_boa(executable_js_code) {
-                        Ok(deciphered_url) => {
-                          format.url = Some(add_host_param_to_url(&deciphered_url));
-                        },
-                        Err(_) => {}
-                      }
-                    },
-                    Err(_) => {}
-                  }
-                },
-                None => {
-                  format.url = Some(add_host_param_to_url(&format.url.unwrap()));
-                }
-              };
-              format.into_inv()
-            }).collect::<Value>());
-          },
-          Err(_) => {}
-        };
-      },
-      None => {}
-    };
-  }
-  if !existing_map.contains_key("adaptiveFormats") {
-    match get_adaptive_formats(json) {
-      Some(mut formats) => {
-        let mut formats_js_code = Vec::<String>::new();
-        for i in 0..formats.len() {
-          match &formats[i].signature_cipher {
-            Some(cipher) => {
-              match format_decipher_code_into_executable(cipher, &decipher_code) {
-                Ok(js_code) => {
-                  formats_js_code.push(String::from(js_code));
-                },
-                Err(_) => {}
-              }
-            },
-            None => {}
-          }
-        }
-        if formats_js_code.len() > 0 {
-          let js_code = format!("[(() => {{{}}})()]", formats_js_code.join("})(),(() => {")).replace("deciphered_url}", "return deciphered_url}");
-          match run_js_in_boa(js_code) {
-            Ok(deciphered_urls) => {
-              let urls = deciphered_urls.split(",").collect::<Vec::<&str>>();
-              for i in 0..formats.len() {
-                formats[i].url = Some(add_host_param_to_url(urls[i]));
-              }
-            },
-            Err(_) => {}
-          }
-        } else {
-          for i in 0..formats.len() {
-            formats[i].url = Some(add_host_param_to_url(&formats[i].url.as_ref().unwrap()));
-          }
-        }
-        existing_map.insert(String::from("adaptiveFormats"), formats.into_iter().map(|format| format.into_inv()).collect::<Value>());
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("captions") {
-    match get_captions(json) {
-      Some(captions) => {
-        existing_map.insert(String::from("captions"), json!(captions));
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("recommendedVideos") {
-    match get_recommended(json) {
-      Some(videos) => {
-        existing_map.insert(String::from("recommendedVideos"), videos.into_iter().filter_map(|format| format.into_inv()).collect::<Value>());
-      },
-      None => {}
-    }
-  }
-  if !existing_map.contains_key("musicTracks") {
-    match get_music_tracks(json) {
-      Some(tracks) => {
-        existing_map.insert(String::from("musicTracks"), tracks.into_iter().map(|track| track.into_inv()).collect::<Value>());
-      },
-      None => {}
-    }
-  }
-  existing_map
+  add_fields_to_map(json, existing_map)
 }
 
 // Gets the title from the `/next` or `/player` endpoint response
