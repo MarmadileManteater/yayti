@@ -1,6 +1,6 @@
 
 use shared::load_json;
-use shared::DateInformation;
+use shared::{MonthInformation, DateInformation};
 use yayti::parsers::web::Language;
 use std::fs::File;
 use std::io::Write;
@@ -21,9 +21,9 @@ async fn main() {
         month_names.push(Vec::<String>::new());
       }
       let mut language_month_map = serde_json::Map::new();
-      let days = vec!("25", "27", "23", "23", "12", "16", "17", "14", "29", "17", "18", "15");
+      let days = vec!("25", "27", "23", "23", "12", "10", "17", "14", "29", "17", "18", "15");
       for i in 0..date_information.len() {
-        let mut month_names_for_language = Vec::<String>::new();
+        let mut month_names_for_language = Vec::<MonthInformation>::new();
         let (language, dates) = &date_information[i];
         for k in 0..dates.len() {
           let date = dates[k].clone();
@@ -32,8 +32,20 @@ async fn main() {
           if month_name == "" {
             month_name = date.day_month.replace(days[k], "")
           }
-          month_names[k].push(String::from(&month_name));
-          month_names_for_language.push(String::from(&month_name));
+          let match_numbers = Regex::new(r"[0-9]+").unwrap();
+          let year_num = match match_numbers.captures(&date.year) {
+            Some(matches) => {
+              matches.get(0).unwrap().as_str()
+            },
+            None => {
+              &date.year
+            }
+          };
+          let month_name_when_in_full_date = format!("{}", re.replace(&date.date_text, "").replace(year_num, ""));
+          month_names_for_language.push(MonthInformation {
+            day_month_string: String::from(&month_name),
+            full_date_string: month_name_when_in_full_date
+          });
         }
         language_month_map.insert(String::from(&language.language_code), serde_json::json!(month_names_for_language));
       }

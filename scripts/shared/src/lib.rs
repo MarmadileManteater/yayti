@@ -11,6 +11,12 @@ pub struct DateInformation {
   pub date_text: String
 }
 
+#[derive(Deserialize, Serialize)]
+pub struct MonthInformation {
+  pub day_month_string: String,// what the month is called when it is in a day month
+  pub full_date_string: String// what the month is called when it is in a full date
+}
+
 pub fn load_json<T : DeserializeOwned>(path: &str) -> Result<T, String> {
   match File::open(path) {
     Ok(mut file) => {

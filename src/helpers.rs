@@ -1,6 +1,12 @@
 
 use std::string::FromUtf16Error;
+use regex::Regex;
+use shared::MonthInformation;
+use std::str::FromStr;
+use chrono::{NaiveDate, NaiveTime, ParseError, Month};
+use log::{warn};
 use crate::constants::YT_THUMBNAIL_HOST_URL;
+use serde_json::{from_str,Value, to_string};
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, Clone)]
@@ -162,4 +168,120 @@ impl UTF16Substring for Vec::<u16> {
       Err(err) => Err(UTF16SubStringError::new_sub_string_error("Error taking subvector of utf-16 vector", err))
     }
   }
+}
+
+pub enum ParseDateError {
+  NoYearFoundInDate,
+  ErrorDeserializingMapBytes(serde_json::Error),
+  LanguageNotFound,
+  ErrorParsingFinalDateString(ParseError),
+  ErrorConvertingYearToNum
+}
+
+pub enum ParseDateOption {
+  ParseDayMonth(String, String),
+  ParseFullDate(String)
+}
+
+// Attempts to sus out a date from a lang string given the lang
+#[cfg(feature = "parse_languages_to_published")]
+pub fn parse_date_to_published(lang: &str, option: &ParseDateOption) -> Result<i64, ParseDateError> {
+  use substring::Substring;
+  let some_number = Regex::new(r"[0-9]+").unwrap();
+  // let's just say we can assume that this code will not be functional in 100 years anyway
+  let match_years = Regex::new(r"20[0-9][0-9]").unwrap();
+  let (year, day_month) = match option {
+    ParseDateOption::ParseDayMonth(year, day_month) => {
+      (String::from(year), String::from(day_month))
+    },
+    ParseDateOption::ParseFullDate(date) => {
+      let year = match match_years.captures(date) {
+        Some(captures) => {
+          captures.get(0).unwrap().as_str()
+        },
+        None => {
+          return Err(ParseDateError::NoYearFoundInDate)
+        }
+      };
+      // Remove year from date string to acquire the day-month
+      let day_month = date.replace(&format!("{}", year), "");
+      (String::from(year), String::from(&day_month))
+    }
+  };
+  println!("{} XXX {}", year, day_month);
+  let month_map = match from_str::<Value>(include_str!("../data/language-month-map.json")) {
+    Ok(map) => {
+      match map[lang].as_array() {
+        Some(months) => {
+          months.clone()
+        },
+        None => {
+          warn!("language pref not found; defaulting to english");
+          if lang != "en" {
+            match map["en"].as_array() {
+              Some(months) => months.clone(),
+              None => return Err(ParseDateError::LanguageNotFound)
+            }
+          } else {
+            return Err(ParseDateError::LanguageNotFound)
+          }
+        }
+      }
+    },
+    Err(error) => {
+      return Err(ParseDateError::ErrorDeserializingMapBytes(error))
+    }
+  };
+  let months = &month_map.into_iter().map(|value| from_str::<MonthInformation
+    >(&to_string(&value).unwrap()).unwrap()).rev().collect::<Vec::<MonthInformation>>();
+  let mut month = 12;
+  let mut day = 1;
+  for i in 0..months.len() {
+    let month_name = match option {
+      ParseDateOption::ParseDayMonth(_,_) => {
+        &months[i].day_month_string
+      },
+      ParseDateOption::ParseFullDate(_) => {
+        &months[i].full_date_string
+      }
+    };
+    if day_month.contains(month_name) || day_month.contains(month_name.substring(0, month_name.len() - 1)) {
+      month = months.len() - i;// add one because months are 1 indexed in dates
+      let date_without_month = day_month.replace(month_name, "");
+      match some_number.captures(&date_without_month) {
+        Some(some_number) => {
+          match i32::from_str(&some_number[0]) {
+            Ok(number) => {
+              day = number
+            },
+            Err(_) => {}
+          };
+          break;
+        },
+        None => {}
+      };
+    }
+  }
+  let year_num = match match_years.captures(&year) {
+    Some(year_num_string) => {
+      match i32::from_str(&year_num_string[0]) {
+        Ok(year_num) => Some(year_num),
+        Err(_) => None
+      }
+    },
+    None => None
+  };
+  match year_num {
+    Some(year) => {
+      let date_string = format!("{}-{}-{}", year, month, day);
+      match NaiveDate::parse_from_str(&date_string, "%Y-%m-%d") {
+        Ok(date_time) => {
+          Ok(date_time.and_time(NaiveTime::default()).timestamp())
+        },
+        Err(error) => Err(ParseDateError::ErrorParsingFinalDateString(error))
+      }
+    },
+    None => Err(ParseDateError::ErrorConvertingYearToNum)
+  }
+
 }

@@ -463,32 +463,10 @@ pub fn get_date_parts(json: &Value) -> Option<(String, String)> {
 #[cfg(feature = "parse_languages_to_published")]
 pub fn get_published(json: &Value, lang: &str) -> Option<i64> {
   // let's just say we can assume that this code will not be functional in 100 years anyway
+
+  use crate::helpers::{parse_date_to_published, ParseDateOption};
+
   let match_years = Regex::new(r"20[0-9][0-9]").unwrap();
-  let month_map = match serde_json::from_str::<Value>(include_str!("../../../data/language-month-map.json")) {
-    Ok(map) => {
-      match map[lang].as_array() {
-        Some(months) => {
-          Some(months.clone())
-        },
-        None => {
-          println!("WARN: language pref not found");
-          println!("defaulting to english");
-          if lang != "en" {
-            match map["en"].as_array() {
-              Some(months) => Some(months.clone()),
-              None => None
-            }
-          } else {
-            None
-          }
-        }
-      }
-    },
-    Err(error) => {
-      println!("ERROR: {}", error);
-      None
-    }
-  };
   let parts = match get_date_parts(json) {
     Some(parts) => Some(parts),
     None => {
@@ -511,62 +489,14 @@ pub fn get_published(json: &Value, lang: &str) -> Option<i64> {
         Some(_) => String::from(&label),
         None => String::from(&value)
       };
-      let year_num = match match_years.captures(&year) {
-        Some(year_num_string) => {
-          match i32::from_str(&year_num_string[0]) {
-            Ok(year_num) => Some(year_num),
-            Err(_) => None
-          }
-        },
-        None => None
-      };
-
       let day_month = if year == label {
         String::from(&value)
       } else {
         String::from(&label)
       };
-      match month_map {
-        Some(in_order_months) => {
-          let months = &in_order_months.into_iter().rev().collect::<Vec::<Value>>();
-          let mut month = 12;
-          let mut day = 1;
-          for i in 0..months.len() {
-            let month_name = months[i].as_str().unwrap();
-            if day_month.contains(month_name) {
-              month = months.len() - i;// add one because months are 1 indexed in dates
-              let date_without_month = day_month.replace(month_name, "");
-              let some_number = Regex::new(r"[0-9]+").unwrap();
-              match some_number.captures(&date_without_month) {
-                Some(some_number) => {
-                  match i32::from_str(&some_number[0]) {
-                    Ok(number) => {
-                      day = number
-                    },
-                    Err(_) => {}
-                  };
-                  break;
-                },
-                None => {}
-              };
-            }
-          }
-          match year_num {
-            Some(year_safe) => {
-              let date_string = format!("{}-{}-{}", year_safe, month, day);
-              match NaiveDate::parse_from_str(&date_string, "%Y-%m-%d") {
-                Ok(date_time) => {
-                  Some(date_time.and_time(NaiveTime::default()).timestamp())
-                },
-                Err(_) => None
-              }
-            },
-            None => None
-          }
-        },
-        None => {
-          None
-        }
+      match parse_date_to_published(lang, &ParseDateOption::ParseDayMonth(year, day_month)) {
+        Ok(result) => Some(result),
+        Err(_) => None
       }
     },
     None => None

@@ -3,6 +3,8 @@ use serde_json::{Map,Value,json};
 use std::str::FromStr;
 use regex::Regex;
 use crate::helpers::{AuthorThumbnail, Thumbnail};
+#[cfg(feature = "parse_languages_to_published")]
+use crate::helpers::parse_date_to_published;
 
 #[derive(Clone)]
 pub struct PlaylistVideo {
@@ -76,7 +78,7 @@ impl Playlist {
   }
 }
 
-pub fn parse(browse: &Value) -> Playlist {
+pub fn parse(browse: &Value, lang: &str) -> Playlist {
   Playlist {
     title: match browse["header"]["playlistHeaderRenderer"]["title"]["simpleText"].as_str() {
       Some(simple_text) => Some(String::from(simple_text)),
@@ -178,7 +180,24 @@ pub fn parse(browse: &Value) -> Playlist {
       },
       None => None
     },
-    updated: None,// todo move the logic for parsing dates with lang info to somewhere common
+    updated: match browse["sidebar"]["playlistSidebarRenderer"]["items"][0]["playlistSidebarPrimaryInfoRenderer"]["stats"][2]["runs"][1]["text"].as_str() {
+      Some(date_string) => {
+        #[cfg(feature = "parse_languages_to_published")]
+        match parse_date_to_published(lang, &crate::helpers::ParseDateOption::ParseFullDate(String::from(date_string))) {
+          Ok(date) => {
+            Some(date)
+          },
+          Err(_) => {
+            None
+          }
+        }
+        // not really easy to do this without a map of language data
+        // todo✏ add basic english language date parsing as a fallback for no language map feature
+        #[cfg(not(feature = "parse_languages_to_published"))]
+        None
+      },
+      None => None
+    },// todo move the logic for parsing dates with lang info to somewhere common
     is_listed: match browse["microformat"]["microformatDataRenderer"]["unlisted"].as_bool() {
       Some(unlisted) => Some(!unlisted),
       None => None
