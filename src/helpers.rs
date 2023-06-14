@@ -3,13 +3,21 @@ use std::string::FromUtf16Error;
 use crate::constants::YT_THUMBNAIL_HOST_URL;
 use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize, Serialize)]
+#[derive(Deserialize, Serialize, Clone)]
 pub struct Thumbnail {
   pub quality: String,
   pub url: String,
   pub width: i32,
   pub height: i32
 }
+
+#[derive(Deserialize, Serialize, Clone)]
+pub struct AuthorThumbnail {
+  pub url: String,
+  pub width: i32,
+  pub height: i32
+}
+
 
 #[derive(Deserialize, Serialize)]
 pub struct Size {

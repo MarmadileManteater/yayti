@@ -3,6 +3,7 @@ use serde_json::Value;
 use urlencoding::{decode};
 use crate::constants::{SHORT_WEBSITE_BASE_URL, WEBSITE_BASE_URL};
 use crate::helpers::{UTF16Substring};
+use crate::helpers::AuthorThumbnail as Thumbnail;
 use chrono::{NaiveDate, NaiveTime};
 use regex::Regex;
 use std::str::FromStr;
@@ -735,13 +736,6 @@ pub fn get_author_id(json: &Value) -> Option<String> {
       None => None
     }
   }
-}
-
-#[derive(Deserialize, Serialize)]
-pub struct Thumbnail {
-  pub url: String,
-  pub width: i32,
-  pub height: i32
 }
 
 pub fn get_author_thumbnails(json: &Value) -> Option<Vec<Thumbnail>> {

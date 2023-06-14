@@ -3,7 +3,7 @@ use serde_json::Value;
 use serde::{Serialize, Deserialize};
 
 pub mod video;
-
+pub mod playlist;
 
 #[derive(Deserialize, Serialize)]
 pub struct Language {
