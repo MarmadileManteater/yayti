@@ -276,7 +276,8 @@ pub fn parse_date_to_published(lang: &str, option: &ParseDateOption) -> Result<i
       let date_string = format!("{}-{}-{}", year, month, day);
       match NaiveDate::parse_from_str(&date_string, "%Y-%m-%d") {
         Ok(date_time) => {
-          Ok(date_time.and_time(NaiveTime::default()).timestamp())
+          // idk what is the best ⌚time value to get dates that are the same that come out of other yt extractors
+          Ok(date_time.and_time(NaiveTime::from_hms_micro_opt(23, 59, 59, 0).unwrap()).timestamp())
         },
         Err(error) => Err(ParseDateError::ErrorParsingFinalDateString(error))
       }
