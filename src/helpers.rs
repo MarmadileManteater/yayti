@@ -1,13 +1,16 @@
 
 use std::string::FromUtf16Error;
+use base64::engine::general_purpose;
 use regex::Regex;
 use shared::MonthInformation;
 use std::str::FromStr;
-use chrono::{NaiveDate, NaiveTime, ParseError, Month};
+use chrono::{NaiveDate, NaiveTime, ParseError};
 use log::{warn};
 use crate::constants::YT_THUMBNAIL_HOST_URL;
 use serde_json::{from_str,Value, to_string};
 use serde::{Deserialize, Serialize};
+use prost::{Message, EncodeError};
+use base64::Engine;
 
 #[derive(Deserialize, Serialize, Clone)]
 pub struct Thumbnail {
@@ -285,4 +288,82 @@ pub fn parse_date_to_published(lang: &str, option: &ParseDateOption) -> Result<i
     None => Err(ParseDateError::ErrorConvertingYearToNum)
   }
 
+}
+
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PlaylistContinuation {
+    #[prost(message, optional, tag = "80226972")]
+    pub inner: ::core::option::Option<InnerPlaylistContinuation>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InnerPlaylistContinuation {
+    #[prost(string, tag = "2")]
+    pub id_full: ::prost::alloc::string::String,
+    #[prost(string, tag = "35")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub inner_data: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InnerPlaylistContinuationData {
+    #[prost(int32, tag = "1")]
+    pub some_random_junk_idk: i32,
+    #[prost(string, tag = "15")]
+    pub inner_page_count: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PageCountData {
+    #[prost(int32, tag = "1")]
+    pub max: i32,
+}
+
+pub fn decode_buffer(proto_buf: Vec::<u8>) -> impl Message {
+  PlaylistContinuation::decode(&proto_buf[..]).unwrap()
+}
+
+pub fn encode_buffer(continuation: impl Message) -> Result<Vec::<u8>, EncodeError> {
+  let mut buf = [0u8; 200].to_vec();
+  let mut buf_mut = buf[..].as_mut();
+  match continuation.encode(&mut buf_mut) {
+    Ok(_) => {},
+    Err(error) => return Err(error)
+  };
+  Ok(buf.into_iter().filter_map(|data| if data != 0 { Some(data) } else { None }).collect::<Vec::<u8>>())
+}
+
+pub enum PlaylistContinuationError {
+  EncodeError(EncodeError)
+}
+
+pub fn generate_playlist_continuation(playlist_id: &str, page_num: i32 /* 1 indexed */) -> Result<String, PlaylistContinuationError> {
+  let inner_encoded = match encode_buffer(PageCountData {
+    max: 100 * (page_num)
+  }) {
+    Ok(result) => result,
+    Err(error) => return Err(PlaylistContinuationError::EncodeError(error))
+  };
+  let inner_encoded = match encode_buffer(InnerPlaylistContinuationData {
+    some_random_junk_idk: 0,
+    inner_page_count: format!("PT:{}", general_purpose::STANDARD.encode(&inner_encoded[..]))
+  }) {
+    Ok(result) => result,
+    Err(error) => return Err(PlaylistContinuationError::EncodeError(error))
+  };
+  let encoded = match encode_buffer(PlaylistContinuation {
+    inner: Some(InnerPlaylistContinuation  {
+        id_full: format!("VL{}", playlist_id),
+        inner_data: urlencoding::encode(&general_purpose::STANDARD.encode(&inner_encoded[..])).to_string(),
+        id: String::from(playlist_id)
+      })
+  }) {
+    Ok(result) => result,
+    Err(error) => return Err(PlaylistContinuationError::EncodeError(error))
+  };
+  let base64_encoded = general_purpose::STANDARD.encode(&encoded[..]);
+  let continuation = urlencoding::encode(&base64_encoded);
+  Ok(format!("{}", continuation))
 }

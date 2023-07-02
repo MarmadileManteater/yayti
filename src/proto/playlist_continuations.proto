@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package yayti.items;
+
+message PlaylistContinuation {
+ InnerPlaylistContinuation inner = 80226972;
+}
+
+message InnerPlaylistContinuation {
+ string id_full = 2;
+ string id = 35;
+ string inner_data = 3;
+}
+
+message InnerPlaylistContinuationData {
+  int32 some_random_junk_idk = 1;
+  string inner_page_count = 15;
+}
+
+message PageCountData {
+  int32 max = 1;
+}
