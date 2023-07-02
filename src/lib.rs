@@ -32,7 +32,7 @@ mod tests {
     assert_eq!(true, description_html.contains(r#"Artist Link: <a href="http://www.youtube.com/approachingnirvana">"#));
     assert_eq!(true, description_html.contains(r#"<a href="https://youtu.be/PKfxmFU3lWY">"#));
     #[cfg(feature = "parse_languages_to_published")]
-    assert_eq!(1681603200, published);
+    assert_eq!(1681689599, published);
   }
 
 
@@ -51,7 +51,7 @@ mod tests {
     assert_eq!(true, description_html.contains(r#"Artist Link: <a href="http://www.youtube.com/approachingnirvana">"#));
     assert_eq!(true, description_html.contains(r#"<a href="https://youtu.be/PKfxmFU3lWY">"#));
     #[cfg(feature = "parse_languages_to_published")]
-    assert_eq!(1681603200, published);
+    assert_eq!(1681689599, published);
   }
 
   #[tokio::test]
@@ -67,7 +67,7 @@ mod tests {
     assert_eq!(true, description.contains("Start speaking a new language in 3 weeks with Babbel 🎉"));
     assert_eq!(true, description_html.contains(r#"➡️  HERE: <a href="https://go.babbel.com/t?bsc=1200m60-youtube-gibiasmr"#));
     #[cfg(feature = "parse_languages_to_published")]
-    assert_eq!(1681516800, published);
+    assert_eq!(1681603199, published);
   }
 
   #[tokio::test]
@@ -83,7 +83,7 @@ mod tests {
     assert_eq!(true, description.contains("◑﹏◐"));
     assert_eq!(true, description_html.contains(r#"~ <a href="https://linktr.ee/8bitauthor"#));
     #[cfg(feature = "parse_languages_to_published")]
-    assert_eq!(1659744000, published);
+    assert_eq!(1659830399, published);
   }
 
   #[tokio::test]
