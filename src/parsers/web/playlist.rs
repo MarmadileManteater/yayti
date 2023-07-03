@@ -75,6 +75,7 @@ impl Playlist {
     }));
     
     j_object.insert(String::from("author"), json!(self.author));
+    j_object.insert(String::from("authorId"), json!(self.author_id));
     j_object.insert(String::from("authorUrl"), json!(format!("/channel/{}", self.author_id.to_owned().unwrap_or(String::from("")))));
     j_object.insert(String::from("authorThumbnails"), json!(self.author_thumbnails));
     j_object.insert(String::from("description"), json!(self.description));
