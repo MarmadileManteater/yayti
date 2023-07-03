@@ -47,6 +47,7 @@ println!("{}", description_html);
       - This uses [`boa_engine`](https://github.com/boa-dev/boa) to run the javascript required to decipher stream URLs
 - [ ] comments
 - [ ] playlists
+     - [X] continuation token generation
 - [ ] channels
 - [ ] search
   
