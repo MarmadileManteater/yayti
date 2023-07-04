@@ -211,7 +211,6 @@ pub fn parse_date_to_published(lang: &str, option: &ParseDateOption) -> Result<i
       (String::from(year), String::from(&day_month))
     }
   };
-  println!("{} XXX {}", year, day_month);
   let month_map = match from_str::<Value>(include_str!("../data/language-month-map.json")) {
     Ok(map) => {
       match map[lang].as_array() {
