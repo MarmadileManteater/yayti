@@ -1,0 +1,4152 @@
+{
+  "af": [
+    {
+      "day_month_string": " Jan.",
+      "full_date_string": " Jan. "
+    },
+    {
+      "day_month_string": " Feb.",
+      "full_date_string": " Feb. "
+    },
+    {
+      "day_month_string": " Mrt.",
+      "full_date_string": " Mrt. "
+    },
+    {
+      "day_month_string": " Apr.",
+      "full_date_string": " Apr. "
+    },
+    {
+      "day_month_string": " Mei",
+      "full_date_string": " Mei "
+    },
+    {
+      "day_month_string": " Jun.",
+      "full_date_string": " Jun. "
+    },
+    {
+      "day_month_string": " Jul.",
+      "full_date_string": " Jul. "
+    },
+    {
+      "day_month_string": " Aug.",
+      "full_date_string": " Aug. "
+    },
+    {
+      "day_month_string": " Sep.",
+      "full_date_string": " Sep. "
+    },
+    {
+      "day_month_string": " Okt.",
+      "full_date_string": " Okt. "
+    },
+    {
+      "day_month_string": " Nov.",
+      "full_date_string": " Nov. "
+    },
+    {
+      "day_month_string": " Des.",
+      "full_date_string": " Des. "
+    }
+  ],
+  "az": [
+    {
+      "day_month_string": " yan",
+      "full_date_string": " yan "
+    },
+    {
+      "day_month_string": " fev",
+      "full_date_string": " fev "
+    },
+    {
+      "day_month_string": " mar",
+      "full_date_string": " mar "
+    },
+    {
+      "day_month_string": " apr",
+      "full_date_string": " apr "
+    },
+    {
+      "day_month_string": " may",
+      "full_date_string": " may "
+    },
+    {
+      "day_month_string": " iyn",
+      "full_date_string": " iyn "
+    },
+    {
+      "day_month_string": " iyl",
+      "full_date_string": " iyl "
+    },
+    {
+      "day_month_string": " avq",
+      "full_date_string": " avq "
+    },
+    {
+      "day_month_string": " sen",
+      "full_date_string": " sen "
+    },
+    {
+      "day_month_string": " okt",
+      "full_date_string": " okt "
+    },
+    {
+      "day_month_string": " noy",
+      "full_date_string": " noy "
+    },
+    {
+      "day_month_string": " dek",
+      "full_date_string": " dek "
+    }
+  ],
+  "id": [
+    {
+      "day_month_string": " Jan",
+      "full_date_string": " Jan "
+    },
+    {
+      "day_month_string": " Feb",
+      "full_date_string": " Feb "
+    },
+    {
+      "day_month_string": " Mar",
+      "full_date_string": " Mar "
+    },
+    {
+      "day_month_string": " Apr",
+      "full_date_string": " Apr "
+    },
+    {
+      "day_month_string": " Mei",
+      "full_date_string": " Mei "
+    },
+    {
+      "day_month_string": " Jun",
+      "full_date_string": " Jun "
+    },
+    {
+      "day_month_string": " Jul",
+      "full_date_string": " Jul "
+    },
+    {
+      "day_month_string": " Agu",
+      "full_date_string": " Agu "
+    },
+    {
+      "day_month_string": " Sep",
+      "full_date_string": " Sep "
+    },
+    {
+      "day_month_string": " Okt",
+      "full_date_string": " Okt "
+    },
+    {
+      "day_month_string": " Nov",
+      "full_date_string": " Nov "
+    },
+    {
+      "day_month_string": " Des",
+      "full_date_string": " Des "
+    }
+  ],
+  "ms": [
+    {
+      "day_month_string": " Jan",
+      "full_date_string": " Jan "
+    },
+    {
+      "day_month_string": " Feb",
+      "full_date_string": " Feb "
+    },
+    {
+      "day_month_string": " Mac",
+      "full_date_string": " Mac "
+    },
+    {
+      "day_month_string": " Apr",
+      "full_date_string": " Apr "
+    },
+    {
+      "day_month_string": " Mei",
+      "full_date_string": " Mei "
+    },
+    {
+      "day_month_string": " Jun",
+      "full_date_string": " Jun "
+    },
+    {
+      "day_month_string": " Jul",
+      "full_date_string": " Jul "
+    },
+    {
+      "day_month_string": " Ogo",
+      "full_date_string": " Ogo "
+    },
+    {
+      "day_month_string": " Sep",
+      "full_date_string": " Sep "
+    },
+    {
+      "day_month_string": " Okt",
+      "full_date_string": " Okt "
+    },
+    {
+      "day_month_string": " Nov",
+      "full_date_string": " Nov "
+    },
+    {
+      "day_month_string": " Dis",
+      "full_date_string": " Dis "
+    }
+  ],
+  "bs": [
+    {
+      "day_month_string": " jan",
+      "full_date_string": " jan ."
+    },
+    {
+      "day_month_string": " feb",
+      "full_date_string": " feb ."
+    },
+    {
+      "day_month_string": " mar",
+      "full_date_string": " mar ."
+    },
+    {
+      "day_month_string": " apr",
+      "full_date_string": " apr ."
+    },
+    {
+      "day_month_string": " maj",
+      "full_date_string": " maj ."
+    },
+    {
+      "day_month_string": " jun",
+      "full_date_string": " jun ."
+    },
+    {
+      "day_month_string": " jul",
+      "full_date_string": " jul ."
+    },
+    {
+      "day_month_string": " aug",
+      "full_date_string": " aug ."
+    },
+    {
+      "day_month_string": " sep",
+      "full_date_string": " sep ."
+    },
+    {
+      "day_month_string": " okt",
+      "full_date_string": " okt ."
+    },
+    {
+      "day_month_string": " nov",
+      "full_date_string": " nov ."
+    },
+    {
+      "day_month_string": " dec",
+      "full_date_string": " dec ."
+    }
+  ],
+  "ca": [
+    {
+      "day_month_string": " de gen.",
+      "full_date_string": " de gen. "
+    },
+    {
+      "day_month_string": " de febr.",
+      "full_date_string": " de febr. "
+    },
+    {
+      "day_month_string": " de març",
+      "full_date_string": " de març "
+    },
+    {
+      "day_month_string": " d’abr.",
+      "full_date_string": " d’abr. "
+    },
+    {
+      "day_month_string": " de maig",
+      "full_date_string": " de maig "
+    },
+    {
+      "day_month_string": " de juny",
+      "full_date_string": " de juny "
+    },
+    {
+      "day_month_string": " de jul.",
+      "full_date_string": " de jul. "
+    },
+    {
+      "day_month_string": " d’ag.",
+      "full_date_string": " d’ag. "
+    },
+    {
+      "day_month_string": " de set.",
+      "full_date_string": " de set. "
+    },
+    {
+      "day_month_string": " d’oct.",
+      "full_date_string": " d’oct. "
+    },
+    {
+      "day_month_string": " de nov.",
+      "full_date_string": " de nov. "
+    },
+    {
+      "day_month_string": " de des.",
+      "full_date_string": " de des. "
+    }
+  ],
+  "cs": [
+    {
+      "day_month_string": " 1.",
+      "full_date_string": " 1. "
+    },
+    {
+      "day_month_string": " 2.",
+      "full_date_string": " 2. "
+    },
+    {
+      "day_month_string": " 3.",
+      "full_date_string": " 3. "
+    },
+    {
+      "day_month_string": " 4.",
+      "full_date_string": " 4. "
+    },
+    {
+      "day_month_string": " 5.",
+      "full_date_string": " 5. "
+    },
+    {
+      "day_month_string": " 6.",
+      "full_date_string": " 6. "
+    },
+    {
+      "day_month_string": " 7.",
+      "full_date_string": " 7. "
+    },
+    {
+      "day_month_string": " 8.",
+      "full_date_string": " 8. "
+    },
+    {
+      "day_month_string": " 9.",
+      "full_date_string": " 9. "
+    },
+    {
+      "day_month_string": " 10.",
+      "full_date_string": " 10. "
+    },
+    {
+      "day_month_string": " 11.",
+      "full_date_string": " 11. "
+    },
+    {
+      "day_month_string": " 12.",
+      "full_date_string": " 12. "
+    }
+  ],
+  "da": [
+    {
+      "day_month_string": " jan.",
+      "full_date_string": " jan. "
+    },
+    {
+      "day_month_string": " feb.",
+      "full_date_string": " feb. "
+    },
+    {
+      "day_month_string": " mar.",
+      "full_date_string": " mar. "
+    },
+    {
+      "day_month_string": " apr.",
+      "full_date_string": " apr. "
+    },
+    {
+      "day_month_string": " maj",
+      "full_date_string": " maj "
+    },
+    {
+      "day_month_string": " jun.",
+      "full_date_string": " jun. "
+    },
+    {
+      "day_month_string": " jul.",
+      "full_date_string": " jul. "
+    },
+    {
+      "day_month_string": " aug.",
+      "full_date_string": " aug. "
+    },
+    {
+      "day_month_string": " sep.",
+      "full_date_string": " sep. "
+    },
+    {
+      "day_month_string": " okt.",
+      "full_date_string": " okt. "
+    },
+    {
+      "day_month_string": " nov.",
+      "full_date_string": " nov. "
+    },
+    {
+      "day_month_string": " dec.",
+      "full_date_string": " dec. "
+    }
+  ],
+  "de": [
+    {
+      "day_month_string": " Jan.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Feb.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " März",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Apr.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Mai",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Juni",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Juli",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Aug.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Sept.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Okt.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Nov.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Dez.",
+      "full_date_string": ""
+    }
+  ],
+  "et": [
+    {
+      "day_month_string": " jaan",
+      "full_date_string": " jaan "
+    },
+    {
+      "day_month_string": " veebr",
+      "full_date_string": " veebr "
+    },
+    {
+      "day_month_string": " märts",
+      "full_date_string": " märts "
+    },
+    {
+      "day_month_string": " apr",
+      "full_date_string": " apr "
+    },
+    {
+      "day_month_string": " mai",
+      "full_date_string": " mai "
+    },
+    {
+      "day_month_string": " juuni",
+      "full_date_string": " juuni "
+    },
+    {
+      "day_month_string": " juuli",
+      "full_date_string": " juuli "
+    },
+    {
+      "day_month_string": " aug",
+      "full_date_string": " aug "
+    },
+    {
+      "day_month_string": " sept",
+      "full_date_string": " sept "
+    },
+    {
+      "day_month_string": " okt",
+      "full_date_string": " okt "
+    },
+    {
+      "day_month_string": " nov",
+      "full_date_string": " nov "
+    },
+    {
+      "day_month_string": " dets",
+      "full_date_string": " dets "
+    }
+  ],
+  "en-IN": [
+    {
+      "day_month_string": " Jan",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Feb",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Mar",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Apr",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " May",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Jun",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Jul",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Aug",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Sept",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Oct",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Nov",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " Dec",
+      "full_date_string": ""
+    }
+  ],
+  "en-GB": [
+    {
+      "day_month_string": " Jan",
+      "full_date_string": " Jan "
+    },
+    {
+      "day_month_string": " Feb",
+      "full_date_string": " Feb "
+    },
+    {
+      "day_month_string": " Mar",
+      "full_date_string": " Mar "
+    },
+    {
+      "day_month_string": " Apr",
+      "full_date_string": " Apr "
+    },
+    {
+      "day_month_string": " May",
+      "full_date_string": " May "
+    },
+    {
+      "day_month_string": " Jun",
+      "full_date_string": " Jun "
+    },
+    {
+      "day_month_string": " Jul",
+      "full_date_string": " Jul "
+    },
+    {
+      "day_month_string": " Aug",
+      "full_date_string": " Aug "
+    },
+    {
+      "day_month_string": " Sept",
+      "full_date_string": " Sept "
+    },
+    {
+      "day_month_string": " Oct",
+      "full_date_string": " Oct "
+    },
+    {
+      "day_month_string": " Nov",
+      "full_date_string": " Nov "
+    },
+    {
+      "day_month_string": " Dec",
+      "full_date_string": " Dec "
+    }
+  ],
+  "en": [
+    {
+      "day_month_string": "Jan ",
+      "full_date_string": "Jan  "
+    },
+    {
+      "day_month_string": "Feb ",
+      "full_date_string": "Feb  "
+    },
+    {
+      "day_month_string": "Mar ",
+      "full_date_string": "Mar  "
+    },
+    {
+      "day_month_string": "Apr ",
+      "full_date_string": "Apr  "
+    },
+    {
+      "day_month_string": "May ",
+      "full_date_string": "May  "
+    },
+    {
+      "day_month_string": "Jun ",
+      "full_date_string": "Jun  "
+    },
+    {
+      "day_month_string": "Jul ",
+      "full_date_string": "Jul  "
+    },
+    {
+      "day_month_string": "Aug ",
+      "full_date_string": "Aug  "
+    },
+    {
+      "day_month_string": "Sep ",
+      "full_date_string": "Sep  "
+    },
+    {
+      "day_month_string": "Oct ",
+      "full_date_string": "Oct  "
+    },
+    {
+      "day_month_string": "Nov ",
+      "full_date_string": "Nov  "
+    },
+    {
+      "day_month_string": "Dec ",
+      "full_date_string": "Dec  "
+    }
+  ],
+  "es": [
+    {
+      "day_month_string": " ene",
+      "full_date_string": " ene "
+    },
+    {
+      "day_month_string": " feb",
+      "full_date_string": " feb "
+    },
+    {
+      "day_month_string": " mar",
+      "full_date_string": " mar "
+    },
+    {
+      "day_month_string": " abr",
+      "full_date_string": " abr "
+    },
+    {
+      "day_month_string": " may",
+      "full_date_string": " may "
+    },
+    {
+      "day_month_string": " jun",
+      "full_date_string": " jun "
+    },
+    {
+      "day_month_string": " jul",
+      "full_date_string": " jul "
+    },
+    {
+      "day_month_string": " ago",
+      "full_date_string": " ago "
+    },
+    {
+      "day_month_string": " sept",
+      "full_date_string": " sept "
+    },
+    {
+      "day_month_string": " oct",
+      "full_date_string": " oct "
+    },
+    {
+      "day_month_string": " nov",
+      "full_date_string": " nov "
+    },
+    {
+      "day_month_string": " dic",
+      "full_date_string": " dic "
+    }
+  ],
+  "es-419": [
+    {
+      "day_month_string": " ene",
+      "full_date_string": " ene "
+    },
+    {
+      "day_month_string": " feb",
+      "full_date_string": " feb "
+    },
+    {
+      "day_month_string": " mar",
+      "full_date_string": " mar "
+    },
+    {
+      "day_month_string": " abr",
+      "full_date_string": " abr "
+    },
+    {
+      "day_month_string": " may",
+      "full_date_string": " may "
+    },
+    {
+      "day_month_string": " jun",
+      "full_date_string": " jun "
+    },
+    {
+      "day_month_string": " jul",
+      "full_date_string": " jul "
+    },
+    {
+      "day_month_string": " ago",
+      "full_date_string": " ago "
+    },
+    {
+      "day_month_string": " sept",
+      "full_date_string": " sept "
+    },
+    {
+      "day_month_string": " oct",
+      "full_date_string": " oct "
+    },
+    {
+      "day_month_string": " nov",
+      "full_date_string": " nov "
+    },
+    {
+      "day_month_string": " dic",
+      "full_date_string": " dic "
+    }
+  ],
+  "es-US": [
+    {
+      "day_month_string": " ene",
+      "full_date_string": " ene "
+    },
+    {
+      "day_month_string": " feb",
+      "full_date_string": " feb "
+    },
+    {
+      "day_month_string": " mar",
+      "full_date_string": " mar "
+    },
+    {
+      "day_month_string": " abr",
+      "full_date_string": " abr "
+    },
+    {
+      "day_month_string": " may",
+      "full_date_string": " may "
+    },
+    {
+      "day_month_string": " jun",
+      "full_date_string": " jun "
+    },
+    {
+      "day_month_string": " jul",
+      "full_date_string": " jul "
+    },
+    {
+      "day_month_string": " ago",
+      "full_date_string": " ago "
+    },
+    {
+      "day_month_string": " sept",
+      "full_date_string": " sept "
+    },
+    {
+      "day_month_string": " oct",
+      "full_date_string": " oct "
+    },
+    {
+      "day_month_string": " nov",
+      "full_date_string": " nov "
+    },
+    {
+      "day_month_string": " dic",
+      "full_date_string": " dic "
+    }
+  ],
+  "eu": [
+    {
+      "day_month_string": "urt. ",
+      "full_date_string": "(e)ko urt. "
+    },
+    {
+      "day_month_string": "ots. ",
+      "full_date_string": "(e)ko ots. "
+    },
+    {
+      "day_month_string": "mar. ",
+      "full_date_string": "20 mar. 23(a)"
+    },
+    {
+      "day_month_string": "api. ",
+      "full_date_string": "(e)ko api. "
+    },
+    {
+      "day_month_string": "mai. ",
+      "full_date_string": "(e)ko mai. "
+    },
+    {
+      "day_month_string": "eka. ",
+      "full_date_string": "(e)ko eka. "
+    },
+    {
+      "day_month_string": "uzt. ",
+      "full_date_string": "(e)ko uzt. "
+    },
+    {
+      "day_month_string": "abu. ",
+      "full_date_string": "(e)ko abu. "
+    },
+    {
+      "day_month_string": "ira. ",
+      "full_date_string": "(e)ko ira. "
+    },
+    {
+      "day_month_string": "urr. ",
+      "full_date_string": "(e)ko urr. "
+    },
+    {
+      "day_month_string": "aza. ",
+      "full_date_string": "(e)ko aza. "
+    },
+    {
+      "day_month_string": "abe. ",
+      "full_date_string": "(e)ko abe. "
+    }
+  ],
+  "fil": [
+    {
+      "day_month_string": "Ene ",
+      "full_date_string": "Ene  "
+    },
+    {
+      "day_month_string": "Peb ",
+      "full_date_string": "Peb  "
+    },
+    {
+      "day_month_string": "Mar ",
+      "full_date_string": "Mar  "
+    },
+    {
+      "day_month_string": "Abr ",
+      "full_date_string": "Abr  "
+    },
+    {
+      "day_month_string": "May ",
+      "full_date_string": "May  "
+    },
+    {
+      "day_month_string": "Hun ",
+      "full_date_string": "Hun  "
+    },
+    {
+      "day_month_string": "Hul ",
+      "full_date_string": "Hul  "
+    },
+    {
+      "day_month_string": "Ago ",
+      "full_date_string": "Ago  "
+    },
+    {
+      "day_month_string": "Set ",
+      "full_date_string": "Set  "
+    },
+    {
+      "day_month_string": "Okt ",
+      "full_date_string": "Okt  "
+    },
+    {
+      "day_month_string": "Nob ",
+      "full_date_string": "Nob  "
+    },
+    {
+      "day_month_string": "Dis ",
+      "full_date_string": "Dis  "
+    }
+  ],
+  "fr": [
+    {
+      "day_month_string": " janv.",
+      "full_date_string": " janv. "
+    },
+    {
+      "day_month_string": " févr.",
+      "full_date_string": " févr. "
+    },
+    {
+      "day_month_string": " mars",
+      "full_date_string": " mars "
+    },
+    {
+      "day_month_string": " avr.",
+      "full_date_string": " avr. "
+    },
+    {
+      "day_month_string": " mai",
+      "full_date_string": " mai "
+    },
+    {
+      "day_month_string": " juin",
+      "full_date_string": " juin "
+    },
+    {
+      "day_month_string": " juil.",
+      "full_date_string": " juil. "
+    },
+    {
+      "day_month_string": " août",
+      "full_date_string": " août "
+    },
+    {
+      "day_month_string": " sept.",
+      "full_date_string": " sept. "
+    },
+    {
+      "day_month_string": " oct.",
+      "full_date_string": " oct. "
+    },
+    {
+      "day_month_string": " nov.",
+      "full_date_string": " nov. "
+    },
+    {
+      "day_month_string": " déc.",
+      "full_date_string": " déc. "
+    }
+  ],
+  "fr-CA": [
+    {
+      "day_month_string": " janv.",
+      "full_date_string": " janv. "
+    },
+    {
+      "day_month_string": " févr.",
+      "full_date_string": " févr. "
+    },
+    {
+      "day_month_string": " mars",
+      "full_date_string": " mars "
+    },
+    {
+      "day_month_string": " avr.",
+      "full_date_string": " avr. "
+    },
+    {
+      "day_month_string": " mai",
+      "full_date_string": " mai "
+    },
+    {
+      "day_month_string": " juin",
+      "full_date_string": " juin "
+    },
+    {
+      "day_month_string": " juill.",
+      "full_date_string": " juill. "
+    },
+    {
+      "day_month_string": " août",
+      "full_date_string": " août "
+    },
+    {
+      "day_month_string": " sept.",
+      "full_date_string": " sept. "
+    },
+    {
+      "day_month_string": " oct.",
+      "full_date_string": " oct. "
+    },
+    {
+      "day_month_string": " nov.",
+      "full_date_string": " nov. "
+    },
+    {
+      "day_month_string": " déc.",
+      "full_date_string": " déc. "
+    }
+  ],
+  "gl": [
+    {
+      "day_month_string": " de xan.",
+      "full_date_string": " de xan. de "
+    },
+    {
+      "day_month_string": " de feb.",
+      "full_date_string": " de feb. de "
+    },
+    {
+      "day_month_string": " de mar.",
+      "full_date_string": " de mar. de "
+    },
+    {
+      "day_month_string": " de abr.",
+      "full_date_string": " de abr. de "
+    },
+    {
+      "day_month_string": " de maio",
+      "full_date_string": " de maio de "
+    },
+    {
+      "day_month_string": " de xuño",
+      "full_date_string": " de xuño de "
+    },
+    {
+      "day_month_string": " de xul.",
+      "full_date_string": " de xul. de "
+    },
+    {
+      "day_month_string": " de ago.",
+      "full_date_string": " de ago. de "
+    },
+    {
+      "day_month_string": " de set.",
+      "full_date_string": " de set. de "
+    },
+    {
+      "day_month_string": " de out.",
+      "full_date_string": " de out. de "
+    },
+    {
+      "day_month_string": " de nov.",
+      "full_date_string": " de nov. de "
+    },
+    {
+      "day_month_string": " de dec.",
+      "full_date_string": " de dec. de "
+    }
+  ],
+  "hr": [
+    {
+      "day_month_string": " sij",
+      "full_date_string": " sij ."
+    },
+    {
+      "day_month_string": " velj",
+      "full_date_string": " velj ."
+    },
+    {
+      "day_month_string": " ožu",
+      "full_date_string": " ožu ."
+    },
+    {
+      "day_month_string": " tra",
+      "full_date_string": " tra ."
+    },
+    {
+      "day_month_string": " svi",
+      "full_date_string": " svi ."
+    },
+    {
+      "day_month_string": " lip",
+      "full_date_string": " lip ."
+    },
+    {
+      "day_month_string": " srp",
+      "full_date_string": " srp ."
+    },
+    {
+      "day_month_string": " kol",
+      "full_date_string": " kol ."
+    },
+    {
+      "day_month_string": " ruj",
+      "full_date_string": " ruj ."
+    },
+    {
+      "day_month_string": " lis",
+      "full_date_string": " lis ."
+    },
+    {
+      "day_month_string": " stu",
+      "full_date_string": " stu ."
+    },
+    {
+      "day_month_string": " pro",
+      "full_date_string": " pro ."
+    }
+  ],
+  "zu": [
+    {
+      "day_month_string": "Jan ",
+      "full_date_string": "Jan  "
+    },
+    {
+      "day_month_string": "Feb ",
+      "full_date_string": "Feb  "
+    },
+    {
+      "day_month_string": "Mas ",
+      "full_date_string": "Mas  "
+    },
+    {
+      "day_month_string": "Eph ",
+      "full_date_string": "Eph  "
+    },
+    {
+      "day_month_string": "Mey ",
+      "full_date_string": "Mey  "
+    },
+    {
+      "day_month_string": "Jun ",
+      "full_date_string": "Jun  "
+    },
+    {
+      "day_month_string": "Jul ",
+      "full_date_string": "Jul  "
+    },
+    {
+      "day_month_string": "Aga ",
+      "full_date_string": "Aga  "
+    },
+    {
+      "day_month_string": "Sep ",
+      "full_date_string": "Sep  "
+    },
+    {
+      "day_month_string": "Okt ",
+      "full_date_string": "Okt  "
+    },
+    {
+      "day_month_string": "Nov ",
+      "full_date_string": "Nov  "
+    },
+    {
+      "day_month_string": "Dis ",
+      "full_date_string": "Dis  "
+    }
+  ],
+  "is": [
+    {
+      "day_month_string": " jan.",
+      "full_date_string": " jan. "
+    },
+    {
+      "day_month_string": " feb.",
+      "full_date_string": " feb. "
+    },
+    {
+      "day_month_string": " mar.",
+      "full_date_string": " mar. "
+    },
+    {
+      "day_month_string": " apr.",
+      "full_date_string": " apr. "
+    },
+    {
+      "day_month_string": " maí",
+      "full_date_string": " maí "
+    },
+    {
+      "day_month_string": " jún.",
+      "full_date_string": " jún. "
+    },
+    {
+      "day_month_string": " júl.",
+      "full_date_string": " júl. "
+    },
+    {
+      "day_month_string": " ágú.",
+      "full_date_string": " ágú. "
+    },
+    {
+      "day_month_string": " sep.",
+      "full_date_string": " sep. "
+    },
+    {
+      "day_month_string": " okt.",
+      "full_date_string": " okt. "
+    },
+    {
+      "day_month_string": " nóv.",
+      "full_date_string": " nóv. "
+    },
+    {
+      "day_month_string": " des.",
+      "full_date_string": " des. "
+    }
+  ],
+  "it": [
+    {
+      "day_month_string": " gen",
+      "full_date_string": " gen "
+    },
+    {
+      "day_month_string": " feb",
+      "full_date_string": " feb "
+    },
+    {
+      "day_month_string": " mar",
+      "full_date_string": " mar "
+    },
+    {
+      "day_month_string": " apr",
+      "full_date_string": " apr "
+    },
+    {
+      "day_month_string": " mag",
+      "full_date_string": " mag "
+    },
+    {
+      "day_month_string": " giu",
+      "full_date_string": " giu "
+    },
+    {
+      "day_month_string": " lug",
+      "full_date_string": " lug "
+    },
+    {
+      "day_month_string": " ago",
+      "full_date_string": " ago "
+    },
+    {
+      "day_month_string": " set",
+      "full_date_string": " set "
+    },
+    {
+      "day_month_string": " ott",
+      "full_date_string": " ott "
+    },
+    {
+      "day_month_string": " nov",
+      "full_date_string": " nov "
+    },
+    {
+      "day_month_string": " dic",
+      "full_date_string": " dic "
+    }
+  ],
+  "sw": [
+    {
+      "day_month_string": " Jan",
+      "full_date_string": " Jan "
+    },
+    {
+      "day_month_string": " Feb",
+      "full_date_string": " Feb "
+    },
+    {
+      "day_month_string": " Mac",
+      "full_date_string": " Mac "
+    },
+    {
+      "day_month_string": " Apr",
+      "full_date_string": " Apr "
+    },
+    {
+      "day_month_string": " Mei",
+      "full_date_string": " Mei "
+    },
+    {
+      "day_month_string": " Jun",
+      "full_date_string": " Jun "
+    },
+    {
+      "day_month_string": " Jul",
+      "full_date_string": " Jul "
+    },
+    {
+      "day_month_string": " Ago",
+      "full_date_string": " Ago "
+    },
+    {
+      "day_month_string": " Sep",
+      "full_date_string": " Sep "
+    },
+    {
+      "day_month_string": " Okt",
+      "full_date_string": " Okt "
+    },
+    {
+      "day_month_string": " Nov",
+      "full_date_string": " Nov "
+    },
+    {
+      "day_month_string": " Des",
+      "full_date_string": " Des "
+    }
+  ],
+  "lv": [
+    {
+      "day_month_string": " janv.",
+      "full_date_string": ". gada  janv."
+    },
+    {
+      "day_month_string": " febr.",
+      "full_date_string": ". gada  febr."
+    },
+    {
+      "day_month_string": " marts",
+      "full_date_string": "20 gada 23. marts"
+    },
+    {
+      "day_month_string": " apr.",
+      "full_date_string": ". gada  apr."
+    },
+    {
+      "day_month_string": " maijs",
+      "full_date_string": ". gada  maijs"
+    },
+    {
+      "day_month_string": " jūn.",
+      "full_date_string": ". gada  jūn."
+    },
+    {
+      "day_month_string": " jūl.",
+      "full_date_string": ". gada  jūl."
+    },
+    {
+      "day_month_string": " aug.",
+      "full_date_string": ". gada  aug."
+    },
+    {
+      "day_month_string": " sept.",
+      "full_date_string": ". gada  sept."
+    },
+    {
+      "day_month_string": " okt.",
+      "full_date_string": ". gada  okt."
+    },
+    {
+      "day_month_string": " nov.",
+      "full_date_string": ". gada  nov."
+    },
+    {
+      "day_month_string": " dec.",
+      "full_date_string": ". gada  dec."
+    }
+  ],
+  "lt": [
+    {
+      "day_month_string": "01-",
+      "full_date_string": "-01-"
+    },
+    {
+      "day_month_string": "02-",
+      "full_date_string": "-02-"
+    },
+    {
+      "day_month_string": "03-",
+      "full_date_string": "20"
+    },
+    {
+      "day_month_string": "04-",
+      "full_date_string": "-04-"
+    },
+    {
+      "day_month_string": "05-",
+      "full_date_string": "-05-"
+    },
+    {
+      "day_month_string": "06-",
+      "full_date_string": "-06-"
+    },
+    {
+      "day_month_string": "07-",
+      "full_date_string": "-07-"
+    },
+    {
+      "day_month_string": "08-",
+      "full_date_string": "-08-"
+    },
+    {
+      "day_month_string": "09-",
+      "full_date_string": "-09-"
+    },
+    {
+      "day_month_string": "10-",
+      "full_date_string": "-10-"
+    },
+    {
+      "day_month_string": "11-",
+      "full_date_string": "-11-"
+    },
+    {
+      "day_month_string": "12-",
+      "full_date_string": "-12-"
+    }
+  ],
+  "hu": [
+    {
+      "day_month_string": "jan. ",
+      "full_date_string": ". jan. "
+    },
+    {
+      "day_month_string": "febr. ",
+      "full_date_string": ". febr. "
+    },
+    {
+      "day_month_string": "márc. ",
+      "full_date_string": "20 márc. 23."
+    },
+    {
+      "day_month_string": "ápr. ",
+      "full_date_string": ". ápr. "
+    },
+    {
+      "day_month_string": "máj. ",
+      "full_date_string": ". máj. "
+    },
+    {
+      "day_month_string": "jún. ",
+      "full_date_string": ". jún. "
+    },
+    {
+      "day_month_string": "júl. ",
+      "full_date_string": ". júl. "
+    },
+    {
+      "day_month_string": "aug. ",
+      "full_date_string": ". aug. "
+    },
+    {
+      "day_month_string": "szept. ",
+      "full_date_string": ". szept. "
+    },
+    {
+      "day_month_string": "okt. ",
+      "full_date_string": ". okt. "
+    },
+    {
+      "day_month_string": "nov. ",
+      "full_date_string": ". nov. "
+    },
+    {
+      "day_month_string": "dec. ",
+      "full_date_string": ". dec. "
+    }
+  ],
+  "nl": [
+    {
+      "day_month_string": " jan",
+      "full_date_string": " jan "
+    },
+    {
+      "day_month_string": " feb",
+      "full_date_string": " feb "
+    },
+    {
+      "day_month_string": " mrt",
+      "full_date_string": " mrt "
+    },
+    {
+      "day_month_string": " apr",
+      "full_date_string": " apr "
+    },
+    {
+      "day_month_string": " mei",
+      "full_date_string": " mei "
+    },
+    {
+      "day_month_string": " jun",
+      "full_date_string": " jun "
+    },
+    {
+      "day_month_string": " jul",
+      "full_date_string": " jul "
+    },
+    {
+      "day_month_string": " aug",
+      "full_date_string": " aug "
+    },
+    {
+      "day_month_string": " sep",
+      "full_date_string": " sep "
+    },
+    {
+      "day_month_string": " okt",
+      "full_date_string": " okt "
+    },
+    {
+      "day_month_string": " nov",
+      "full_date_string": " nov "
+    },
+    {
+      "day_month_string": " dec",
+      "full_date_string": " dec "
+    }
+  ],
+  "no": [
+    {
+      "day_month_string": " jan.",
+      "full_date_string": " jan. "
+    },
+    {
+      "day_month_string": " feb.",
+      "full_date_string": " feb. "
+    },
+    {
+      "day_month_string": " mars",
+      "full_date_string": " mars "
+    },
+    {
+      "day_month_string": " apr.",
+      "full_date_string": " apr. "
+    },
+    {
+      "day_month_string": " mai",
+      "full_date_string": " mai "
+    },
+    {
+      "day_month_string": " juni",
+      "full_date_string": " juni "
+    },
+    {
+      "day_month_string": " juli",
+      "full_date_string": " juli "
+    },
+    {
+      "day_month_string": " aug.",
+      "full_date_string": " aug. "
+    },
+    {
+      "day_month_string": " sep.",
+      "full_date_string": " sep. "
+    },
+    {
+      "day_month_string": " okt.",
+      "full_date_string": " okt. "
+    },
+    {
+      "day_month_string": " nov.",
+      "full_date_string": " nov. "
+    },
+    {
+      "day_month_string": " des.",
+      "full_date_string": " des. "
+    }
+  ],
+  "uz": [
+    {
+      "day_month_string": "-yan",
+      "full_date_string": " "
+    },
+    {
+      "day_month_string": "-fev",
+      "full_date_string": " "
+    },
+    {
+      "day_month_string": "-mar",
+      "full_date_string": " "
+    },
+    {
+      "day_month_string": "-apr",
+      "full_date_string": " "
+    },
+    {
+      "day_month_string": "-may",
+      "full_date_string": " "
+    },
+    {
+      "day_month_string": "-iyn",
+      "full_date_string": " "
+    },
+    {
+      "day_month_string": "-iyl",
+      "full_date_string": " "
+    },
+    {
+      "day_month_string": "-avg",
+      "full_date_string": " "
+    },
+    {
+      "day_month_string": "-sen",
+      "full_date_string": " "
+    },
+    {
+      "day_month_string": "-okt",
+      "full_date_string": " "
+    },
+    {
+      "day_month_string": "-noy",
+      "full_date_string": " "
+    },
+    {
+      "day_month_string": "-dek",
+      "full_date_string": " "
+    }
+  ],
+  "pl": [
+    {
+      "day_month_string": " sty",
+      "full_date_string": " sty "
+    },
+    {
+      "day_month_string": " lut",
+      "full_date_string": " lut "
+    },
+    {
+      "day_month_string": " mar",
+      "full_date_string": " mar "
+    },
+    {
+      "day_month_string": " kwi",
+      "full_date_string": " kwi "
+    },
+    {
+      "day_month_string": " maj",
+      "full_date_string": " maj "
+    },
+    {
+      "day_month_string": " cze",
+      "full_date_string": " cze "
+    },
+    {
+      "day_month_string": " lip",
+      "full_date_string": " lip "
+    },
+    {
+      "day_month_string": " sie",
+      "full_date_string": " sie "
+    },
+    {
+      "day_month_string": " wrz",
+      "full_date_string": " wrz "
+    },
+    {
+      "day_month_string": " paź",
+      "full_date_string": " paź "
+    },
+    {
+      "day_month_string": " lis",
+      "full_date_string": " lis "
+    },
+    {
+      "day_month_string": " gru",
+      "full_date_string": " gru "
+    }
+  ],
+  "pt-PT": [
+    {
+      "day_month_string": "/01",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": "/02",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": "/03",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": "/04",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": "/05",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": "/06",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": "/07",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": "/08",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": "/09",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": "/10",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": "/11",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": "/12",
+      "full_date_string": ""
+    }
+  ],
+  "pt": [
+    {
+      "day_month_string": " de jan.",
+      "full_date_string": " de jan. de "
+    },
+    {
+      "day_month_string": " de fev.",
+      "full_date_string": " de fev. de "
+    },
+    {
+      "day_month_string": " de mar.",
+      "full_date_string": " de mar. de "
+    },
+    {
+      "day_month_string": " de abr.",
+      "full_date_string": " de abr. de "
+    },
+    {
+      "day_month_string": " de mai.",
+      "full_date_string": " de mai. de "
+    },
+    {
+      "day_month_string": " de jun.",
+      "full_date_string": " de jun. de "
+    },
+    {
+      "day_month_string": " de jul.",
+      "full_date_string": " de jul. de "
+    },
+    {
+      "day_month_string": " de ago.",
+      "full_date_string": " de ago. de "
+    },
+    {
+      "day_month_string": " de set.",
+      "full_date_string": " de set. de "
+    },
+    {
+      "day_month_string": " de out.",
+      "full_date_string": " de out. de "
+    },
+    {
+      "day_month_string": " de nov.",
+      "full_date_string": " de nov. de "
+    },
+    {
+      "day_month_string": " de dez.",
+      "full_date_string": " de dez. de "
+    }
+  ],
+  "ro": [
+    {
+      "day_month_string": " ian.",
+      "full_date_string": " ian. "
+    },
+    {
+      "day_month_string": " feb.",
+      "full_date_string": " feb. "
+    },
+    {
+      "day_month_string": " mar.",
+      "full_date_string": " mar. "
+    },
+    {
+      "day_month_string": " apr.",
+      "full_date_string": " apr. "
+    },
+    {
+      "day_month_string": " mai",
+      "full_date_string": " mai "
+    },
+    {
+      "day_month_string": " iun.",
+      "full_date_string": " iun. "
+    },
+    {
+      "day_month_string": " iul.",
+      "full_date_string": " iul. "
+    },
+    {
+      "day_month_string": " aug.",
+      "full_date_string": " aug. "
+    },
+    {
+      "day_month_string": " sept.",
+      "full_date_string": " sept. "
+    },
+    {
+      "day_month_string": " oct.",
+      "full_date_string": " oct. "
+    },
+    {
+      "day_month_string": " nov.",
+      "full_date_string": " nov. "
+    },
+    {
+      "day_month_string": " dec.",
+      "full_date_string": " dec. "
+    }
+  ],
+  "sq": [
+    {
+      "day_month_string": " jan",
+      "full_date_string": " jan "
+    },
+    {
+      "day_month_string": " shk",
+      "full_date_string": " shk "
+    },
+    {
+      "day_month_string": " mar",
+      "full_date_string": " mar "
+    },
+    {
+      "day_month_string": " pri",
+      "full_date_string": " pri "
+    },
+    {
+      "day_month_string": " maj",
+      "full_date_string": " maj "
+    },
+    {
+      "day_month_string": " qer",
+      "full_date_string": " qer "
+    },
+    {
+      "day_month_string": " korr",
+      "full_date_string": " korr "
+    },
+    {
+      "day_month_string": " gush",
+      "full_date_string": " gush "
+    },
+    {
+      "day_month_string": " sht",
+      "full_date_string": " sht "
+    },
+    {
+      "day_month_string": " tet",
+      "full_date_string": " tet "
+    },
+    {
+      "day_month_string": " nën",
+      "full_date_string": " nën "
+    },
+    {
+      "day_month_string": " dhj",
+      "full_date_string": " dhj "
+    }
+  ],
+  "sk": [
+    {
+      "day_month_string": " 1.",
+      "full_date_string": " 1. "
+    },
+    {
+      "day_month_string": " 2.",
+      "full_date_string": " 2. "
+    },
+    {
+      "day_month_string": " 3.",
+      "full_date_string": " 3. "
+    },
+    {
+      "day_month_string": " 4.",
+      "full_date_string": " 4. "
+    },
+    {
+      "day_month_string": " 5.",
+      "full_date_string": " 5. "
+    },
+    {
+      "day_month_string": " 6.",
+      "full_date_string": " 6. "
+    },
+    {
+      "day_month_string": " 7.",
+      "full_date_string": " 7. "
+    },
+    {
+      "day_month_string": " 8.",
+      "full_date_string": " 8. "
+    },
+    {
+      "day_month_string": " 9.",
+      "full_date_string": " 9. "
+    },
+    {
+      "day_month_string": " 10.",
+      "full_date_string": " 10. "
+    },
+    {
+      "day_month_string": " 11.",
+      "full_date_string": " 11. "
+    },
+    {
+      "day_month_string": " 12.",
+      "full_date_string": " 12. "
+    }
+  ],
+  "sl": [
+    {
+      "day_month_string": " jan.",
+      "full_date_string": " jan. "
+    },
+    {
+      "day_month_string": " feb.",
+      "full_date_string": " feb. "
+    },
+    {
+      "day_month_string": " mar.",
+      "full_date_string": " mar. "
+    },
+    {
+      "day_month_string": " apr.",
+      "full_date_string": " apr. "
+    },
+    {
+      "day_month_string": " maj",
+      "full_date_string": " maj "
+    },
+    {
+      "day_month_string": " jun.",
+      "full_date_string": " jun. "
+    },
+    {
+      "day_month_string": " jul.",
+      "full_date_string": " jul. "
+    },
+    {
+      "day_month_string": " avg.",
+      "full_date_string": " avg. "
+    },
+    {
+      "day_month_string": " sep.",
+      "full_date_string": " sep. "
+    },
+    {
+      "day_month_string": " okt.",
+      "full_date_string": " okt. "
+    },
+    {
+      "day_month_string": " nov.",
+      "full_date_string": " nov. "
+    },
+    {
+      "day_month_string": " dec.",
+      "full_date_string": " dec. "
+    }
+  ],
+  "sr-Latn": [
+    {
+      "day_month_string": " jan",
+      "full_date_string": " 1. ."
+    },
+    {
+      "day_month_string": " feb",
+      "full_date_string": " 2. ."
+    },
+    {
+      "day_month_string": " mar",
+      "full_date_string": " 3. ."
+    },
+    {
+      "day_month_string": " apr",
+      "full_date_string": " 4. ."
+    },
+    {
+      "day_month_string": " maj",
+      "full_date_string": " 5. ."
+    },
+    {
+      "day_month_string": " jun",
+      "full_date_string": " 6. ."
+    },
+    {
+      "day_month_string": " jul",
+      "full_date_string": " 7. ."
+    },
+    {
+      "day_month_string": " avg",
+      "full_date_string": " 8. ."
+    },
+    {
+      "day_month_string": " sep",
+      "full_date_string": " 9. ."
+    },
+    {
+      "day_month_string": " okt",
+      "full_date_string": " 10. ."
+    },
+    {
+      "day_month_string": " nov",
+      "full_date_string": " 11. ."
+    },
+    {
+      "day_month_string": " dec",
+      "full_date_string": " 12. ."
+    }
+  ],
+  "fi": [
+    {
+      "day_month_string": " tammik.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " helmik.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " maalisk.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " huhtik.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " toukok.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " kesäk.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " heinäk.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " elok.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " syysk.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " lokak.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " marrask.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " jouluk.",
+      "full_date_string": ""
+    }
+  ],
+  "sv": [
+    {
+      "day_month_string": " jan.",
+      "full_date_string": " jan. "
+    },
+    {
+      "day_month_string": " feb.",
+      "full_date_string": " feb. "
+    },
+    {
+      "day_month_string": " mars",
+      "full_date_string": " mars "
+    },
+    {
+      "day_month_string": " apr.",
+      "full_date_string": " apr. "
+    },
+    {
+      "day_month_string": " maj",
+      "full_date_string": " maj "
+    },
+    {
+      "day_month_string": " juni",
+      "full_date_string": " juni "
+    },
+    {
+      "day_month_string": " juli",
+      "full_date_string": " juli "
+    },
+    {
+      "day_month_string": " aug.",
+      "full_date_string": " aug. "
+    },
+    {
+      "day_month_string": " sep.",
+      "full_date_string": " sep. "
+    },
+    {
+      "day_month_string": " okt.",
+      "full_date_string": " okt. "
+    },
+    {
+      "day_month_string": " nov.",
+      "full_date_string": " nov. "
+    },
+    {
+      "day_month_string": " dec.",
+      "full_date_string": " dec. "
+    }
+  ],
+  "vi": [
+    {
+      "day_month_string": " thg 1",
+      "full_date_string": " thg 1, "
+    },
+    {
+      "day_month_string": " thg 2",
+      "full_date_string": " thg 2, "
+    },
+    {
+      "day_month_string": " thg 3",
+      "full_date_string": " thg 3, "
+    },
+    {
+      "day_month_string": " thg 4",
+      "full_date_string": " thg 4, "
+    },
+    {
+      "day_month_string": " thg 5",
+      "full_date_string": " thg 5, "
+    },
+    {
+      "day_month_string": " thg 6",
+      "full_date_string": " thg 6, "
+    },
+    {
+      "day_month_string": " thg 7",
+      "full_date_string": " thg 7, "
+    },
+    {
+      "day_month_string": " thg 8",
+      "full_date_string": " thg 8, "
+    },
+    {
+      "day_month_string": " thg 9",
+      "full_date_string": " thg 9, "
+    },
+    {
+      "day_month_string": " thg 10",
+      "full_date_string": " thg 10, "
+    },
+    {
+      "day_month_string": " thg 11",
+      "full_date_string": " thg 11, "
+    },
+    {
+      "day_month_string": " thg 12",
+      "full_date_string": " thg 12, "
+    }
+  ],
+  "tr": [
+    {
+      "day_month_string": " Oca",
+      "full_date_string": " Oca "
+    },
+    {
+      "day_month_string": " Şub",
+      "full_date_string": " Şub "
+    },
+    {
+      "day_month_string": " Mar",
+      "full_date_string": " Mar "
+    },
+    {
+      "day_month_string": " Nis",
+      "full_date_string": " Nis "
+    },
+    {
+      "day_month_string": " May",
+      "full_date_string": " May "
+    },
+    {
+      "day_month_string": " Haz",
+      "full_date_string": " Haz "
+    },
+    {
+      "day_month_string": " Tem",
+      "full_date_string": " Tem "
+    },
+    {
+      "day_month_string": " Ağu",
+      "full_date_string": " Ağu "
+    },
+    {
+      "day_month_string": " Eyl",
+      "full_date_string": " Eyl "
+    },
+    {
+      "day_month_string": " Eki",
+      "full_date_string": " Eki "
+    },
+    {
+      "day_month_string": " Kas",
+      "full_date_string": " Kas "
+    },
+    {
+      "day_month_string": " Ara",
+      "full_date_string": " Ara "
+    }
+  ],
+  "be": [
+    {
+      "day_month_string": " сту",
+      "full_date_string": " сту  г."
+    },
+    {
+      "day_month_string": " лют",
+      "full_date_string": " лют  г."
+    },
+    {
+      "day_month_string": " сак",
+      "full_date_string": " сак  г."
+    },
+    {
+      "day_month_string": " кра",
+      "full_date_string": " кра  г."
+    },
+    {
+      "day_month_string": " мая",
+      "full_date_string": " мая  г."
+    },
+    {
+      "day_month_string": " чэр",
+      "full_date_string": " чэр  г."
+    },
+    {
+      "day_month_string": " ліп",
+      "full_date_string": " ліп  г."
+    },
+    {
+      "day_month_string": " жні",
+      "full_date_string": " жні  г."
+    },
+    {
+      "day_month_string": " вер",
+      "full_date_string": " вер  г."
+    },
+    {
+      "day_month_string": " кас",
+      "full_date_string": " кас  г."
+    },
+    {
+      "day_month_string": " ліс",
+      "full_date_string": " ліс  г."
+    },
+    {
+      "day_month_string": " сне",
+      "full_date_string": " сне  г."
+    }
+  ],
+  "bg": [
+    {
+      "day_month_string": ".01",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": ".02",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": ".03",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": ".04",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": ".05",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": ".06",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": ".07",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": ".08",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": ".09",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": ".10",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": ".11",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": ".12",
+      "full_date_string": ""
+    }
+  ],
+  "ky": [
+    {
+      "day_month_string": "-янв.",
+      "full_date_string": "-ж., "
+    },
+    {
+      "day_month_string": "-фев.",
+      "full_date_string": "-ж., "
+    },
+    {
+      "day_month_string": "-мар.",
+      "full_date_string": "20 23-мар."
+    },
+    {
+      "day_month_string": "-апр.",
+      "full_date_string": "-ж., "
+    },
+    {
+      "day_month_string": "-май",
+      "full_date_string": "-ж., "
+    },
+    {
+      "day_month_string": "-июн.",
+      "full_date_string": "-ж., "
+    },
+    {
+      "day_month_string": "-июл.",
+      "full_date_string": "-ж., "
+    },
+    {
+      "day_month_string": "-авг.",
+      "full_date_string": "-ж., "
+    },
+    {
+      "day_month_string": "-сен.",
+      "full_date_string": "-ж., "
+    },
+    {
+      "day_month_string": "-окт.",
+      "full_date_string": "-ж., "
+    },
+    {
+      "day_month_string": "-ноя.",
+      "full_date_string": "-ж., "
+    },
+    {
+      "day_month_string": "-дек.",
+      "full_date_string": "-ж., "
+    }
+  ],
+  "kk": [
+    {
+      "day_month_string": " қаң.",
+      "full_date_string": " ж.  қаң."
+    },
+    {
+      "day_month_string": " ақп.",
+      "full_date_string": " ж.  ақп."
+    },
+    {
+      "day_month_string": " нау.",
+      "full_date_string": "20 23 нау."
+    },
+    {
+      "day_month_string": " сәу.",
+      "full_date_string": " ж.  сәу."
+    },
+    {
+      "day_month_string": " мам.",
+      "full_date_string": " ж.  мам."
+    },
+    {
+      "day_month_string": " мау.",
+      "full_date_string": " ж.  мау."
+    },
+    {
+      "day_month_string": " шіл.",
+      "full_date_string": " ж.  шіл."
+    },
+    {
+      "day_month_string": " там.",
+      "full_date_string": " ж.  там."
+    },
+    {
+      "day_month_string": " қыр.",
+      "full_date_string": " ж.  қыр."
+    },
+    {
+      "day_month_string": " қаз.",
+      "full_date_string": " ж.  қаз."
+    },
+    {
+      "day_month_string": " қар.",
+      "full_date_string": " ж.  қар."
+    },
+    {
+      "day_month_string": " жел.",
+      "full_date_string": " ж.  жел."
+    }
+  ],
+  "mk": [
+    {
+      "day_month_string": " јан.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " фев.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " мар.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " апр.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " мај",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " јун.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " јул.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " авг.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " септ.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " окт.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " ноем.",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " дек.",
+      "full_date_string": ""
+    }
+  ],
+  "mn": [
+    {
+      "day_month_string": "1-р сарын ",
+      "full_date_string": " оны 1-р сарын "
+    },
+    {
+      "day_month_string": "2-р сарын ",
+      "full_date_string": " оны 2-р сарын "
+    },
+    {
+      "day_month_string": "3-р сарын ",
+      "full_date_string": "20 3-р сарын 23"
+    },
+    {
+      "day_month_string": "4-р сарын ",
+      "full_date_string": " оны 4-р сарын "
+    },
+    {
+      "day_month_string": "5-р сарын ",
+      "full_date_string": " оны 5-р сарын "
+    },
+    {
+      "day_month_string": "6-р сарын ",
+      "full_date_string": " оны 6-р сарын "
+    },
+    {
+      "day_month_string": "7-р сарын ",
+      "full_date_string": " оны 7-р сарын "
+    },
+    {
+      "day_month_string": "8-р сарын ",
+      "full_date_string": " оны 8-р сарын "
+    },
+    {
+      "day_month_string": "9-р сарын ",
+      "full_date_string": " оны 9-р сарын "
+    },
+    {
+      "day_month_string": "10-р сарын ",
+      "full_date_string": " оны 10-р сарын "
+    },
+    {
+      "day_month_string": "11-р сарын ",
+      "full_date_string": " оны 11-р сарын "
+    },
+    {
+      "day_month_string": "12-р сарын ",
+      "full_date_string": " оны 12-р сарын "
+    }
+  ],
+  "ru": [
+    {
+      "day_month_string": " янв.",
+      "full_date_string": " янв.  г."
+    },
+    {
+      "day_month_string": " февр.",
+      "full_date_string": " февр.  г."
+    },
+    {
+      "day_month_string": " мар.",
+      "full_date_string": " мар.  г."
+    },
+    {
+      "day_month_string": " апр.",
+      "full_date_string": " апр.  г."
+    },
+    {
+      "day_month_string": " мая",
+      "full_date_string": " мая  г."
+    },
+    {
+      "day_month_string": " июн.",
+      "full_date_string": " июн.  г."
+    },
+    {
+      "day_month_string": " июл.",
+      "full_date_string": " июл.  г."
+    },
+    {
+      "day_month_string": " авг.",
+      "full_date_string": " авг.  г."
+    },
+    {
+      "day_month_string": " сент.",
+      "full_date_string": " сент.  г."
+    },
+    {
+      "day_month_string": " окт.",
+      "full_date_string": " окт.  г."
+    },
+    {
+      "day_month_string": " нояб.",
+      "full_date_string": " нояб.  г."
+    },
+    {
+      "day_month_string": " дек.",
+      "full_date_string": " дек.  г."
+    }
+  ],
+  "sr": [
+    {
+      "day_month_string": " јан",
+      "full_date_string": " 1. ."
+    },
+    {
+      "day_month_string": " феб",
+      "full_date_string": " 2. ."
+    },
+    {
+      "day_month_string": " мар",
+      "full_date_string": " 3. ."
+    },
+    {
+      "day_month_string": " апр",
+      "full_date_string": " 4. ."
+    },
+    {
+      "day_month_string": " мај",
+      "full_date_string": " 5. ."
+    },
+    {
+      "day_month_string": " јун",
+      "full_date_string": " 6. ."
+    },
+    {
+      "day_month_string": " јул",
+      "full_date_string": " 7. ."
+    },
+    {
+      "day_month_string": " авг",
+      "full_date_string": " 8. ."
+    },
+    {
+      "day_month_string": " сеп",
+      "full_date_string": " 9. ."
+    },
+    {
+      "day_month_string": " окт",
+      "full_date_string": " 10. ."
+    },
+    {
+      "day_month_string": " нов",
+      "full_date_string": " 11. ."
+    },
+    {
+      "day_month_string": " дец",
+      "full_date_string": " 12. ."
+    }
+  ],
+  "uk": [
+    {
+      "day_month_string": " січ.",
+      "full_date_string": " січ.  р."
+    },
+    {
+      "day_month_string": " лют.",
+      "full_date_string": " лют.  р."
+    },
+    {
+      "day_month_string": " бер.",
+      "full_date_string": " бер.  р."
+    },
+    {
+      "day_month_string": " квіт.",
+      "full_date_string": " квіт.  р."
+    },
+    {
+      "day_month_string": " трав.",
+      "full_date_string": " трав.  р."
+    },
+    {
+      "day_month_string": " черв.",
+      "full_date_string": " черв.  р."
+    },
+    {
+      "day_month_string": " лип.",
+      "full_date_string": " лип.  р."
+    },
+    {
+      "day_month_string": " серп.",
+      "full_date_string": " серп.  р."
+    },
+    {
+      "day_month_string": " вер.",
+      "full_date_string": " вер.  р."
+    },
+    {
+      "day_month_string": " жовт.",
+      "full_date_string": " жовт.  р."
+    },
+    {
+      "day_month_string": " лист.",
+      "full_date_string": " лист.  р."
+    },
+    {
+      "day_month_string": " груд.",
+      "full_date_string": " груд.  р."
+    }
+  ],
+  "el": [
+    {
+      "day_month_string": " Ιαν",
+      "full_date_string": " Ιαν "
+    },
+    {
+      "day_month_string": " Φεβ",
+      "full_date_string": " Φεβ "
+    },
+    {
+      "day_month_string": " Μαρ",
+      "full_date_string": " Μαρ "
+    },
+    {
+      "day_month_string": " Απρ",
+      "full_date_string": " Απρ "
+    },
+    {
+      "day_month_string": " Μαΐ",
+      "full_date_string": " Μαΐ "
+    },
+    {
+      "day_month_string": " Ιουν",
+      "full_date_string": " Ιουν "
+    },
+    {
+      "day_month_string": " Ιουλ",
+      "full_date_string": " Ιουλ "
+    },
+    {
+      "day_month_string": " Αυγ",
+      "full_date_string": " Αυγ "
+    },
+    {
+      "day_month_string": " Σεπ",
+      "full_date_string": " Σεπ "
+    },
+    {
+      "day_month_string": " Οκτ",
+      "full_date_string": " Οκτ "
+    },
+    {
+      "day_month_string": " Νοε",
+      "full_date_string": " Νοε "
+    },
+    {
+      "day_month_string": " Δεκ",
+      "full_date_string": " Δεκ "
+    }
+  ],
+  "hy": [
+    {
+      "day_month_string": " հնվ",
+      "full_date_string": " հնվ,  թ."
+    },
+    {
+      "day_month_string": " փտվ",
+      "full_date_string": " փտվ,  թ."
+    },
+    {
+      "day_month_string": " մրտ",
+      "full_date_string": " մրտ,  թ."
+    },
+    {
+      "day_month_string": " ապր",
+      "full_date_string": " ապր,  թ."
+    },
+    {
+      "day_month_string": " մյս",
+      "full_date_string": " մյս,  թ."
+    },
+    {
+      "day_month_string": " հնս",
+      "full_date_string": " հնս,  թ."
+    },
+    {
+      "day_month_string": " հլս",
+      "full_date_string": " հլս,  թ."
+    },
+    {
+      "day_month_string": " օգս",
+      "full_date_string": " օգս,  թ."
+    },
+    {
+      "day_month_string": " սեպ",
+      "full_date_string": " սեպ,  թ."
+    },
+    {
+      "day_month_string": " հոկ",
+      "full_date_string": " հոկ,  թ."
+    },
+    {
+      "day_month_string": " նոյ",
+      "full_date_string": " նոյ,  թ."
+    },
+    {
+      "day_month_string": " դեկ",
+      "full_date_string": " դեկ,  թ."
+    }
+  ],
+  "iw": [
+    {
+      "day_month_string": " בינו׳",
+      "full_date_string": " בינו׳ "
+    },
+    {
+      "day_month_string": " בפבר׳",
+      "full_date_string": " בפבר׳ "
+    },
+    {
+      "day_month_string": " במרץ",
+      "full_date_string": " במרץ "
+    },
+    {
+      "day_month_string": " באפר׳",
+      "full_date_string": " באפר׳ "
+    },
+    {
+      "day_month_string": " במאי",
+      "full_date_string": " במאי "
+    },
+    {
+      "day_month_string": " ביוני",
+      "full_date_string": " ביוני "
+    },
+    {
+      "day_month_string": " ביולי",
+      "full_date_string": " ביולי "
+    },
+    {
+      "day_month_string": " באוג׳",
+      "full_date_string": " באוג׳ "
+    },
+    {
+      "day_month_string": " בספט׳",
+      "full_date_string": " בספט׳ "
+    },
+    {
+      "day_month_string": " באוק׳",
+      "full_date_string": " באוק׳ "
+    },
+    {
+      "day_month_string": " בנוב׳",
+      "full_date_string": " בנוב׳ "
+    },
+    {
+      "day_month_string": " בדצמ׳",
+      "full_date_string": " בדצמ׳ "
+    }
+  ],
+  "ur": [
+    {
+      "day_month_string": " جنوری",
+      "full_date_string": " جنوری، "
+    },
+    {
+      "day_month_string": " فروری",
+      "full_date_string": " فروری، "
+    },
+    {
+      "day_month_string": " مارچ",
+      "full_date_string": " مارچ، "
+    },
+    {
+      "day_month_string": " اپریل",
+      "full_date_string": " اپریل، "
+    },
+    {
+      "day_month_string": " مئی",
+      "full_date_string": " مئی، "
+    },
+    {
+      "day_month_string": " جون",
+      "full_date_string": " جون، "
+    },
+    {
+      "day_month_string": " جولائی",
+      "full_date_string": " جولائی، "
+    },
+    {
+      "day_month_string": " اگست",
+      "full_date_string": " اگست، "
+    },
+    {
+      "day_month_string": " ستمبر",
+      "full_date_string": " ستمبر، "
+    },
+    {
+      "day_month_string": " اکتوبر",
+      "full_date_string": " اکتوبر، "
+    },
+    {
+      "day_month_string": " نومبر",
+      "full_date_string": " نومبر، "
+    },
+    {
+      "day_month_string": " دسمبر",
+      "full_date_string": " دسمبر، "
+    }
+  ],
+  "ar": [
+    {
+      "day_month_string": " يناير",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " فبراير",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " مارس",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " أبريل",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " مايو",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " يونيو",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " يوليو",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " أغسطس",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " سبتمبر",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " أكتوبر",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " نوفمبر",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " ديسمبر",
+      "full_date_string": ""
+    }
+  ],
+  "fa": [
+    {
+      "day_month_string": " ژانویه",
+      "full_date_string": " ژانویه "
+    },
+    {
+      "day_month_string": " فوریه",
+      "full_date_string": " فوریه "
+    },
+    {
+      "day_month_string": " مارس",
+      "full_date_string": " مارس "
+    },
+    {
+      "day_month_string": " آوریل",
+      "full_date_string": " آوریل "
+    },
+    {
+      "day_month_string": " مه",
+      "full_date_string": " مه "
+    },
+    {
+      "day_month_string": " ژوئن",
+      "full_date_string": " ژوئن "
+    },
+    {
+      "day_month_string": " ژوئیه",
+      "full_date_string": " ژوئیه "
+    },
+    {
+      "day_month_string": " اوت",
+      "full_date_string": " اوت "
+    },
+    {
+      "day_month_string": " سپتامبر",
+      "full_date_string": " سپتامبر "
+    },
+    {
+      "day_month_string": " اکتبر",
+      "full_date_string": " اکتبر "
+    },
+    {
+      "day_month_string": " نوامبر",
+      "full_date_string": " نوامبر "
+    },
+    {
+      "day_month_string": " دسامبر",
+      "full_date_string": " دسامبر "
+    }
+  ],
+  "ne": [
+    {
+      "day_month_string": "जनवरी ",
+      "full_date_string": " जनवरी "
+    },
+    {
+      "day_month_string": "फेब्रुअरी ",
+      "full_date_string": " फेब्रुअरी "
+    },
+    {
+      "day_month_string": "मार्च ",
+      "full_date_string": "20 मार्च 23"
+    },
+    {
+      "day_month_string": "अप्रिल ",
+      "full_date_string": " अप्रिल "
+    },
+    {
+      "day_month_string": "मे ",
+      "full_date_string": " मे "
+    },
+    {
+      "day_month_string": "जुन ",
+      "full_date_string": " जुन "
+    },
+    {
+      "day_month_string": "जुलाई ",
+      "full_date_string": " जुलाई "
+    },
+    {
+      "day_month_string": "अगस्ट ",
+      "full_date_string": " अगस्ट "
+    },
+    {
+      "day_month_string": "सेप्टेम्बर ",
+      "full_date_string": " सेप्टेम्बर "
+    },
+    {
+      "day_month_string": "अक्टोबर ",
+      "full_date_string": " अक्टोबर "
+    },
+    {
+      "day_month_string": "नोभेम्बर ",
+      "full_date_string": " नोभेम्बर "
+    },
+    {
+      "day_month_string": "डिसेम्बर ",
+      "full_date_string": " डिसेम्बर "
+    }
+  ],
+  "mr": [
+    {
+      "day_month_string": " जाने",
+      "full_date_string": " जाने, "
+    },
+    {
+      "day_month_string": " फेब्रु",
+      "full_date_string": " फेब्रु, "
+    },
+    {
+      "day_month_string": " मार्च",
+      "full_date_string": " मार्च, "
+    },
+    {
+      "day_month_string": " एप्रि",
+      "full_date_string": " एप्रि, "
+    },
+    {
+      "day_month_string": " मे",
+      "full_date_string": " मे, "
+    },
+    {
+      "day_month_string": " जून",
+      "full_date_string": " जून, "
+    },
+    {
+      "day_month_string": " जुलै",
+      "full_date_string": " जुलै, "
+    },
+    {
+      "day_month_string": " ऑग",
+      "full_date_string": " ऑग, "
+    },
+    {
+      "day_month_string": " सप्टें",
+      "full_date_string": " सप्टें, "
+    },
+    {
+      "day_month_string": " ऑक्टो",
+      "full_date_string": " ऑक्टो, "
+    },
+    {
+      "day_month_string": " नोव्हें",
+      "full_date_string": " नोव्हें, "
+    },
+    {
+      "day_month_string": " डिसें",
+      "full_date_string": " डिसें, "
+    }
+  ],
+  "hi": [
+    {
+      "day_month_string": " जन॰",
+      "full_date_string": " जन॰ "
+    },
+    {
+      "day_month_string": " फ़र॰",
+      "full_date_string": " फ़र॰ "
+    },
+    {
+      "day_month_string": " मार्च",
+      "full_date_string": " मार्च "
+    },
+    {
+      "day_month_string": " अप्रैल",
+      "full_date_string": " अप्रैल "
+    },
+    {
+      "day_month_string": " मई",
+      "full_date_string": " मई "
+    },
+    {
+      "day_month_string": " जून",
+      "full_date_string": " जून "
+    },
+    {
+      "day_month_string": " जुल॰",
+      "full_date_string": " जुल॰ "
+    },
+    {
+      "day_month_string": " अग॰",
+      "full_date_string": " अग॰ "
+    },
+    {
+      "day_month_string": " सित॰",
+      "full_date_string": " सित॰ "
+    },
+    {
+      "day_month_string": " अक्तू॰",
+      "full_date_string": " अक्तू॰ "
+    },
+    {
+      "day_month_string": " नव॰",
+      "full_date_string": " नव॰ "
+    },
+    {
+      "day_month_string": " दिस॰",
+      "full_date_string": " दिस॰ "
+    }
+  ],
+  "as": [
+    {
+      "day_month_string": " জানু",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " ফেব্ৰু",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " মাৰ্চ",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " এপ্ৰিল",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " মে’",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " জুন",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " জুলাই",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " আগ",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " ছেপ্তে",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " অক্টো",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " নৱে",
+      "full_date_string": ""
+    },
+    {
+      "day_month_string": " ডিচে",
+      "full_date_string": ""
+    }
+  ],
+  "bn": [
+    {
+      "day_month_string": " জানু",
+      "full_date_string": " জানু, "
+    },
+    {
+      "day_month_string": " ফেব",
+      "full_date_string": " ফেব, "
+    },
+    {
+      "day_month_string": " মার্চ",
+      "full_date_string": " মার্চ, "
+    },
+    {
+      "day_month_string": " এপ্রি",
+      "full_date_string": " এপ্রি, "
+    },
+    {
+      "day_month_string": " মে",
+      "full_date_string": " মে, "
+    },
+    {
+      "day_month_string": " জুন",
+      "full_date_string": " জুন, "
+    },
+    {
+      "day_month_string": " জুল",
+      "full_date_string": " জুল, "
+    },
+    {
+      "day_month_string": " আগ",
+      "full_date_string": " আগ, "
+    },
+    {
+      "day_month_string": " সেপ",
+      "full_date_string": " সেপ, "
+    },
+    {
+      "day_month_string": " অক্টো",
+      "full_date_string": " অক্টো, "
+    },
+    {
+      "day_month_string": " নভে",
+      "full_date_string": " নভে, "
+    },
+    {
+      "day_month_string": " ডিসে",
+      "full_date_string": " ডিসে, "
+    }
+  ],
+  "pa": [
+    {
+      "day_month_string": " ਜਨ",
+      "full_date_string": " ਜਨ "
+    },
+    {
+      "day_month_string": " ਫ਼ਰ",
+      "full_date_string": " ਫ਼ਰ "
+    },
+    {
+      "day_month_string": " ਮਾਰਚ",
+      "full_date_string": " ਮਾਰਚ "
+    },
+    {
+      "day_month_string": " ਅਪ੍ਰੈ",
+      "full_date_string": " ਅਪ੍ਰੈ "
+    },
+    {
+      "day_month_string": " ਮਈ",
+      "full_date_string": " ਮਈ "
+    },
+    {
+      "day_month_string": " ਜੂਨ",
+      "full_date_string": " ਜੂਨ "
+    },
+    {
+      "day_month_string": " ਜੁਲਾ",
+      "full_date_string": " ਜੁਲਾ "
+    },
+    {
+      "day_month_string": " ਅਗ",
+      "full_date_string": " ਅਗ "
+    },
+    {
+      "day_month_string": " ਸਤੰ",
+      "full_date_string": " ਸਤੰ "
+    },
+    {
+      "day_month_string": " ਅਕਤੂ",
+      "full_date_string": " ਅਕਤੂ "
+    },
+    {
+      "day_month_string": " ਨਵੰ",
+      "full_date_string": " ਨਵੰ "
+    },
+    {
+      "day_month_string": " ਦਸੰ",
+      "full_date_string": " ਦਸੰ "
+    }
+  ],
+  "gu": [
+    {
+      "day_month_string": " જાન્યુ",
+      "full_date_string": " જાન્યુ, "
+    },
+    {
+      "day_month_string": " ફેબ્રુ",
+      "full_date_string": " ફેબ્રુ, "
+    },
+    {
+      "day_month_string": " માર્ચ",
+      "full_date_string": " માર્ચ, "
+    },
+    {
+      "day_month_string": " એપ્રિલ",
+      "full_date_string": " એપ્રિલ, "
+    },
+    {
+      "day_month_string": " મે",
+      "full_date_string": " મે, "
+    },
+    {
+      "day_month_string": " જૂન",
+      "full_date_string": " જૂન, "
+    },
+    {
+      "day_month_string": " જુલાઈ",
+      "full_date_string": " જુલાઈ, "
+    },
+    {
+      "day_month_string": " ઑગસ્ટ",
+      "full_date_string": " ઑગસ્ટ, "
+    },
+    {
+      "day_month_string": " સપ્ટે",
+      "full_date_string": " સપ્ટે, "
+    },
+    {
+      "day_month_string": " ઑક્ટો",
+      "full_date_string": " ઑક્ટો, "
+    },
+    {
+      "day_month_string": " નવે",
+      "full_date_string": " નવે, "
+    },
+    {
+      "day_month_string": " ડિસે",
+      "full_date_string": " ડિસે, "
+    }
+  ],
+  "or": [
+    {
+      "day_month_string": "ଜାନୁଆରୀ ",
+      "full_date_string": "ଜାନୁଆରୀ  "
+    },
+    {
+      "day_month_string": "ଫେବୃଆରୀ ",
+      "full_date_string": "ଫେବୃଆରୀ  "
+    },
+    {
+      "day_month_string": "ମାର୍ଚ୍ଚ ",
+      "full_date_string": "ମାର୍ଚ୍ଚ  "
+    },
+    {
+      "day_month_string": "ଅପ୍ରେଲ ",
+      "full_date_string": "ଅପ୍ରେଲ  "
+    },
+    {
+      "day_month_string": "ମଇ ",
+      "full_date_string": "ମଇ  "
+    },
+    {
+      "day_month_string": "ଜୁନ ",
+      "full_date_string": "ଜୁନ  "
+    },
+    {
+      "day_month_string": "ଜୁଲାଇ ",
+      "full_date_string": "ଜୁଲାଇ  "
+    },
+    {
+      "day_month_string": "ଅଗଷ୍ଟ ",
+      "full_date_string": "ଅଗଷ୍ଟ  "
+    },
+    {
+      "day_month_string": "ସେପ୍ଟେମ୍ବର ",
+      "full_date_string": "ସେପ୍ଟେମ୍ବର  "
+    },
+    {
+      "day_month_string": "ଅକ୍ଟୋବର ",
+      "full_date_string": "ଅକ୍ଟୋବର  "
+    },
+    {
+      "day_month_string": "ନଭେମ୍ବର ",
+      "full_date_string": "ନଭେମ୍ବର  "
+    },
+    {
+      "day_month_string": "ଡିସେମ୍ବର ",
+      "full_date_string": "ଡିସେମ୍ବର  "
+    }
+  ],
+  "ta": [
+    {
+      "day_month_string": "ஜன. ",
+      "full_date_string": " ஜன., "
+    },
+    {
+      "day_month_string": "பிப். ",
+      "full_date_string": " பிப்., "
+    },
+    {
+      "day_month_string": "மார். ",
+      "full_date_string": " மார்., "
+    },
+    {
+      "day_month_string": "ஏப். ",
+      "full_date_string": " ஏப்., "
+    },
+    {
+      "day_month_string": "மே ",
+      "full_date_string": " மே, "
+    },
+    {
+      "day_month_string": "ஜூன் ",
+      "full_date_string": " ஜூன், "
+    },
+    {
+      "day_month_string": "ஜூலை ",
+      "full_date_string": " ஜூலை, "
+    },
+    {
+      "day_month_string": "ஆக. ",
+      "full_date_string": " ஆக., "
+    },
+    {
+      "day_month_string": "செப். ",
+      "full_date_string": " செப்., "
+    },
+    {
+      "day_month_string": "அக். ",
+      "full_date_string": " அக்., "
+    },
+    {
+      "day_month_string": "நவ. ",
+      "full_date_string": " நவ., "
+    },
+    {
+      "day_month_string": "டிச. ",
+      "full_date_string": " டிச., "
+    }
+  ],
+  "te": [
+    {
+      "day_month_string": " జన",
+      "full_date_string": " జన, "
+    },
+    {
+      "day_month_string": " ఫిబ్ర",
+      "full_date_string": " ఫిబ్ర, "
+    },
+    {
+      "day_month_string": " మార్చి",
+      "full_date_string": " మార్చి, "
+    },
+    {
+      "day_month_string": " ఏప్రి",
+      "full_date_string": " ఏప్రి, "
+    },
+    {
+      "day_month_string": " మే",
+      "full_date_string": " మే, "
+    },
+    {
+      "day_month_string": " జూన్",
+      "full_date_string": " జూన్, "
+    },
+    {
+      "day_month_string": " జులై",
+      "full_date_string": " జులై, "
+    },
+    {
+      "day_month_string": " ఆగ",
+      "full_date_string": " ఆగ, "
+    },
+    {
+      "day_month_string": " సెప్టెం",
+      "full_date_string": " సెప్టెం, "
+    },
+    {
+      "day_month_string": " అక్టో",
+      "full_date_string": " అక్టో, "
+    },
+    {
+      "day_month_string": " నవం",
+      "full_date_string": " నవం, "
+    },
+    {
+      "day_month_string": " డిసెం",
+      "full_date_string": " డిసెం, "
+    }
+  ],
+  "kn": [
+    {
+      "day_month_string": "ಜನವರಿ ",
+      "full_date_string": "ಜನವರಿ  "
+    },
+    {
+      "day_month_string": "ಫೆಬ್ರವರಿ ",
+      "full_date_string": "ಫೆಬ್ರವರಿ  "
+    },
+    {
+      "day_month_string": "ಮಾರ್ಚ್ ",
+      "full_date_string": "ಮಾರ್ಚ್  "
+    },
+    {
+      "day_month_string": "ಏಪ್ರಿ ",
+      "full_date_string": "ಏಪ್ರಿ  "
+    },
+    {
+      "day_month_string": "ಮೇ ",
+      "full_date_string": "ಮೇ  "
+    },
+    {
+      "day_month_string": "ಜೂನ್ ",
+      "full_date_string": "ಜೂನ್  "
+    },
+    {
+      "day_month_string": "ಜುಲೈ ",
+      "full_date_string": "ಜುಲೈ  "
+    },
+    {
+      "day_month_string": "ಆಗಸ್ಟ್ ",
+      "full_date_string": "ಆಗಸ್ಟ್  "
+    },
+    {
+      "day_month_string": "ಸೆಪ್ಟೆಂ ",
+      "full_date_string": "ಸೆಪ್ಟೆಂ  "
+    },
+    {
+      "day_month_string": "ಅಕ್ಟೋ ",
+      "full_date_string": "ಅಕ್ಟೋ  "
+    },
+    {
+      "day_month_string": "ನವೆಂ ",
+      "full_date_string": "ನವೆಂ  "
+    },
+    {
+      "day_month_string": "ಡಿಸೆಂ ",
+      "full_date_string": "ಡಿಸೆಂ  "
+    }
+  ],
+  "ml": [
+    {
+      "day_month_string": "ജനു ",
+      "full_date_string": ", ജനു "
+    },
+    {
+      "day_month_string": "ഫെബ്രു ",
+      "full_date_string": ", ഫെബ്രു "
+    },
+    {
+      "day_month_string": "മാർ ",
+      "full_date_string": "20 മാർ 23"
+    },
+    {
+      "day_month_string": "ഏപ്രി ",
+      "full_date_string": ", ഏപ്രി "
+    },
+    {
+      "day_month_string": "മേയ് ",
+      "full_date_string": ", മേയ് "
+    },
+    {
+      "day_month_string": "ജൂൺ ",
+      "full_date_string": ", ജൂൺ "
+    },
+    {
+      "day_month_string": "ജൂലൈ ",
+      "full_date_string": ", ജൂലൈ "
+    },
+    {
+      "day_month_string": "ഓഗ ",
+      "full_date_string": ", ഓഗ "
+    },
+    {
+      "day_month_string": "സെപ്റ്റം ",
+      "full_date_string": ", സെപ്റ്റം "
+    },
+    {
+      "day_month_string": "ഒക്ടോ ",
+      "full_date_string": ", ഒക്ടോ "
+    },
+    {
+      "day_month_string": "നവം ",
+      "full_date_string": ", നവം "
+    },
+    {
+      "day_month_string": "ഡിസം ",
+      "full_date_string": ", ഡിസം "
+    }
+  ],
+  "si": [
+    {
+      "day_month_string": "ජන ",
+      "full_date_string": " ජන "
+    },
+    {
+      "day_month_string": "පෙබ ",
+      "full_date_string": " පෙබ "
+    },
+    {
+      "day_month_string": "මාර්තු ",
+      "full_date_string": "20 මාර්තු 23"
+    },
+    {
+      "day_month_string": "අප්‍රේල් ",
+      "full_date_string": " අප්‍රේල් "
+    },
+    {
+      "day_month_string": "මැයි ",
+      "full_date_string": " මැයි "
+    },
+    {
+      "day_month_string": "ජූනි ",
+      "full_date_string": " ජූනි "
+    },
+    {
+      "day_month_string": "ජූලි ",
+      "full_date_string": " ජූලි "
+    },
+    {
+      "day_month_string": "අගෝ ",
+      "full_date_string": " අගෝ "
+    },
+    {
+      "day_month_string": "සැප් ",
+      "full_date_string": " සැප් "
+    },
+    {
+      "day_month_string": "ඔක් ",
+      "full_date_string": " ඔක් "
+    },
+    {
+      "day_month_string": "නොවැ ",
+      "full_date_string": " නොවැ "
+    },
+    {
+      "day_month_string": "දෙසැ ",
+      "full_date_string": " දෙසැ "
+    }
+  ],
+  "th": [
+    {
+      "day_month_string": " ม.ค.",
+      "full_date_string": " ม.ค. "
+    },
+    {
+      "day_month_string": " ก.พ.",
+      "full_date_string": " ก.พ. "
+    },
+    {
+      "day_month_string": " มี.ค.",
+      "full_date_string": " มี.ค. "
+    },
+    {
+      "day_month_string": " เม.ย.",
+      "full_date_string": " เม.ย. "
+    },
+    {
+      "day_month_string": " พ.ค.",
+      "full_date_string": " พ.ค. "
+    },
+    {
+      "day_month_string": " มิ.ย.",
+      "full_date_string": " มิ.ย. "
+    },
+    {
+      "day_month_string": " ก.ค.",
+      "full_date_string": " ก.ค. "
+    },
+    {
+      "day_month_string": " ส.ค.",
+      "full_date_string": " ส.ค. "
+    },
+    {
+      "day_month_string": " ก.ย.",
+      "full_date_string": " ก.ย. "
+    },
+    {
+      "day_month_string": " ต.ค.",
+      "full_date_string": " ต.ค. "
+    },
+    {
+      "day_month_string": " พ.ย.",
+      "full_date_string": " พ.ย. "
+    },
+    {
+      "day_month_string": " ธ.ค.",
+      "full_date_string": " ธ.ค. "
+    }
+  ],
+  "lo": [
+    {
+      "day_month_string": " ມ.ກ.",
+      "full_date_string": " ມ.ກ. "
+    },
+    {
+      "day_month_string": " ກ.ພ.",
+      "full_date_string": " ກ.ພ. "
+    },
+    {
+      "day_month_string": " ມ.ນ.",
+      "full_date_string": " ມ.ນ. "
+    },
+    {
+      "day_month_string": " ມ.ສ.",
+      "full_date_string": " ມ.ສ. "
+    },
+    {
+      "day_month_string": " ພ.ພ.",
+      "full_date_string": " ພ.ພ. "
+    },
+    {
+      "day_month_string": " ມິ.ຖ.",
+      "full_date_string": " ມິ.ຖ. "
+    },
+    {
+      "day_month_string": " ກ.ລ.",
+      "full_date_string": " ກ.ລ. "
+    },
+    {
+      "day_month_string": " ສ.ຫ.",
+      "full_date_string": " ສ.ຫ. "
+    },
+    {
+      "day_month_string": " ກ.ຍ.",
+      "full_date_string": " ກ.ຍ. "
+    },
+    {
+      "day_month_string": " ຕ.ລ.",
+      "full_date_string": " ຕ.ລ. "
+    },
+    {
+      "day_month_string": " ພ.ຈ.",
+      "full_date_string": " ພ.ຈ. "
+    },
+    {
+      "day_month_string": " ທ.ວ.",
+      "full_date_string": " ທ.ວ. "
+    }
+  ],
+  "my": [
+    {
+      "day_month_string": " ဇန်",
+      "full_date_string": "၊ ဇန် "
+    },
+    {
+      "day_month_string": " ဖေ",
+      "full_date_string": "၊ ဖေ "
+    },
+    {
+      "day_month_string": " မတ်",
+      "full_date_string": "20 မတ် 23"
+    },
+    {
+      "day_month_string": " ဧ",
+      "full_date_string": "၊ ဧ "
+    },
+    {
+      "day_month_string": " မေ",
+      "full_date_string": "၊ မေ "
+    },
+    {
+      "day_month_string": " ဇွန်",
+      "full_date_string": "၊ ဇွန် "
+    },
+    {
+      "day_month_string": " ဇူ",
+      "full_date_string": "၊ ဇူ "
+    },
+    {
+      "day_month_string": " ဩ",
+      "full_date_string": "၊ ဩ "
+    },
+    {
+      "day_month_string": " စက်",
+      "full_date_string": "၊ စက် "
+    },
+    {
+      "day_month_string": " အောက်",
+      "full_date_string": "၊ အောက် "
+    },
+    {
+      "day_month_string": " နို",
+      "full_date_string": "၊ နို "
+    },
+    {
+      "day_month_string": " ဒီ",
+      "full_date_string": "၊ ဒီ "
+    }
+  ],
+  "ka": [
+    {
+      "day_month_string": " იან",
+      "full_date_string": " იან. "
+    },
+    {
+      "day_month_string": " თებ",
+      "full_date_string": " თებ. "
+    },
+    {
+      "day_month_string": " მარ",
+      "full_date_string": " მარ. "
+    },
+    {
+      "day_month_string": " აპრ",
+      "full_date_string": " აპრ. "
+    },
+    {
+      "day_month_string": " მაი",
+      "full_date_string": " მაი. "
+    },
+    {
+      "day_month_string": " ივნ",
+      "full_date_string": " ივნ. "
+    },
+    {
+      "day_month_string": " ივლ",
+      "full_date_string": " ივლ. "
+    },
+    {
+      "day_month_string": " აგვ",
+      "full_date_string": " აგვ. "
+    },
+    {
+      "day_month_string": " სექ",
+      "full_date_string": " სექ. "
+    },
+    {
+      "day_month_string": " ოქტ",
+      "full_date_string": " ოქტ. "
+    },
+    {
+      "day_month_string": " ნოე",
+      "full_date_string": " ნოე. "
+    },
+    {
+      "day_month_string": " დეკ",
+      "full_date_string": " დეკ. "
+    }
+  ],
+  "am": [
+    {
+      "day_month_string": "ጃንዩ ",
+      "full_date_string": " ጃንዩ "
+    },
+    {
+      "day_month_string": "ፌብሩ ",
+      "full_date_string": " ፌብሩ "
+    },
+    {
+      "day_month_string": "ማርች ",
+      "full_date_string": " ማርች "
+    },
+    {
+      "day_month_string": "ኤፕሪ ",
+      "full_date_string": " ኤፕሪ "
+    },
+    {
+      "day_month_string": "ሜይ ",
+      "full_date_string": " ሜይ "
+    },
+    {
+      "day_month_string": "ጁን ",
+      "full_date_string": " ጁን "
+    },
+    {
+      "day_month_string": "ጁላይ ",
+      "full_date_string": " ጁላይ "
+    },
+    {
+      "day_month_string": "ኦገስ ",
+      "full_date_string": " ኦገስ "
+    },
+    {
+      "day_month_string": "ሴፕቴ ",
+      "full_date_string": " ሴፕቴ "
+    },
+    {
+      "day_month_string": "ኦክቶ ",
+      "full_date_string": " ኦክቶ "
+    },
+    {
+      "day_month_string": "ኖቬም ",
+      "full_date_string": " ኖቬም "
+    },
+    {
+      "day_month_string": "ዲሴም ",
+      "full_date_string": " ዲሴም "
+    }
+  ],
+  "km": [
+    {
+      "day_month_string": " មករា",
+      "full_date_string": " មករា "
+    },
+    {
+      "day_month_string": " កុម្ភៈ",
+      "full_date_string": " កុម្ភៈ "
+    },
+    {
+      "day_month_string": " មីនា",
+      "full_date_string": " មីនា "
+    },
+    {
+      "day_month_string": " មេសា",
+      "full_date_string": " មេសា "
+    },
+    {
+      "day_month_string": " ឧសភា",
+      "full_date_string": " ឧសភា "
+    },
+    {
+      "day_month_string": " មិថុនា",
+      "full_date_string": " មិថុនា "
+    },
+    {
+      "day_month_string": " កក្កដា",
+      "full_date_string": " កក្កដា "
+    },
+    {
+      "day_month_string": " សីហា",
+      "full_date_string": " សីហា "
+    },
+    {
+      "day_month_string": " កញ្ញា",
+      "full_date_string": " កញ្ញា "
+    },
+    {
+      "day_month_string": " តុលា",
+      "full_date_string": " តុលា "
+    },
+    {
+      "day_month_string": " វិច្ឆិកា",
+      "full_date_string": " វិច្ឆិកា "
+    },
+    {
+      "day_month_string": " ធ្នូ",
+      "full_date_string": " ធ្នូ "
+    }
+  ],
+  "zh-CN": [
+    {
+      "day_month_string": "1月",
+      "full_date_string": "年1月"
+    },
+    {
+      "day_month_string": "2月",
+      "full_date_string": "年2月"
+    },
+    {
+      "day_month_string": "3月",
+      "full_date_string": "20"
+    },
+    {
+      "day_month_string": "4月",
+      "full_date_string": "年4月"
+    },
+    {
+      "day_month_string": "5月",
+      "full_date_string": "年5月"
+    },
+    {
+      "day_month_string": "6月",
+      "full_date_string": "年6月"
+    },
+    {
+      "day_month_string": "7月",
+      "full_date_string": "年7月"
+    },
+    {
+      "day_month_string": "8月",
+      "full_date_string": "年8月"
+    },
+    {
+      "day_month_string": "9月",
+      "full_date_string": "年9月"
+    },
+    {
+      "day_month_string": "10月",
+      "full_date_string": "年10月"
+    },
+    {
+      "day_month_string": "11月",
+      "full_date_string": "年11月"
+    },
+    {
+      "day_month_string": "12月",
+      "full_date_string": "年12月"
+    }
+  ],
+  "zh-TW": [
+    {
+      "day_month_string": "1月",
+      "full_date_string": "年1月"
+    },
+    {
+      "day_month_string": "2月",
+      "full_date_string": "年2月"
+    },
+    {
+      "day_month_string": "3月",
+      "full_date_string": "20"
+    },
+    {
+      "day_month_string": "4月",
+      "full_date_string": "年4月"
+    },
+    {
+      "day_month_string": "5月",
+      "full_date_string": "年5月"
+    },
+    {
+      "day_month_string": "6月",
+      "full_date_string": "年6月"
+    },
+    {
+      "day_month_string": "7月",
+      "full_date_string": "年7月"
+    },
+    {
+      "day_month_string": "8月",
+      "full_date_string": "年8月"
+    },
+    {
+      "day_month_string": "9月",
+      "full_date_string": "年9月"
+    },
+    {
+      "day_month_string": "10月",
+      "full_date_string": "年10月"
+    },
+    {
+      "day_month_string": "11月",
+      "full_date_string": "年11月"
+    },
+    {
+      "day_month_string": "12月",
+      "full_date_string": "年12月"
+    }
+  ],
+  "zh-HK": [
+    {
+      "day_month_string": "1月",
+      "full_date_string": "年1月"
+    },
+    {
+      "day_month_string": "2月",
+      "full_date_string": "年2月"
+    },
+    {
+      "day_month_string": "3月",
+      "full_date_string": "20"
+    },
+    {
+      "day_month_string": "4月",
+      "full_date_string": "年4月"
+    },
+    {
+      "day_month_string": "5月",
+      "full_date_string": "年5月"
+    },
+    {
+      "day_month_string": "6月",
+      "full_date_string": "年6月"
+    },
+    {
+      "day_month_string": "7月",
+      "full_date_string": "年7月"
+    },
+    {
+      "day_month_string": "8月",
+      "full_date_string": "年8月"
+    },
+    {
+      "day_month_string": "9月",
+      "full_date_string": "年9月"
+    },
+    {
+      "day_month_string": "10月",
+      "full_date_string": "年10月"
+    },
+    {
+      "day_month_string": "11月",
+      "full_date_string": "年11月"
+    },
+    {
+      "day_month_string": "12月",
+      "full_date_string": "年12月"
+    }
+  ],
+  "ja": [
+    {
+      "day_month_string": "1月",
+      "full_date_string": "/01/"
+    },
+    {
+      "day_month_string": "2月",
+      "full_date_string": "/02/"
+    },
+    {
+      "day_month_string": "3月",
+      "full_date_string": "20"
+    },
+    {
+      "day_month_string": "4月",
+      "full_date_string": "/04/"
+    },
+    {
+      "day_month_string": "5月",
+      "full_date_string": "/05/"
+    },
+    {
+      "day_month_string": "6月",
+      "full_date_string": "/06/"
+    },
+    {
+      "day_month_string": "7月",
+      "full_date_string": "/07/"
+    },
+    {
+      "day_month_string": "8月",
+      "full_date_string": "/08/"
+    },
+    {
+      "day_month_string": "9月",
+      "full_date_string": "/09/"
+    },
+    {
+      "day_month_string": "10月",
+      "full_date_string": "/10/"
+    },
+    {
+      "day_month_string": "11月",
+      "full_date_string": "/11/"
+    },
+    {
+      "day_month_string": "12月",
+      "full_date_string": "/12/"
+    }
+  ],
+  "ko": [
+    {
+      "day_month_string": "1월 ",
+      "full_date_string": ". 1. "
+    },
+    {
+      "day_month_string": "2월 ",
+      "full_date_string": ". 2. "
+    },
+    {
+      "day_month_string": "3월 ",
+      "full_date_string": "20 3. 23."
+    },
+    {
+      "day_month_string": "4월 ",
+      "full_date_string": ". 4. "
+    },
+    {
+      "day_month_string": "5월 ",
+      "full_date_string": ". 5. "
+    },
+    {
+      "day_month_string": "6월 ",
+      "full_date_string": ". 6. "
+    },
+    {
+      "day_month_string": "7월 ",
+      "full_date_string": ". 7. "
+    },
+    {
+      "day_month_string": "8월 ",
+      "full_date_string": ". 8. "
+    },
+    {
+      "day_month_string": "9월 ",
+      "full_date_string": ". 9. "
+    },
+    {
+      "day_month_string": "10월 ",
+      "full_date_string": ". 10. "
+    },
+    {
+      "day_month_string": "11월 ",
+      "full_date_string": ". 11. "
+    },
+    {
+      "day_month_string": "12월 ",
+      "full_date_string": ". 12. "
+    }
+  ]
+}
