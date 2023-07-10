@@ -8,7 +8,7 @@ pub async fn get_player_js_id() -> Result<String,Option<reqwest::Error>> {
     Ok(response) => {
       match response.text().await {
         Ok(response_text) => {
-          let player_url_regex =Regex::new(r"= 'https:\\/\\/www.youtube.com\\/s\\/player\\/([^']*?)\\/www-widgetapi.vflset\\/www-widgetapi.js';window\['yt_embeds").unwrap();
+          let player_url_regex = Regex::new(r"= 'https:\\/\\/www.youtube.com\\/s\\/player\\/([^']*?)\\/www-widgetapi.vflset\\/www-widgetapi.js';").unwrap();
           match player_url_regex.captures(&response_text) {  
             Some(captures) => {
               Ok(format!("{}", captures.get(1).unwrap().as_str()))
