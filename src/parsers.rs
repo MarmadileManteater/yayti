@@ -4,7 +4,7 @@ pub mod tv;
 pub mod web;
 pub mod ciphers;
 
-use crate::constants::{DEFAULT_WEB_API_KEY, DEFAULT_WEB_CVER, DEFAULT_ANDROID_API_KEY, DEFAULT_ANDROID_CVER, DEFAULT_TV_CVER};
+use crate::{constants::{DEFAULT_WEB_API_KEY, DEFAULT_WEB_CVER, DEFAULT_ANDROID_API_KEY, DEFAULT_ANDROID_CVER, DEFAULT_TV_CVER}, helpers::{generate_visitor_data, generate_random_noise}};
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -17,11 +17,13 @@ pub struct ClientContext {
   pub os_name: String,
   pub os_version: String,
   pub platform: String,
-  pub form_factor: String
+  pub form_factor: String,
+  pub visitor_data: String
 }
 
 impl ClientContext {
   pub fn default_tv() -> ClientContext {
+    let visitor_data = generate_visitor_data(&generate_random_noise(11)).unwrap_or(String::from(""));
     ClientContext {
       api_key: String::from(DEFAULT_WEB_API_KEY),
       api_version: String::from("v1"),
@@ -31,7 +33,8 @@ impl ClientContext {
       os_name: String::from(""),
       os_version: String::from(""),
       platform: String::from("TV"),
-      form_factor: String::from("UNKNOWN_FORM_FACTOR")
+      form_factor: String::from("UNKNOWN_FORM_FACTOR"),
+      visitor_data
     }
   }
   pub fn default_android() -> ClientContext {
@@ -44,10 +47,12 @@ impl ClientContext {
       os_name: String::from("Android"),
       os_version: String::from("12"),
       platform: String::from("MOBILE"),
-      form_factor: String::from("UNKNOWN_FORM_FACTOR")
+      form_factor: String::from("UNKNOWN_FORM_FACTOR"),
+      visitor_data: String::from("")
     }
   }
   pub fn default_web() -> ClientContext {
+    let visitor_data = generate_visitor_data(&generate_random_noise(11)).unwrap_or(String::from(""));
     ClientContext {
       api_key: String::from(DEFAULT_WEB_API_KEY),
       api_version: String::from("v1"),
@@ -57,7 +62,8 @@ impl ClientContext {
       os_name: String::from(""),
       os_version: String::from(""),
       platform: String::from("DESKTOP"),
-      form_factor: String::from("UNKNOWN_FORM_FACTOR")
+      form_factor: String::from("UNKNOWN_FORM_FACTOR"),
+      visitor_data
     }
   }
   pub fn from_json(j_object: &serde_json::Value) -> ClientContext {
@@ -104,7 +110,8 @@ impl ClientContext {
       os_name: os_name,
       os_version: os_version,
       platform: platform,
-      form_factor: String::from("UNKNOWN_FORM_FACTOR")
+      form_factor: String::from("UNKNOWN_FORM_FACTOR"),
+      visitor_data: String::from("")
     }
   }
 }

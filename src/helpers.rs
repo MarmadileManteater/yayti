@@ -1,12 +1,13 @@
 
-use std::string::FromUtf16Error;
+use std::string::{FromUtf16Error, FromUtf8Error};
 use base64::engine::general_purpose;
 use regex::Regex;
 use shared::MonthInformation;
 use std::str::FromStr;
-use chrono::{NaiveDate, NaiveTime, ParseError};
+use rand::seq::SliceRandom;
+use chrono::{NaiveDate, NaiveTime, ParseError, Utc};
 use log::{warn};
-use crate::{constants::YT_THUMBNAIL_HOST_URL, proto::{PageCountData, InnerPlaylistContinuationData, InnerPlaylistContinuation, PlaylistContinuation}};
+use crate::{constants::YT_THUMBNAIL_HOST_URL, proto::{PageCountData, InnerPlaylistContinuationData, InnerPlaylistContinuation, PlaylistContinuation, VisitorData}};
 use serde_json::{from_str,Value, to_string};
 use serde::{Deserialize, Serialize};
 use prost::{Message, EncodeError};
@@ -334,4 +335,32 @@ pub fn generate_playlist_continuation(playlist_id: &str, page_num: i32 /* 1 inde
   let base64_encoded = general_purpose::STANDARD.encode(&encoded[..]);
   let continuation = urlencoding::encode(&base64_encoded);
   Ok(format!("{}", continuation))
+}
+
+pub enum GenerateVisitorDataError {
+  EncodeError(EncodeError)
+}
+
+pub fn generate_visitor_data(visitor_id: &str) -> Result<String, GenerateVisitorDataError> {
+  let data = VisitorData {
+    visitor_id: String::from(visitor_id),
+    timestamp: Utc::now().timestamp()
+  };
+  match encode_buffer(data) {
+    Ok(buffer) => {
+      let base64_encoded = general_purpose::STANDARD.encode(&buffer[..]);
+      let url_encoded = urlencoding::encode(&base64_encoded);
+      Ok(format!("{}", url_encoded))
+    },
+    Err(e) => Err(GenerateVisitorDataError::EncodeError(e))
+  }
+}
+
+pub fn generate_random_noise(len: usize) -> String {
+  let possible_characters = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".split("").collect::<Vec::<&str>>();
+  let mut output = Vec::with_capacity(len);
+  for i in 0..len {
+    output.push(possible_characters.choose(&mut rand::thread_rng()));
+  }
+  output.into_iter().map(|s| String::from(*s.unwrap_or(&""))).collect::<String>()
 }
