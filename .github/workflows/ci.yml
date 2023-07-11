@@ -28,6 +28,9 @@ jobs:
         search_artifacts: false
         skip_unpack: false
         if_no_artifact_found: fail
+    - name: ⬇ Install protoc 
+      run: |
+        sudo apt-get install protobuf-compiler -y
     - name: 🏗 Build
       run: cargo build --verbose --all-features
     - name: 🧪 Test
