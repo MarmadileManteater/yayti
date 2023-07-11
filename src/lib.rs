@@ -3,7 +3,7 @@ mod constants;
 pub mod helpers;
 pub mod extractors;
 pub mod parsers;
-
+pub mod proto;
 
 
 #[cfg(test)]

@@ -6,7 +6,7 @@ use shared::MonthInformation;
 use std::str::FromStr;
 use chrono::{NaiveDate, NaiveTime, ParseError};
 use log::{warn};
-use crate::constants::YT_THUMBNAIL_HOST_URL;
+use crate::{constants::YT_THUMBNAIL_HOST_URL, proto::{PageCountData, InnerPlaylistContinuationData, InnerPlaylistContinuation, PlaylistContinuation}};
 use serde_json::{from_str,Value, to_string};
 use serde::{Deserialize, Serialize};
 use prost::{Message, EncodeError};
@@ -289,39 +289,8 @@ pub fn parse_date_to_published(lang: &str, option: &ParseDateOption) -> Result<i
 
 }
 
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct PlaylistContinuation {
-    #[prost(message, optional, tag = "80226972")]
-    pub inner: ::core::option::Option<InnerPlaylistContinuation>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct InnerPlaylistContinuation {
-    #[prost(string, tag = "2")]
-    pub id_full: ::prost::alloc::string::String,
-    #[prost(string, tag = "35")]
-    pub id: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub inner_data: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct InnerPlaylistContinuationData {
-    #[prost(int32, tag = "1")]
-    pub some_random_junk_idk: i32,
-    #[prost(string, tag = "15")]
-    pub inner_page_count: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct PageCountData {
-    #[prost(int32, tag = "1")]
-    pub max: i32,
-}
-
-pub fn decode_buffer(proto_buf: Vec::<u8>) -> impl Message {
-  PlaylistContinuation::decode(&proto_buf[..]).unwrap()
+pub fn decode_buffer<T:Message+Default>(proto_buf: Vec::<u8>) -> impl Message {
+  T::decode(&proto_buf[..]).unwrap()
 }
 
 pub fn encode_buffer(continuation: impl Message) -> Result<Vec::<u8>, EncodeError> {

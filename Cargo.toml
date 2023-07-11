@@ -3,6 +3,9 @@ name = "yayti"
 version = "0.3.0"
 edition = "2021"
 
+[build-dependencies]
+prost-build = "0.11.9"
+
 [dependencies]
 chrono = "0.4.23"
 regex = "1.7.0"
