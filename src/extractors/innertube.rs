@@ -1,6 +1,8 @@
 
 use crate::constants::{INNERTUBE_API_URL,WEBSITE_BASE_URL};
+use crate::helpers::generate_player_params;
 use crate::parsers::ClientContext;
+use rand::Rng;
 
 #[doc = r"Converts a serde_json map to a string to be made part of a larger JSON object"]
 fn map_to_json_part(map: &serde_json::Map::<String, serde_json::Value>) -> std::string::String {
@@ -15,10 +17,11 @@ pub async fn fetch_account_menu(context: &ClientContext, lang: Option<&str>) -> 
 
 #[doc = r"Fetches the `player` innertube endpoint which contains streaming data"]
 pub async fn fetch_player(video_id : &str, context: &ClientContext, lang : Option<&str>) -> Result<String, reqwest::Error> {
+  let random_params = generate_player_params(rand::thread_rng().gen_range(0..100)).map_err(|e| log::warn!("Problem w/ generating protobuf for player params, falling back to hardcoded params")).unwrap_or(String::from("8AEB"));
   fetch_endpoint("player", context, lang, serde_json::from_str::<serde_json::Map::<String, serde_json::Value>>(&format!(r#"
   {{
     "videoId": "{}",
-    "params": "8AEB",
+    "params": "{}",
     "playbackContext": {{
       "contentPlaybackContext": {{
         "vis": 0,
@@ -32,7 +35,7 @@ pub async fn fetch_player(video_id : &str, context: &ClientContext, lang : Optio
       }}
     }}
   }}
- "#, video_id, video_id)).unwrap()).await
+ "#, video_id, random_params, video_id)).unwrap()).await
 }
 
 #[doc = r"Fetches the `player` innertube endpoint which contains streaming data"]
@@ -40,7 +43,7 @@ pub async fn fetch_player_with_sig_timestamp(video_id : &str, signature_timestam
   fetch_endpoint("player", context, lang, serde_json::from_str::<serde_json::Map::<String, serde_json::Value>>(&format!(r#"
   {{
     "videoId": "{}",
-    "params": "8AEB",
+    "params": "",
     "playbackContext": {{
       "contentPlaybackContext": {{
         "vis": 0,

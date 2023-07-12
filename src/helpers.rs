@@ -7,7 +7,7 @@ use std::str::FromStr;
 use rand::seq::SliceRandom;
 use chrono::{NaiveDate, NaiveTime, ParseError, Utc};
 use log::{warn};
-use crate::{constants::YT_THUMBNAIL_HOST_URL, proto::{PageCountData, InnerPlaylistContinuationData, InnerPlaylistContinuation, PlaylistContinuation, VisitorData}};
+use crate::{constants::YT_THUMBNAIL_HOST_URL, proto::{PageCountData, InnerPlaylistContinuationData, InnerPlaylistContinuation, PlaylistContinuation, VisitorData, PlayerParams}};
 use serde_json::{from_str,Value, to_string};
 use serde::{Deserialize, Serialize};
 use prost::{Message, EncodeError};
@@ -337,11 +337,11 @@ pub fn generate_playlist_continuation(playlist_id: &str, page_num: i32 /* 1 inde
   Ok(format!("{}", continuation))
 }
 
-pub enum GenerateVisitorDataError {
+pub enum ProtobufError {
   EncodeError(EncodeError)
 }
 
-pub fn generate_visitor_data(visitor_id: &str) -> Result<String, GenerateVisitorDataError> {
+pub fn generate_visitor_data(visitor_id: &str) -> Result<String, ProtobufError> {
   let data = VisitorData {
     visitor_id: String::from(visitor_id),
     timestamp: Utc::now().timestamp()
@@ -352,7 +352,7 @@ pub fn generate_visitor_data(visitor_id: &str) -> Result<String, GenerateVisitor
       let url_encoded = urlencoding::encode(&base64_encoded);
       Ok(format!("{}", url_encoded))
     },
-    Err(e) => Err(GenerateVisitorDataError::EncodeError(e))
+    Err(e) => Err(ProtobufError::EncodeError(e))
   }
 }
 
@@ -363,4 +363,17 @@ pub fn generate_random_noise(len: usize) -> String {
     output.push(possible_characters.choose(&mut rand::thread_rng()));
   }
   output.into_iter().map(|s| String::from(*s.unwrap_or(&""))).collect::<String>()
+}
+
+pub fn generate_player_params(num: i32) -> Result<String, ProtobufError> {
+  match encode_buffer(PlayerParams {
+    param: num
+  }) {
+    Ok(buffer) => {
+      let base64_encoded = general_purpose::STANDARD.encode(&buffer[..]);
+      let url_encoded = urlencoding::encode(&base64_encoded);
+      Ok(format!("{}", url_encoded))
+    },
+    Err(e) => Err(ProtobufError::EncodeError(e))
+  }
 }
