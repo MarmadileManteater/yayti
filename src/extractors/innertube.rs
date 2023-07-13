@@ -17,7 +17,7 @@ pub async fn fetch_account_menu(context: &ClientContext, lang: Option<&str>) -> 
 
 #[doc = r"Fetches the `player` innertube endpoint which contains streaming data"]
 pub async fn fetch_player(video_id : &str, context: &ClientContext, lang : Option<&str>) -> Result<String, reqwest::Error> {
-  let random_params = generate_player_params(rand::thread_rng().gen_range(0..10)).map_err(|e| log::warn!("Problem w/ generating protobuf for player params, falling back to hardcoded params")).unwrap_or(String::from("8AEB"));
+  let random_params = String::from("8AEB");
   fetch_endpoint("player", context, lang, serde_json::from_str::<serde_json::Map::<String, serde_json::Value>>(&format!(r#"
   {{
     "videoId": "{}",
