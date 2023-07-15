@@ -18,6 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: ⬇ Install protoc 
+      run: |
+        sudo apt-get install protobuf-compiler -y
     - name: 🦴 Fetch language codes from yt
       run: |
         cd scripts/fetch-country-codes/
