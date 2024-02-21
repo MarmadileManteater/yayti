@@ -17,7 +17,7 @@ pub async fn fetch_account_menu(context: &ClientContext, lang: Option<&str>) -> 
 
 #[doc = r"Fetches the `player` innertube endpoint which contains streaming data"]
 pub async fn fetch_player(video_id : &str, context: &ClientContext, lang : Option<&str>) -> Result<String, reqwest::Error> {
-  let random_params = String::from("8AEB");
+  let random_params = String::from("2AMBCgIQBg");
   fetch_endpoint("player", context, lang, serde_json::from_str::<serde_json::Map::<String, serde_json::Value>>(&format!(r#"
   {{
     "videoId": "{}",
@@ -107,34 +107,35 @@ pub async fn fetch_endpoint(endpoint: &str, context: &ClientContext, lang : Opti
   };
   let request_string = format!(r#"
   {{
+    "contentCheckOk": true,
+    "racyCheckOk": true,
+    "user": {{
+      "lockedSafetyMode": false
+    }},
     "context": {{
       "client": {{
         "hl": "{}",
         "gl": "US",
-        "remoteHost": "",
-        "deviceMake": "",
-        "deviceModel": "",
-        "visitorData": "",
         "userAgent": "{}",
         "clientName": "{}",
         "clientVersion": "{}",
         "osName": "{}",
         "osVersion": "{}",
-        "originalUrl": "",
         "platform": "{}",
-        "clientFormFactor": "{}",
-        "configInfo": {{
-          "appInstallData": ""
-        }},
-        "acceptHeader": "*/*",
-        "deviceExperimentId": ""
+        "androidSdkVersion": "31",
+        "clientFormFactor": "{}"
       }}
     }}{}
   }}
   "#,  lang, context.user_agent, context.client_name, context.client_version, context.os_name, context.os_version, context.platform, context.form_factor, map_to_json_part(&extra_options));
   let url = format!("{}{}{}/{}?key={}", WEBSITE_BASE_URL, INNERTUBE_API_URL, context.api_version, endpoint, context.api_key);
   let client = reqwest::Client::new();
-  match client.post(url).body(String::from(request_string)).header("x-youtube-client-version", &context.client_version).send().await {
+  match client.post(url).body(String::from(request_string))
+    .header("x-youtube-client-version", &context.client_version)
+    .header("x-youtube-client-name", &context.client_name_proto)
+    .header("Accept-Charset", "ISO-8859-1,utf-8;q=0.7,*;q=0.7")
+    .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+    .send().await {
     Ok(response) => {
       match response.text().await {
         Ok(response_text) => {
