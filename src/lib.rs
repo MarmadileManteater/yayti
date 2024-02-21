@@ -114,7 +114,7 @@ mod tests {
     assert_eq!("What pretending to be crazy looks like", video_title);
     assert_eq!(true, description.contains("Does the demon have an attorney?"));
     assert_eq!(true, description_html.contains(r#"<a href="https://www.youtube.com/c/TRUECRIMELoser">https://www.youtube.com/c/TRUECRIMELoser</a>"#));
-    assert_eq!(true, description_html.contains(r#"<a href="https://www.youtube.com/user/kizzume">https://www.youtube.com/user/kizzume</a>"#));
+    assert_eq!(true, description_html.contains(r#"<a href="https://www.youtube.com/@kizzume">https://www.youtube.com/@kizzume</a>"#));
   }
 
 }
